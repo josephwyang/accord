@@ -33,7 +33,8 @@ node_modules/
 bundle.js
 bundle.js.map
 
-#Ignore miscellaneous
+#Ignore logs
 .byebug_history
 .DS_Store
 npm-debug.log
+tmp/

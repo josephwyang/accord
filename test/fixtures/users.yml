@@ -1,0 +1,34 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint           not null, primary key
+#  username        :string(32)       not null
+#  email           :string           not null
+#  password_digest :string           not null
+#  date_of_birth   :date
+#  tag             :string(4)        not null
+#  country_code    :string
+#  phone_number    :string(10)
+#  session_token   :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
+one:
+  username: MyString
+  email: MyString
+  password_digest: MyString
+  date_of_birth: 2021-07-02
+  tag: MyString
+  phone_number: MyString
+  session_token: MyString
+
+two:
+  username: MyString
+  email: MyString
+  password_digest: MyString
+  date_of_birth: 2021-07-02
+  tag: MyString
+  phone_number: MyString
+  session_token: MyString
