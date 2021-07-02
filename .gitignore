@@ -30,11 +30,11 @@
 node_modules/
 
 # Webpack
-bundle.js
-bundle.js.map
+bundle.js*
 
 #Ignore logs
 .byebug_history
 .DS_Store
 npm-debug.log
-tmp/
+/tmp/
+/public/asssets
