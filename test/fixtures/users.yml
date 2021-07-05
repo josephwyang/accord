@@ -8,11 +8,10 @@
 #  password_digest :string           not null
 #  date_of_birth   :date
 #  tag             :string(4)        not null
-#  country_code    :string
-#  phone_number    :string(10)
 #  session_token   :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  phone_number    :string(15)
 #
 
 one:
