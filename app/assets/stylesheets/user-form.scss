@@ -1,6 +1,20 @@
 @import "variables/fonts";
 @import "variables/colors";
 
+@keyframes mountForm {
+  0% {
+    transform: translate(-50%, -60%);
+    opacity: 0;
+    width: 500px;
+  }
+  100% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    width: 480px;
+  }
+}
+  // animation: 1s ease-out 0s 1 slideInFromLeft;
+
 .background {
   position: absolute;
   top: 0;
@@ -20,12 +34,14 @@
 }
 
 .user-form {
+  animation: 0.3s mountForm;
+  
   // center form on page
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-
+  
   // style form container
   padding: 32px;
   width: 480px;
@@ -92,7 +108,7 @@
 
   button {
     height: 44px;
-    width: 100%;
+    width: 48%;
     margin-top: 25px;
     margin-bottom: 10px;
     padding: 2px 16px;
@@ -106,6 +122,10 @@
   button:hover {
     cursor: pointer;
     background-color: $dark-blue;
+  }
+
+  button:last-child {
+    float:right;
   }
 
   p {

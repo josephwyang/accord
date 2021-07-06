@@ -17,7 +17,13 @@ export default class LogInForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.logInUser(this.state)
-      .then(() => this.props.history.push("/"));
+      .then(() => this.props.history.push("/@me"));
+  }
+
+  handleDemoLogin(e) {
+    e.preventDefault();
+    this.props.logInUser({identifier: "demo@user.com", password: "password"})
+      .then(() => this.props.history.push("/@me"));
   }
 
   render() {
@@ -35,6 +41,7 @@ export default class LogInForm extends React.Component {
             <label htmlFor="password">PASSWORD</label>
             <input id="password" type="password" value={this.state.password} onChange={this.handleInput("password")} />
             <button onClick={this.handleSubmit.bind(this)}>Login</button>
+            <button onClick={this.handleDemoLogin.bind(this)}>Demo User</button>
           </form>
           <p>Need an account?</p>
           <Link to="/signup">Register</Link>
