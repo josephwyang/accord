@@ -1,14 +1,16 @@
 import { connect } from "react-redux";
-import SignUpForm from "./sign_up_form";
-import { postUser } from "../../actions/users_actions";
+import SessionForm from "./session_form";
+import { postUser } from "../../actions/session_actions";
 
 const mSTP = ({ errors }) => ({
+  title: "Create an account",
+  buttonLabel: "Continue",
   errors
-})
-
-const mDTP = dispatch => ({
-  postUser: user => dispatch(postUser(user))
 });
 
-const SignUpFormContainer = connect(mSTP, mDTP)(SignUpForm);
+const mDTP = dispatch => ({
+  submit: user => dispatch(postUser(user))
+});
+
+const SignUpFormContainer = connect(mSTP, mDTP)(SessionForm);
 export default SignUpFormContainer;

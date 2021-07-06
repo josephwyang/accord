@@ -30,7 +30,7 @@ class User < ApplicationRecord
     if is_number?(identifier)
       user = find_by_phone_number(identifier)
     else
-      user = User.find_by(email: indentifier)
+      user = User.find_by(email: identifier)
     end
 
     if user && user.is_password?(password)
@@ -39,6 +39,17 @@ class User < ApplicationRecord
       nil
     end
   end
+
+  def self.is_number?(string)
+    true if Integer(string)
+  rescue
+    false
+  end
+
+  def is_password?(password)
+    BCrypt::Password.new(self.password_digest).is_password?(password)
+  end
+
 
   def password=(password)
     @password = password
@@ -67,16 +78,6 @@ class User < ApplicationRecord
 
   def tagBuilder
     ("000" + rand(1..9999).to_s)[-4..-1]
-  end
-
-  def is_password?(password)
-    BCrypt::Password.new(self.password_digest).is_password?(password)
-  end
-
-  def is_number?(string)
-    true if Integer(string)
-  rescue
-    false
   end
 
   def parse_number(string)

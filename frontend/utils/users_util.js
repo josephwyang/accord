@@ -11,11 +11,3 @@ export const getUser = id => (
     url: `/api/users/${id}`
   })
 );
-
-export const postUser = user => (
-  $.ajax({
-    method: "POST",
-    url: "/api/users",
-    data: { user }
-  })
-);

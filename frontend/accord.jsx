@@ -6,10 +6,10 @@ import configureStore from './store/store';
 document.addEventListener("DOMContentLoaded", () => {
 
   let preloadedState = undefined;
-  if (window.currentUser) {
+  if (window.currentUserId) {
     preloadedState = {
       session: {
-        currentUser: window.currentUser
+        currentUserId: window.currentUserId
       }
     };
   }
