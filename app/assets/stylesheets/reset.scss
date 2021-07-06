@@ -7,10 +7,15 @@ html, body, div, h1, h2, p, a, img, form, label, input, select, button {
   font-weight: inherit;
   font-style: inherit;
   font-family: inherit;
-  background: transparent;
+  text-decoration: none;
   line-height: 1.25;
+  background: transparent;
 }
 
 ul {
   list-style: none;
+}
+
+:focus {
+  outline: 0;
 }

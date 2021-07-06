@@ -27,7 +27,9 @@
     "lib": "lib",
     "test": "test"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "file-loader": "^6.2.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/josephwyang/accord.git"

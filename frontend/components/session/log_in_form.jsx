@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import toonRight from "../../../app/assets/images/toon-right.svg"
 
 export default class LogInForm extends React.Component {
   constructor(props) {
@@ -16,29 +17,31 @@ export default class LogInForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.logInUser(this.state);
+    this.props.logInUser(this.state)
+      .then(() => this.props.history.push("/"));
   }
 
   render() {
     return (
-      <div className="login-user-form">
-        <h1>Welcome back!</h1>
-        <h2>We're so excited to see you again!</h2>
-
-        <form>
-          <label htmlFor="identifier">EMAIL OR PHONE NUMBER</label>
-          <input id="identifier" type="text" value={this.state.identifier} onChange={this.handleInput("identifier")} />
-
-          <label htmlFor="password">PASSWORD</label>
-          <input id="password" type="password" value={this.state.password} onChange={this.handleInput("password")} />
-
-          <button onClick={this.handleSubmit.bind(this)}>Login</button>
-        </form>
-
-        <p>Need an account?</p>
-        <Link to="/signup">Register</Link>
+      <div id="log-in-form">
+        <div className="background">
+          <img id="toon-right" src={toonRight} alt="toonRight" />
+        </div>
+        <div className="user-form">
+          <h1>Welcome back!</h1>
+          <h2>We're so excited to see you again!</h2>
+          <form>
+            <label htmlFor="identifier">EMAIL OR PHONE NUMBER</label>
+            <input id="identifier" type="text" value={this.state.identifier} onChange={this.handleInput("identifier")} />
+            <label htmlFor="password">PASSWORD</label>
+            <input id="password" type="password" value={this.state.password} onChange={this.handleInput("password")} />
+            <button onClick={this.handleSubmit.bind(this)}>Login</button>
+          </form>
+          <p>Need an account?</p>
+          <Link to="/signup">Register</Link>
         
-        {this.props.errors}
+          {this.props.errors}
+        </div>
       </div>
     );
   }

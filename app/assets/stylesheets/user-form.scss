@@ -1,7 +1,25 @@
 @import "variables/fonts";
 @import "variables/colors";
 
-.login-user-form, .signup-user-form {
+.background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: $light-blue;
+
+  > img {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+#log-in-form .background img {
+  right: 0;
+}
+
+.user-form {
   // center form on page
   position: absolute;
   left: 50%;
@@ -70,7 +88,6 @@
 
   input:hover, select:hover {
     border-color: black;
-    transition: border-color 0.17s;
   }
 
   button {
@@ -89,7 +106,6 @@
   button:hover {
     cursor: pointer;
     background-color: $dark-blue;
-    transition: background-color 0.17s;
   }
 
   p {
@@ -100,9 +116,8 @@
   }
 
   a {
-    color: $light-blue;
+    color: $lightest-blue;
     font-size: 14px;
-    text-decoration: none;
   }
 
   a:hover {

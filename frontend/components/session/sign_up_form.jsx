@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import toonLeft from "../../../app/assets/images/toon-left.svg"
 
 export default class SessionForm extends React.Component {
   constructor(props) {
@@ -26,7 +27,8 @@ export default class SessionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.postUser(this._stateParams());
+    this.props.postUser(this._stateParams())
+      .then(() => this.props.history.push("/"));
   }
 
   render() {
@@ -55,32 +57,30 @@ export default class SessionForm extends React.Component {
     );
     
     return (
-      <div className="signup-user-form">
-        <h1>Create an account</h1>
-
-        <form>
-          <label htmlFor="email">EMAIL</label>
-          <input id="email" type="text" value={this.state.email} onChange={this.handleInput("email")} />
-
-          <label htmlFor="username">USERNAME</label>
-          <input id="username" type="text" value={this.state.username} onChange={this.handleInput("username")} />
-
-          <label htmlFor="password">PASSWORD</label>
-          <input id="password" type="password" value={this.state.password} onChange={this.handleInput("password")} />
-
-          <label htmlFor="date-of-birth">DATE OF BIRTH</label>
-          <div id="date-of-birth">
-            {selectMonth}
-            {selectDay}
-            {selectYear}
-          </div>
-
-          <button onClick={this.handleSubmit.bind(this)}>Continue</button>
-        </form>
-
-        <Link to="/login">Already have an account?</Link>
-
-        {this.props.errors}
+      <div id="sign-up-form">
+        <div className="background">
+          <img id="toon-left" src={toonLeft} alt="toonLeft" />
+        </div>
+        <div className="user-form">
+          <h1>Create an account</h1>
+          <form>
+            <label htmlFor="email">EMAIL</label>
+            <input id="email" type="text" value={this.state.email} onChange={this.handleInput("email")} />
+            <label htmlFor="username">USERNAME</label>
+            <input id="username" type="text" value={this.state.username} onChange={this.handleInput("username")} />
+            <label htmlFor="password">PASSWORD</label>
+            <input id="password" type="password" value={this.state.password} onChange={this.handleInput("password")} />
+            <label htmlFor="date-of-birth">DATE OF BIRTH</label>
+            <div id="date-of-birth">
+              {selectMonth}
+              {selectDay}
+              {selectYear}
+            </div>
+            <button onClick={this.handleSubmit.bind(this)}>Continue</button>
+          </form>
+          <Link to="/login">Already have an account?</Link>
+          {this.props.errors}
+        </div>
       </div>
     );
   }
