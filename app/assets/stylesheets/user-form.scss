@@ -1,0 +1,112 @@
+@import "variables/fonts";
+@import "variables/colors";
+
+.login-user-form, .signup-user-form {
+  // center form on page
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  // style form container
+  padding: 32px;
+  width: 480px;
+  border-radius: 5px;
+  background-color: $dark-grey;
+
+  * {
+    color: $light-grey;
+  }
+
+  h1 {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+  
+  label {
+    display: block;
+    width: auto;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  input {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  input, select {
+    padding: 10px;
+    background-color: $darkest-grey;
+    font-size: 16px;
+    border: 1px solid $black;
+    border-radius: 3px;
+    transition: border-color 0.17s;
+  }
+
+  #date-of-birth {
+    display: flex;
+    justify-content: space-between;
+
+    :first-child {
+      width: 200px;
+    }
+
+    :nth-child(2) {
+      width: 100px;
+    }
+
+    :last-child {
+      width: 150px;
+    }
+  }
+
+  input:hover, select:hover {
+    border-color: black;
+    transition: border-color 0.17s;
+  }
+
+  button {
+    height: 44px;
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    padding: 2px 16px;
+    background-color: $blue;
+    color: white;
+    font-size: 16px;
+    border-radius: 3px;
+    transition: background-color 0.17s;
+  }
+
+  button:hover {
+    cursor: pointer;
+    background-color: $dark-blue;
+    transition: background-color 0.17s;
+  }
+
+  p {
+    display: inline;
+    color: $grey;
+    font-size: 14px;
+    margin-right: 3px;
+  }
+
+  a {
+    color: $light-blue;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

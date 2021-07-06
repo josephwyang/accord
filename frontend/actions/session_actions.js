@@ -27,7 +27,8 @@ export const logInUser = currentUser => dispatch => (
 export const logOutUser = () => dispatch => (
   SessionUtil.deleteSession()
     .then(()  => dispatch(deleteSession()),
-      errors => dispatch(receiveErrors(errors.responseJSON)))
+      errors => { debugger
+        return dispatch(receiveErrors(errors.responseJSON))})
 );
 
 export const postUser = user => dispatch => (

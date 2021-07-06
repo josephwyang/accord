@@ -6,12 +6,12 @@
 #  username        :string(32)       not null
 #  email           :string           not null
 #  password_digest :string           not null
-#  date_of_birth   :date
-#  phone_number    :string(15)
+#  date_of_birth   :date             not null
 #  tag             :string(4)        not null
 #  session_token   :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  phone_number    :string(15)
 #
 class User < ApplicationRecord
   validates :username, presence:true, length: { minimum:2 }, uniqueness: { scope: :tag }
@@ -20,6 +20,7 @@ class User < ApplicationRecord
   validates :email, presence:true, uniqueness:true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum:6, allow_nil:true }
   validates :password_digest, presence:true
+  validates :date_of_birth, presence:true
   validates :session_token, presence:true, uniqueness:true
   validates :phone_number, uniqueness:true, if: :phone_number_given?
 

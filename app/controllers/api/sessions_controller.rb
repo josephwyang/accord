@@ -6,12 +6,10 @@ class Api::SessionsController < ApplicationController
       user_params[:identifier],
       user_params[:password]
     )
-    debugger
     if @user
       log_in!(@user)
       render :show
     else
-      debugger
       render json: ["Login or password is invalid"], status: 401
     end
   end

@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+@import "variables/fonts";
+
+body {
+  font-family: $ginto;
+}
+
+#app {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}

@@ -1,10 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default class SessionForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      identifier: "",
       email: "",
       username: "",
       password: "",
@@ -16,9 +16,7 @@ export default class SessionForm extends React.Component {
 
   _stateParams() {
     const { birthDay, birthMonth, birthYear, ...stateParams } = this.state;
-    if (birthDay && birthMonth && birthYear) {
-      stateParams.dateOfBirth = `${birthDay}/${birthMonth}/${birthYear}`;
-    };
+    stateParams.dateOfBirth = `${birthDay}/${birthMonth}/${birthYear}`;
     return stateParams;
   };
 
@@ -28,28 +26,13 @@ export default class SessionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.submit(this._stateParams());
+    this.props.postUser(this._stateParams());
   }
 
   render() {
-    const identifier = this.props.title === "Welcome back!" ? (
-      <>
-        <label htmlFor="identifier">EMAIL OR PHONE NUMBER</label><br />
-        <input id="identifier" type="text" value={this.state.identifier} onChange={this.handleInput("identifier")} /><br />
-      </>
-    ) : (
-      <>
-        <label htmlFor="email">EMAIL</label><br />
-        <input id="email" type="text" value={this.state.email} onChange={this.handleInput("email")} /><br />
-
-        <label htmlFor="username">USERNAME</label><br />
-        <input id="username" type="text" value={this.state.username} onChange={this.handleInput("username")} /><br />
-      </>
-    );
-
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const selectMonth = (
-      <select id="date-of-birth" defaultValue="Select" onChange={this.handleInput("birthMonth")}>
+      <select defaultValue="Select" onChange={this.handleInput("birthMonth")}>
         <option hidden disabled>Select</option>
         {[...Array(12).keys()].map(month => <option key={"month-" + (month + 1)} value={month + 1}>{months[month]}</option>)}
       </select>
@@ -70,33 +53,33 @@ export default class SessionForm extends React.Component {
         {[...Array(150).keys()].map(year => <option key={"year-" + (earliestYear - year)} value={earliestYear - year}>{earliestYear - year}</option>)}
       </select>
     );
-
-    const dateOfBirthInput = this.props.title === "Welcome back!" ? (
-      <></>
-    ) : (
-        <>
-          <label htmlFor="date-of-birth">DATE OF BIRTH</label><br />
-          {selectMonth}
-          {selectDay}
-          {selectYear}<br />
-        </>
-    );
     
     return (
-      <div className="user-form">
-        <h1>{this.props.title}</h1>
-        <h2>{this.props.subheader}</h2>
+      <div className="signup-user-form">
+        <h1>Create an account</h1>
 
         <form>
-          {identifier}
+          <label htmlFor="email">EMAIL</label>
+          <input id="email" type="text" value={this.state.email} onChange={this.handleInput("email")} />
 
-          <label htmlFor="password">PASSWORD</label><br />
-          <input id="password" type="password" value={this.state.password} onChange={this.handleInput("password")} /><br />
+          <label htmlFor="username">USERNAME</label>
+          <input id="username" type="text" value={this.state.username} onChange={this.handleInput("username")} />
 
-          {dateOfBirthInput}
+          <label htmlFor="password">PASSWORD</label>
+          <input id="password" type="password" value={this.state.password} onChange={this.handleInput("password")} />
 
-          <button onClick={this.handleSubmit.bind(this)}>{this.props.buttonLabel}</button>
+          <label htmlFor="date-of-birth">DATE OF BIRTH</label>
+          <div id="date-of-birth">
+            {selectMonth}
+            {selectDay}
+            {selectYear}
+          </div>
+
+          <button onClick={this.handleSubmit.bind(this)}>Continue</button>
         </form>
+
+        <Link to="/login">Already have an account?</Link>
+
         {this.props.errors}
       </div>
     );

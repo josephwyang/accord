@@ -6,7 +6,7 @@
 #  username        :string(32)       not null
 #  email           :string           not null
 #  password_digest :string           not null
-#  date_of_birth   :date
+#  date_of_birth   :date             not null
 #  tag             :string(4)        not null
 #  session_token   :string           not null
 #  created_at      :datetime         not null
