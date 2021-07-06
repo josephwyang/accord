@@ -1,15 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import clouds from "../../../app/assets/images/clouds.svg"
-import toonLeft from "../../../app/assets/images/toon-left.svg"
-import toonRight from "../../../app/assets/images/toon-right.svg"
-import linkedin from "../../../app/assets/images/linkedin.png"
-import github from "../../../app/assets/images/github.svg"
 
 
 export default class Splash extends React.Component {
   render() {
-    debugger
     const splashButton = this.props.loggedIn ? (
       <button id="splash-button" onClick={this.props.logOut.bind(this)}>Log Out</button>
     ) : (
@@ -17,16 +11,16 @@ export default class Splash extends React.Component {
     );
     return (
       <div id="splash">
-        <img id="clouds" src={clouds} alt="clouds" />
-        <img id="toon-left" src={toonLeft} alt="toonLeft" />
-        <img id="toon-right" src={toonRight} alt="toonRight" />
+        <img id="clouds" src={window.clouds} alt="clouds" />
+        <img id="toon-left" src={window.toonLeft} alt="toon-left" />
+        <img id="toon-right" src={window.toonRight} alt="toon-right" />
 
         <nav id="nav-links">
           <a href="https://github.com/josephwyang">
-            <img id="github" src={github} alt="github" />
+            <img id="github" src={window.github} alt="github" />
           </a>
           <a href="https://www.linkedin.com/in/josephwyang/">
-            <img id="linkedin" src={linkedin} alt="linkedin" />
+            <img id="linkedin" src={window.linkedin} alt="linkedin" />
           </a>
         </nav>
 

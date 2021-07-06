@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import toonRight from "../../../app/assets/images/toon-right.svg"
 
 export default class LogInForm extends React.Component {
   constructor(props) {
@@ -25,7 +24,7 @@ export default class LogInForm extends React.Component {
     return (
       <div id="log-in-form">
         <div className="background">
-          <img id="toon-right" src={toonRight} alt="toonRight" />
+          <img id="toon-right" src={window.toonRight} alt="toon-right" />
         </div>
         <div className="user-form">
           <h1>Welcome back!</h1>

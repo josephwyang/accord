@@ -10,7 +10,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mukta&display=swap" rel="stylesheet">
 
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <script type="text/javascript">
+    window.clouds = "<%= image_url('clouds.svg') %>";
+    window.toonLeft = "<%= image_url('toon-left.svg') %>";
+    window.toonRight = "<%= image_url('toon-right.svg') %>";
+    window.github = "<%= image_url('github.svg') %>";
+    window.linkedin = "<%= image_url('linkedin.png') %>";
+  </script>
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
 </head>
 

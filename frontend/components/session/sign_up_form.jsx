@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import toonLeft from "../../../app/assets/images/toon-left.svg"
 
 export default class SessionForm extends React.Component {
   constructor(props) {
@@ -59,7 +58,7 @@ export default class SessionForm extends React.Component {
     return (
       <div id="sign-up-form">
         <div className="background">
-          <img id="toon-left" src={toonLeft} alt="toonLeft" />
+          <img id="toon-left" src={window.toonLeft} alt="toon-left" />
         </div>
         <div className="user-form">
           <h1>Create an account</h1>
