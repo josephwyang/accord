@@ -12,16 +12,16 @@
     transform: translateX(-50%);
   }
 
-  #toon-left, #toon-right {
+  .toon-left, .toon-right {
     position: absolute;
     bottom: 0px;
   }
 
-  #toon-left {
+  .toon-left {
     left: 0px;
   }
 
-  #toon-right {
+  .toon-right {
     right: 0px;
   }
 

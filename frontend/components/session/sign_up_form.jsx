@@ -30,6 +30,26 @@ export default class SessionForm extends React.Component {
       .then(() => this.props.history.push("/@me"));
   }
 
+  showErrors(field) {
+    const fieldErrors = this.props.errors.filter(error => error.includes(field.charAt(0).toUpperCase() + field.slice(1)));
+    
+    for (let error of fieldErrors) {
+      if (error.includes("blank") || (field === "Password" && !this.state.password))
+        { return <span>- This field is required</span> };
+    };
+    
+    if (fieldErrors.length) {
+      const errorMsg = fieldErrors[0].slice(field.length + 1);
+      return <span>{`-  ${errorMsg[0].toUpperCase()}${errorMsg.slice(1)}`}</span>;
+    };
+
+    return <></>;
+  };
+
+  hasError(error) {
+    return (error.type === "span" ? " hasError" : "");
+  }
+
   render() {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const selectMonth = (
@@ -54,22 +74,27 @@ export default class SessionForm extends React.Component {
         {[...Array(150).keys()].map(year => <option key={"year-" + (earliestYear - year)} value={earliestYear - year}>{earliestYear - year}</option>)}
       </select>
     );
-    
+
+    const emailError = this.showErrors("Email");
+    const usernameError = this.showErrors("Username");
+    const passwordError = this.showErrors("Password");
+    const dateOfBirthError = this.showErrors("Date of birth");
+
     return (
       <div id="sign-up-form">
         <div className="background">
-          <img id="toon-left" src={window.toonLeft} alt="toon-left" />
+          <img class="toon-left" src={window.toonLeft} alt="toon-left" />
         </div>
         <div className="user-form">
           <h1>Create an account</h1>
           <form>
-            <label htmlFor="email">EMAIL</label>
+            <label className={this.hasError(emailError)} htmlFor="email">EMAIL {emailError}</label>
             <input id="email" type="text" value={this.state.email} onChange={this.handleInput("email")} />
-            <label htmlFor="username">USERNAME</label>
+            <label className={this.hasError(usernameError)} htmlFor="username">USERNAME {usernameError}</label>
             <input id="username" type="text" value={this.state.username} onChange={this.handleInput("username")} />
-            <label htmlFor="password">PASSWORD</label>
+            <label className={this.hasError(passwordError)} htmlFor="password">PASSWORD {passwordError}</label>
             <input id="password" type="password" value={this.state.password} onChange={this.handleInput("password")} />
-            <label htmlFor="date-of-birth">DATE OF BIRTH</label>
+            <label className={this.hasError(dateOfBirthError)} htmlFor="date-of-birth">DATE OF BIRTH {dateOfBirthError}</label>
             <div id="date-of-birth">
               {selectMonth}
               {selectDay}
@@ -78,7 +103,6 @@ export default class SessionForm extends React.Component {
             <button onClick={this.handleSubmit.bind(this)}>Continue</button>
           </form>
           <Link to="/login">Already have an account?</Link>
-          {this.props.errors}
         </div>
       </div>
     );

@@ -14,15 +14,15 @@
 #  phone_number    :string(15)
 #
 class User < ApplicationRecord
-  validates :username, presence:true, length: { minimum:2 }, uniqueness: { scope: :tag }
-  validates :tag, presence:true
+  validates :username, presence:true, length: { minimum:2, maximum:32 }, uniqueness: { scope: :tag }
+  validates :tag, presence:true, length: { minimum:4, maximum:4 }
   validates :accord_tag, presence:true
   validates :email, presence:true, uniqueness:true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum:6, allow_nil:true }
   validates :password_digest, presence:true
   validates :date_of_birth, presence:true
   validates :session_token, presence:true, uniqueness:true
-  validates :phone_number, uniqueness:true, if: :phone_number_given?
+  validates :phone_number, uniqueness:true, length: { maximum:15}, if: :phone_number_given?
 
   after_initialize :ensure_session_token, :accord_tag
   attr_reader :password

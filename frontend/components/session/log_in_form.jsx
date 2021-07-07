@@ -10,8 +10,8 @@ export default class LogInForm extends React.Component {
     }
   }
 
-  handleInput(type) {
-    return e => this.setState({ [type]: e.target.value });
+  handleInput(field) {
+    return e => this.setState({ [field]: e.target.value });
   }
 
   handleSubmit(e) {
@@ -26,27 +26,41 @@ export default class LogInForm extends React.Component {
       .then(() => this.props.history.push("/@me"));
   }
 
+  showErrors(field) {
+    const errors = this.props.errors;
+
+    for (let key in errors) {
+      if (errors[key].includes("Login")) { return <span>- {errors[key]}</span> };
+    };
+
+    return <></>;
+  };
+
   render() {
+    const errors = this.props.errors;
+
+    const error = this.showErrors();
+    const hasError = (error.type === "span" ? " hasError" : "");
+
     return (
       <div id="log-in-form">
         <div className="background">
-          <img id="toon-right" src={window.toonRight} alt="toon-right" />
+          <img className="toon-right" src={window.toonRight} alt="toon-right" />
         </div>
         <div className="user-form">
           <h1>Welcome back!</h1>
           <h2>We're so excited to see you again!</h2>
           <form>
-            <label htmlFor="identifier">EMAIL OR PHONE NUMBER</label>
+            <label className={hasError} htmlFor="identifier">EMAIL OR PHONE NUMBER {error}</label>
             <input id="identifier" type="text" value={this.state.identifier} onChange={this.handleInput("identifier")} />
-            <label htmlFor="password">PASSWORD</label>
+            <label className={hasError} htmlFor="password">PASSWORD {error}</label>
             <input id="password" type="password" value={this.state.password} onChange={this.handleInput("password")} />
             <button onClick={this.handleSubmit.bind(this)}>Login</button>
-            <button onClick={this.handleDemoLogin.bind(this)}>Demo User</button>
+            <button id="demo-user" onClick={this.handleDemoLogin.bind(this)}>Demo User</button>
           </form>
           <p>Need an account?</p>
           <Link to="/signup">Register</Link>
-        
-          {this.props.errors}
+      
         </div>
       </div>
     );

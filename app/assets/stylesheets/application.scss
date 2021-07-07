@@ -16,7 +16,11 @@
 @import "variables/fonts";
 
 body {
-  font-family: $ginto;
+  font-family: $mukta;
+}
+
+h1 {
+  font-family: $noto
 }
 
 #app {

@@ -9,11 +9,12 @@ export default class Splash extends React.Component {
     ) : (
       <Link id="splash-button" to="/login">Log In</Link>
     );
+    
     return (
       <div id="splash">
         <img id="clouds" src={window.clouds} alt="clouds" />
-        <img id="toon-left" src={window.toonLeft} alt="toon-left" />
-        <img id="toon-right" src={window.toonRight} alt="toon-right" />
+        <img className="toon-left" src={window.toonLeft} alt="toon-left" />
+        <img className="toon-right" src={window.toonRight} alt="toon-right" />
 
         <nav id="nav-links">
           <a href="https://github.com/josephwyang">
