@@ -1,2 +1,0 @@
-class Dm < ApplicationRecord
-end

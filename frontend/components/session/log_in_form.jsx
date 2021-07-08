@@ -40,11 +40,12 @@ export default class LogInForm extends React.Component {
     const errors = this.props.errors;
 
     const error = this.showErrors();
-    const hasError = (error.type === "span" ? " hasError" : "");
+    const hasError = (error.type === "span" ? "hasError" : "");
 
     return (
       <div id="log-in-form">
         <div className="background">
+          <img className="clouds" src={window.clouds} alt="clouds" />
           <img className="toon-right" src={window.toonRight} alt="toon-right" />
         </div>
         <div className="user-form">

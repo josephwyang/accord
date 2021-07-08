@@ -15,6 +15,7 @@
 #
 class User < ApplicationRecord
   validates :username, presence:true, length: { minimum:2, maximum:32 }, uniqueness: { scope: :tag }
+  validate :username_valid
   validates :tag, presence:true, length: { minimum:4, maximum:4 }
   validates :accord_tag, presence:true
   validates :email, presence:true, uniqueness:true, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -26,6 +27,12 @@ class User < ApplicationRecord
 
   after_initialize :ensure_session_token, :accord_tag
   attr_reader :password
+
+  has_many :owned_servers, foreign_key: :owner_id, dependent: :destroy
+
+  def username_valid
+    errors.add(:username, :exclusion, message: "cannot contain @ or #") if %w(@ #).any? { |char| username.include?(char) }
+  end
   
   def self.find_by_credentials(identifier, password)
     if is_number?(identifier)

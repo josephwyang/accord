@@ -5,7 +5,7 @@ import SplashContainer from "./splash/splash_container";
 import SignUpFormContainer from "./session/sign_up_form_container";
 import LogInFormContainer from "./session/log_in_form_container";
 import { Redirect } from "react-router-dom";
-import ServerNav from "./main/server_nav";
+import ServerNav from "./navs/server_nav";
 
 const App = () => (
   <div id="app">

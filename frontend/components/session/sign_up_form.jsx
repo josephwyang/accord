@@ -35,11 +35,12 @@ export default class SessionForm extends React.Component {
     
     for (let error of fieldErrors) {
       if (error.includes("blank") || (field === "Password" && !this.state.password))
-        { return <span>- This field is required</span> };
+      { return <span>- This field is required</span> };
+      if (error.includes("invalid") && field === "Email") { return <span>- Must be a valid email</span> }
     };
     
     if (fieldErrors.length) {
-      const errorMsg = fieldErrors[0].slice(field.length + 1);
+      const errorMsg = fieldErrors[0].slice(field.length + 1).split(" ").filter(word => word !== "is").join(" ");
       return <span>{`-  ${errorMsg[0].toUpperCase()}${errorMsg.slice(1)}`}</span>;
     };
 
@@ -47,7 +48,7 @@ export default class SessionForm extends React.Component {
   };
 
   hasError(error) {
-    return (error.type === "span" ? " hasError" : "");
+    return (error.type === "span" ? "hasError" : "");
   }
 
   render() {
@@ -83,7 +84,8 @@ export default class SessionForm extends React.Component {
     return (
       <div id="sign-up-form">
         <div className="background">
-          <img class="toon-left" src={window.toonLeft} alt="toon-left" />
+          <img className="clouds" src={window.clouds} alt="clouds" />
+          <img className="toon-left" src={window.toonLeft} alt="toon-left" />
         </div>
         <div className="user-form">
           <h1>Create an account</h1>

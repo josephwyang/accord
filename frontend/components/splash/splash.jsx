@@ -12,7 +12,7 @@ export default class Splash extends React.Component {
     
     return (
       <div id="splash">
-        <img id="clouds" src={window.clouds} alt="clouds" />
+        <img className="clouds" src={window.clouds} alt="clouds" />
         <img className="toon-left" src={window.toonLeft} alt="toon-left" />
         <img className="toon-right" src={window.toonRight} alt="toon-right" />
 

@@ -36,9 +36,13 @@
     bottom: 0;
     animation: 0.3s mountBackground;
   }
+
+  .clouds {
+    width: 100%;
+  }
 }
 
-#log-in-form .background img {
+#log-in-form .background .toon-right {
   right: 0;
 }
 
@@ -70,11 +74,6 @@
   h2 {
     font-size: 16px;
   }
-  
-  // form {
-  //   display:flex;
-  //   flex-wrap: wrap;
-  // }
 
   label {
     display: block;
@@ -168,7 +167,7 @@
     border-color: $red;
   }
 
-  .hasError ~ div > select {
+  .hasError + div > select {
     border-color: $red;
     color: $red;
   }
