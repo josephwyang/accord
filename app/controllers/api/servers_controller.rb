@@ -1,13 +1,20 @@
 class Api::ServersController < ApplicationController
+  def index
+    server_memberships = Membership.server_memberships(current_user.id)
+    @servers = server_memberships.map { |membership| membership.server }
+    render :index
+  end
+
   def create
     @server = Server.new(server_params)
     if @server.save
+      Membership.create!(user_id: current_user.id, server_id: @server.id, description: "server")
       render :show
     else
       render json: @server.errors.full_messages, status:400
     end
   end
-  
+
   def update
     @server = Server.find_by(id:params[:id])
     if @server.owner != current_user
@@ -30,6 +37,6 @@ class Api::ServersController < ApplicationController
   end
 
   def server_params
-    params.require(:server).permit(:name, :owner_id, :public, :genre)
+    params.require(:server).permit(:name, :owner_id, :public, :genre, :photo)
   end
 end

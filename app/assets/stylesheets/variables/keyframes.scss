@@ -1,0 +1,30 @@
+@keyframes mountBackground {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes mountForm {
+  0% {
+    transform: translate(-50%, -60%);
+    opacity: 0;
+    width: 500px;
+  }
+  100% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    width: 480px;
+  }
+}
+
+@keyframes openForm {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

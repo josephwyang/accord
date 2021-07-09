@@ -1,15 +1,11 @@
 import * as UsersUtil from "../utils/users_util"
+import { receiveErrors } from "./errors_actions";
 
 export const RECEIVE_USERS = "RECEIVE_USERS";
-export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 
 const receiveUsers = users => ({
   type: RECEIVE_USERS,
   users
-});
-const receiveErrors = (errors) => ({
-  type: RECEIVE_ERRORS,
-  errors
 });
 
 export const getUsers = () => dispatch => (

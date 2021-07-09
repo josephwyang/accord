@@ -15,7 +15,8 @@ class Membership < ApplicationRecord
   validates :description, inclusion: { in: ["server", "dm"] }
 
   belongs_to :user
+  belongs_to :server
 
-  scope :servers, ->(id) { where(description: "server", user_id:id) }
-  scope :dms, ->(id) { where(description: "dm", user_id:id) }
+  scope :server_memberships, ->(id) { where(description: "server", user_id:id) }
+  scope :dm_memberships, ->(id) { where(description: "dm", user_id:id) }
 end

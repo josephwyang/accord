@@ -39,7 +39,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
+  config.active_storage.service = :amazon_prod
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
@@ -91,4 +91,16 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+#   # Disable Rails's static asset server (Apache or nginx will already do this)  
+# config.serve_static_assets = false
+
+# # Compress JavaScripts and CSS  
+# config.assets.compress = true
+
+# # Don't fallback to assets pipeline if a precompiled asset is missed  
+# config.assets.compile = false
+
+# # Generate digests for assets URLs  
+# config.assets.digest = true
 end

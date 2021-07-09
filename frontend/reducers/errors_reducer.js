@@ -1,5 +1,5 @@
 import { LOG_IN_USER } from "../actions/session_actions";
-import { RECEIVE_ERRORS} from "../actions/users_actions";
+import { RECEIVE_ERRORS } from "../actions/errors_actions";
 
 const errorsReducer = (state = [], action) => {
   Object.freeze(state);

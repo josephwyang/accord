@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
   }
+
+  $('#root').append('<div style="width:100%;height:' + document.documentElement.scrollHeight + 'px;position: absolute;top: 0;"></div>')
+
   window.store = configureStore(preloadedState)
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={window.store} />, root);

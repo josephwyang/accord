@@ -1,5 +1,5 @@
 import * as SessionUtil from "../utils/session_util"
-export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
+import { receiveErrors } from "./errors_actions";
 
 export const LOG_IN_USER = "LOG_IN_USER";
 export const LOG_OUT_USER = "LOG_OUT_USER";
@@ -13,11 +13,6 @@ const deleteSession = () => ({
   type: LOG_OUT_USER,
 });
 
-const receiveErrors = (errors) => ({
-  type: RECEIVE_ERRORS,
-  errors
-});
-
 export const logInUser = currentUser => dispatch => (
   SessionUtil.postSession(currentUser)
     .then(currentUser => dispatch(receiveSession(currentUser)),
@@ -27,8 +22,7 @@ export const logInUser = currentUser => dispatch => (
 export const logOutUser = () => dispatch => (
   SessionUtil.deleteSession()
     .then(()  => dispatch(deleteSession()),
-      errors => { debugger
-        return dispatch(receiveErrors(errors.responseJSON))})
+      errors =>  dispatch(receiveErrors(errors.responseJSON)))
 );
 
 export const postUser = user => dispatch => (

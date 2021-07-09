@@ -1,0 +1,1 @@
+export const currentUser = state => state.entities.users[state.session.currentUserId];

@@ -28,7 +28,10 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token, :accord_tag
   attr_reader :password
 
-  has_many :owned_servers, foreign_key: :owner_id, dependent: :destroy
+  has_many :owned_servers,
+    foreign_key: :owner_id,
+    class_name: :Server,
+    dependent: :destroy
 
   def username_valid
     errors.add(:username, :exclusion, message: "cannot contain @ or #") if %w(@ #).any? { |char| username.include?(char) }

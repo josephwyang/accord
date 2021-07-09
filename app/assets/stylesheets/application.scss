@@ -15,7 +15,12 @@
  */
 @import "variables/fonts";
 
+html, #root, #app {
+    height: 100%;
+}
+
 body {
+  height: 100%;
   font-family: $mukta;
 }
 
@@ -27,4 +32,17 @@ h1 {
   width: 100%;
   display: flex;
   align-items: center;
+}
+
+.modal-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+input[type='file'] {
+  display: none;
 }
