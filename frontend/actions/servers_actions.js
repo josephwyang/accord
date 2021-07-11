@@ -20,6 +20,12 @@ export const getServers = () => dispatch => (
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 
+export const getServer = id => dispatch => (
+  ServersUtil.getServer(id)
+    .then(server => dispatch(receiveServer(server)),
+      errors => dispatch(receiveErrors(errors.responseJSON)))
+);
+
 export const postServer = server => dispatch => (
   ServersUtil.postServer(server)
     .then(server => dispatch(receiveServer(server)),

@@ -23,7 +23,7 @@ export default class LogInForm extends React.Component {
   handleDemoLogin(e) {
     e.preventDefault();
     this.props.logInUser({identifier: "demo@user.com", password: "123456"})
-      .then(() => this.props.history.push("/@me"));
+      .then(() => this.props.history.push("/@me/1"));
   }
 
   showErrors(field) {

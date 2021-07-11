@@ -52,8 +52,8 @@ export default class ServerForm extends React.Component {
     this.openModal(2);
   }
 
-  handleSecondClick() {
-    this.setState({ public: false })
+  handleSecondClick(bool) {
+    this.setState({ public: bool })
     this.openModal(3);
   }
 
@@ -100,14 +100,14 @@ export default class ServerForm extends React.Component {
 
     const restrictions = (
       <>
-        <li onClick={this.handleSecondClick.bind(this)}>
+        <li onClick={() => this.handleSecondClick(false)}>
           <div>
             <img src={window.door} alt="private server" />
             For me and my friends
           </div>
           <img src={window.arrow} alt="arrow" />
         </li>
-        <li onClick={this.handleSecondClick.bind(this)}>
+        <li onClick={() => this.handleSecondClick(true)}>
           <div>
             <img src={window.entertainment} alt="public server" />
             For a club of community

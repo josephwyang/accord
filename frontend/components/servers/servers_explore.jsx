@@ -24,7 +24,12 @@ export default class ServersExplore extends React.Component {
     ));
 
     const servers = this.props.serversWithGenre(this.state.genre).map(
-      server => <li>{server.name}</li>
+      server => <li key={`server-${server.id}`}>
+        <div id="server-banner"><img src={server.banner || window.defaultBanner} alt="server-banner" /></div>
+        <img id="server-icon" src={server.photo} alt="server-icon" />
+        <h3>{server.name}</h3>
+        <p>This is where the server's description would go. This information is written after the server has already been created.</p>
+        </li>
     );
 
     return (
@@ -36,9 +41,12 @@ export default class ServersExplore extends React.Component {
           </li>
           {genres}
         </ul>
-        <ul id="servers-explore">
-          {servers}
-        </ul>
+        <div id="servers-explore">
+          <img src={window.exploreHeader} alt="explore-header" />
+          <h1>Find your community on Accord</h1>
+          <h2>From gaming, to music, to learning, there's a place for you.</h2>
+          <ul>{servers}</ul>
+        </div>
       </>
     )
   }

@@ -1,5 +1,5 @@
 import React from "react";
-import Server from "./server";
+import ServerIndexItem from "./server_index_item";
 import ServerFormContainer from "./server_form_container"
 import { NavLink } from "react-router-dom";
 
@@ -21,7 +21,7 @@ export default class ServersIndex extends React.Component {
   }
 
   render() {
-    const servers = this.props.servers.map(({id, name, photo}) => <Server key={id} id={id} name={name} photo={photo}/>);
+    const servers = this.props.servers.map(({id, name, photo}) => <ServerIndexItem key={id} id={id} name={name} photo={photo}/>);
 
     return (
       <>

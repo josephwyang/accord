@@ -9,4 +9,8 @@
 #  updated_at :datetime         not null
 #
 class Channel < ApplicationRecord
+  validates :server_id, presence:true
+  validates :name, presence:true, length: { maximum:100 }
+
+  belongs_to :server
 end

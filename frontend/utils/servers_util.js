@@ -5,6 +5,13 @@ export const getServers = () => (
   })
 );
 
+export const getServer = id => (
+  $.ajax({
+    method: "GET",
+    url: `/api/servers/${id}`
+  })
+);
+
 export const postServer = formData => (
   $.ajax({
     method: "POST",

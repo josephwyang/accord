@@ -10,10 +10,16 @@ class Api::ServersController < ApplicationController
     render :index
   end
 
+  def show
+    @server = Server.includes(:channels).find_by(id: params[:id])
+    render :show
+  end
+
   def create
     @server = Server.new(server_params)
     if @server.save
       Membership.create!(user_id: current_user.id, server_id: @server.id, description: "server")
+      Channel.create!(server_id: @server.id, name:"general")
       render :show
     else
       render json: @server.errors.full_messages, status:400
