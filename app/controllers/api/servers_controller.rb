@@ -5,6 +5,11 @@ class Api::ServersController < ApplicationController
     render :index
   end
 
+  def index_public
+    @servers = Server.all.where(public:true)
+    render :index
+  end
+
   def create
     @server = Server.new(server_params)
     if @server.save

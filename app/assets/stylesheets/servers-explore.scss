@@ -1,0 +1,56 @@
+@import "variables/colors";
+
+#genre-list {
+  position: absolute;
+  top: 0;
+  left: 72px;
+
+  box-sizing: border-box;
+  height: 100%;
+  width: 240px;
+  padding: 0px 10px;
+
+  background-color: $dark-blue-grey;
+  
+  h1 {
+    color: white;
+    font-size: 22px;
+    font-weight: 800;;
+    margin: 20px 0px;
+  }
+
+  li {
+    display: flex;
+    padding: 5px 8px;
+    margin-bottom: 2px;
+
+    img {
+      width: 24px;
+      height: 24px;
+      padding: 4px 15px 4px 4px;
+
+    }
+    &:first-of-type img { filter: grayscale(1) brightness(1.5); }
+
+    color: $light-grey;
+    font-size: 16px;
+    line-height: 32px;
+    border-radius: 3px;
+
+    &:hover {
+      cursor: pointer;
+      color: $lighter-grey;
+      background-color: $dark-grey;
+      
+      img { filter: brightness(1.5) }
+      &:first-of-type img { filter: grayscale(1) brightness(3); }
+    }
+  }
+
+  .selected {
+    background-color: $blue;
+    &, &:first-of-type { color: white; }
+    &:first-of-type img, img { filter: brightness(0) invert(1) }
+    &:hover { background-color: $blue; }
+  }
+}

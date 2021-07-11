@@ -12,6 +12,7 @@ Server.delete_all
 Server.connection.execute('ALTER SEQUENCE servers_id_seq RESTART WITH 1')
 Membership.delete_all
 Membership.connection.execute('ALTER SEQUENCE servers_id_seq RESTART WITH 1')
+ActiveStorage::Attachment.all.each { |attachment| attachment.purge }
 
 demo_user = User.create!(email: "demo@user.com", password: "123456", username: "joseph", date_of_birth: "22/12/1999")
 jo = User.create!(email: "jo@user.com", password: "123456", username: "jo", date_of_birth: "22/12/1999")
@@ -51,12 +52,9 @@ jack_aa = Membership.create!(user_id:8, server_id:3, description:"server")
 chase_aa = Membership.create!(user_id:9, server_id:3, description:"server")
 
 require 'open-uri'
-# banana_file = open('https://accord-chat-seeds.us-east-1.amazonaws.com/server-icons/banana.png')
-banana_file = open('https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Two_red_dice_01.svg/1200px-Two_red_dice_01.svg.png')
+banana_file = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/banana.png')
 banana.photo.attach(io: banana_file, filename: 'banana.png')
-# valorant_file = open('https://accord-chat-seeds.us-east-1.amazonaws.com/server-icons/valorant.png')
-valorant_file = open('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaUO-ZbeiJBXTqXq8aDpXtOBxbEV9u9U9alg&usqp=CAU')
+valorant_file = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/valorant.png')
 valorant.photo.attach(io: valorant_file, filename: 'valorant.png')
-# aa_file = open('https://accord-chat-seeds.us-east-1.amazonaws.com/server-icons/app-academy.png')
-aa_file = open('https://static1.srcdn.com/wordpress/wp-content/uploads/2021/03/Among-Us-Random-Name-Generator.jpg')
-aa.photo.attach(io: aa_file, filename: 'app-academy.png')
+aa_file = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/aA.png')
+aa.photo.attach(io: aa_file, filename: 'aA.png')

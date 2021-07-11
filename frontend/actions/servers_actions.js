@@ -25,3 +25,9 @@ export const postServer = server => dispatch => (
     .then(server => dispatch(receiveServer(server)),
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );
+
+export const getPublicServers = () => dispatch => (
+  ServersUtil.getPublicServers()
+    .then(servers => dispatch(receiveServers(servers)),
+    errors => dispatch(receiveErrors(errors.responseJSON)))
+);

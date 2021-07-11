@@ -1,4 +1,4 @@
-@keyframes mountBackground {
+@keyframes mount-background {
   0% {
     opacity: 0;
   }
@@ -7,7 +7,7 @@
   }
 }
 
-@keyframes mountForm {
+@keyframes mount-form {
   0% {
     transform: translate(-50%, -60%);
     opacity: 0;
@@ -20,11 +20,12 @@
   }
 }
 
-@keyframes openForm {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+@keyframes open-element {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes close-element {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }

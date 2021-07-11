@@ -13,7 +13,7 @@
   > img {
     position: absolute;
     bottom: 0;
-    animation: 0.3s mountBackground;
+    animation: 0.3s mount-background;
   }
 
   .clouds {
@@ -26,7 +26,7 @@
 }
 
 .user-form {
-  animation: 0.3s mountForm;
+  animation: 0.3s mount-form;
   
   // center form on page
   position: absolute;

@@ -3,7 +3,7 @@ html, body, div, h1, h2, h3, p, a, img, ul, li, form, label, input, select, butt
   padding: 0px;
   border: 0px;
   font-size: 10px;
-  color: black;
+  color: inherit;
   font-weight: inherit;
   font-style: inherit;
   font-family: inherit;
@@ -12,7 +12,7 @@ html, body, div, h1, h2, h3, p, a, img, ul, li, form, label, input, select, butt
   background: transparent;
 }
 
-ul {
+ul, li {
   list-style: none;
 }
 

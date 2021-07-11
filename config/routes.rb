@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   namespace :api, format: :json do
     resources :users, only: [:index, :show, :create]
+    get "/servers/explore", to: "users#index_public"
     resource :session, only: [:create, :destroy]
     resources :servers, only: [:index, :create, :update, :destroy]
   end

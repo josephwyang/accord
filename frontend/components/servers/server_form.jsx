@@ -81,8 +81,6 @@ export default class ServerForm extends React.Component {
   render() {
     if (!this.props.open) { return null; }
 
-    console.log(this.state);
-
     const toWords = str => {
       const words = str.replace(/([A-Z])/g, " $1").replace("And", "&");
       return words[0].toUpperCase() + words.slice(1);
@@ -134,6 +132,7 @@ export default class ServerForm extends React.Component {
     return (
       <div id="server-form-modal">
         <div className="modal-screen" onClick={this.closeModal}></div>
+        
         {this.state.firstModalOpen ? (
         <div id="genre-form">
           <div className="exit" onClick={this.closeModal}>✕</div>
@@ -144,11 +143,13 @@ export default class ServerForm extends React.Component {
             <p>START FROM A TEMPLATE</p>
             {genres.slice(1)}
           </ul>
+
           <div className="form-nav">
             <h3>Have an invite already?</h3>
             <button id="join-server">Join a Server</button>
           </div>
         </div>) : null}
+
         {this.state.secondModalOpen ? (
         <div id="public-form">
           <div className="exit" onClick={this.closeModal}>✕</div>
@@ -159,9 +160,10 @@ export default class ServerForm extends React.Component {
           </ul>
 
           <div className="form-nav">
-            <p className="back-button" onClick={() => this.openModal.bind(1)}>Back</p>
+            <p className="back-button" onClick={() => this.openModal(1)}>Back</p>
           </div>
         </div>) : null}
+
         {this.state.thirdModalOpen ? (
         <form id="server-form">
           <div className="exit" onClick={this.closeModal}>✕</div>

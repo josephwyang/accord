@@ -14,3 +14,10 @@ export const postServer = formData => (
     processData: false
   })
 );
+
+export const getPublicServers = () => (
+  $.ajax({
+    method: "GET",
+    url: "/api/servers/explore"
+  })
+);
