@@ -2,22 +2,8 @@
 @import "variables/fonts";
 
 #genre-list {
-  position: absolute;
-  top: 0;
-  left: 72px;
-
-  box-sizing: border-box;
-  height: 100%;
-  width: 240px;
   padding: 0px 10px;
 
-  -webkit-user-select: none; // Safari
-  -moz-user-select: none; // Firefox
-  -ms-user-select: none; // IE10+/Edge
-  user-select: none; // Standard
-
-  background-color: $dark-blue-grey;
-  
   h1 {
     color: white;
     font-size: 22px;

@@ -4,7 +4,7 @@ import { postServer } from "../../actions/servers_actions";
 import { currentUser } from "../../reducers/users_selector";
 
 const mSTP = state => ({
-  currentUser: currentUser(state) || window.currentUser,
+  currentUser: currentUser(state),
 })
 
 const mDTP = dispatch => ({

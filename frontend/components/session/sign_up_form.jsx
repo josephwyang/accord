@@ -27,7 +27,7 @@ export default class SessionForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.postUser(this._stateParams())
-      .then(() => this.props.history.push("/@me/1"));
+      .then(() => this.props.history.push("/explore"));
   }
 
   showErrors(field) {

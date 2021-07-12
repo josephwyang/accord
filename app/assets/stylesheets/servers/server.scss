@@ -1,0 +1,12 @@
+@import "variables/colors";
+@import "variables/fonts";
+
+#messages {
+  position: absolute;
+  top: 0;
+  left: 312px;
+  right: 0;
+  bottom: 0;
+  min-width: 688px;
+  background-color: $dark-grey;
+}

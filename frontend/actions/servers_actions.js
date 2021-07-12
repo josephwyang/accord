@@ -1,4 +1,5 @@
 import * as ServersUtil from "../utils/servers_util"
+import { receiveChannels } from "./channels_actions"
 import { receiveErrors } from "./errors_actions";
 
 export const RECEIVE_SERVERS = "RECEIVE_SERVERS";
@@ -22,8 +23,10 @@ export const getServers = () => dispatch => (
 
 export const getServer = id => dispatch => (
   ServersUtil.getServer(id)
-    .then(server => dispatch(receiveServer(server)),
-      errors => dispatch(receiveErrors(errors.responseJSON)))
+    .then(({channels, ...server}) => {
+      dispatch(receiveServer(server));
+      dispatch(receiveChannels(channels));
+    }, errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 
 export const postServer = server => dispatch => (

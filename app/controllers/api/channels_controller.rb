@@ -1,10 +1,10 @@
-class Api::ServersController < ApplicationController
+class Api::ChannelsController < ApplicationController
   def create
     @channel = Channel.new(channel_params)
     if @channel.save
       render :show
     else
-      render json: @server.errors.full_messages, status:400
+      render json: @channel.errors.full_messages, status:400
     end
   end
 
@@ -17,6 +17,6 @@ class Api::ServersController < ApplicationController
   end
 
   def channel_params
-    params.require(:channel).permit(:name, :server_id)
+    params.require(:channel).transform_keys { |key| key.to_s.underscore }.permit(:name, :server_id)
   end
 end

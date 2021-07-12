@@ -13,7 +13,7 @@
   > img {
     position: absolute;
     bottom: 0;
-    animation: 0.3s mount-background;
+    animation: 0.3s fade-in;
   }
 
   .clouds {
@@ -46,12 +46,14 @@
 
   h1 {
     font-size: 24px;
+    font-weight: 700;
     color: white;
     margin-bottom: 8px;
   }
 
   h2 {
     font-size: 16px;
+    font-weight: 200;
   }
 
   label {
@@ -72,7 +74,7 @@
 
   input, select {
     padding: 10px;
-    background-color: $black;
+    background-color: $darkish-grey;
     font-size: 16px;
     border: 1px solid $darkest-grey;
     border-radius: 3px;

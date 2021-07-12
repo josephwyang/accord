@@ -15,20 +15,25 @@ const App = () => (
       <Route exact path="/" component={SplashContainer} />
       <AuthRoute path="/signup" component={SignUpFormContainer} />
       <AuthRoute path="/login" component={LogInFormContainer} />
-      {/* <ProtectedRoute exact path="/@me" render={() => <Redirect to="/" />} /> */}
-      <ProtectedRoute path="/@me/:serverId" render={props => (
+      <ProtectedRoute path="/channels/:serverId/:channelId" render={props => (
         <>
           <ServersIndexContainer {...props}/>
           <ServerContainer {...props} />
         </>
         )} />
+      <ProtectedRoute path="/channels/:serverId/" render={props => (
+        <>
+          <ServersIndexContainer {...props} />
+          <ServerContainer {...props} />
+        </>
+      )} />
       <ProtectedRoute path="/explore" render={props => (
         <>
           <ServersIndexContainer {...props} />
           <ServersExploreContainer {...props} />
         </>
       )} />
-      <Route render={() => <Redirect to="/" />} />
+      {/* <Route render={() => <Redirect to="/" />} /> */}
     </Switch>
   </div>
 );

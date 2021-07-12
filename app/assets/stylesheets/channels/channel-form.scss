@@ -1,0 +1,116 @@
+@import "variables/colors";
+@import "variables/fonts";
+
+#channel-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+  
+  width: 440px;
+  padding: 16px;
+
+  color: white;
+  text-align: center;
+  background-color: $dark-grey;
+  border-radius: 5px;
+
+  -webkit-user-select: none; // Safari
+  -moz-user-select: none; // Firefox
+  -ms-user-select: none; // IE10+/Edge
+  user-select: none; // Standard
+
+  > .exit:hover { color: white }
+
+  h1 {
+    padding-top: 16px;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 800;
+  }
+
+  h2 {
+    padding-bottom: 16px;
+    font-size: 12px;
+    color: $light-grey;
+    line-height: 16px;
+  }
+
+  label {
+    display: block;
+    text-align: left;
+    font-size: 13px;
+    color: $lightest-grey;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  input {
+    padding: 8px;
+    padding-left: 30px;
+    box-sizing: border-box;
+    width: 100%;
+
+    font-family: $mukta;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    
+    border: 1px solid $light-grey;
+    border-radius: 3px;
+  }
+
+  > p {
+    position: absolute;
+    top: 124px;
+    left: 25px;
+
+    font-family: $montserrat;
+    font-style: italic;
+    font-size: 18px;
+  }
+
+  > div:last-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    position: absolute;
+    top: calc(100% - 5px);
+    left: 0;
+    border: none;
+    background-color: $darker-grey;
+    
+    width: 100%;
+    padding: 15px 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    
+    > * { font-size: 14px; }
+    > p {
+      margin: 10px 0px 10px 16px;
+      height: 18px;
+      line-height: 18px;
+
+      &:hover {
+        cursor: pointer;
+        margin-bottom: 9px;
+        border-bottom: 1px solid currentColor;
+      }
+    }
+
+    button {
+      margin-right: 16px;
+      padding: 12px 24px;
+      color: white;
+      background-color: $light-blue;  
+      border-radius: 3px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $dark-blue;
+      }
+    }
+  }
+}

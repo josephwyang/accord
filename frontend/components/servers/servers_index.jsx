@@ -21,7 +21,7 @@ export default class ServersIndex extends React.Component {
   }
 
   render() {
-    const servers = this.props.servers.map(({id, name, photo}) => <ServerIndexItem key={id} id={id} name={name} photo={photo}/>);
+    const servers = this.props.servers.map(({id, name, photo}) => <ServerIndexItem key={`server-index-${id}`} id={id} name={name} photo={photo} getServer={this.props.getServer.bind(this, id)}/>);
 
     return (
       <>

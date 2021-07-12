@@ -34,7 +34,7 @@ export default class ServersExplore extends React.Component {
 
     return (
       <>
-        <ul id="genre-list">
+        <ul id="genre-list" className="nav">
           <h1>Discover</h1>
           <li key="home" onClick={() => this.setState({ genre: "" })} className={this.state.genre === "" ? "selected" : ""}>
             <img src={window.compass} alt="home" />Home

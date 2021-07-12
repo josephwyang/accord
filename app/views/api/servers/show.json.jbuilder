@@ -1,6 +1,6 @@
 json.partial! "server", server:@server
 json.channels do
-  json.array! @server.channels do |channel|
+  @server.channels.each do |channel|
     json.set! channel.id do
       json.extract! channel, :id, :name, :server_id
     end

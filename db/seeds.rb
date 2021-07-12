@@ -10,8 +10,10 @@ User.delete_all
 User.connection.execute('ALTER SEQUENCE users_id_seq RESTART WITH 1')
 Server.delete_all
 Server.connection.execute('ALTER SEQUENCE servers_id_seq RESTART WITH 1')
+Channel.delete_all
+Channel.connection.execute('ALTER SEQUENCE channels_id_seq RESTART WITH 1')
 Membership.delete_all
-Membership.connection.execute('ALTER SEQUENCE servers_id_seq RESTART WITH 1')
+Membership.connection.execute('ALTER SEQUENCE memberships_id_seq RESTART WITH 1')
 ActiveStorage::Attachment.all.each { |attachment| attachment.purge }
 
 demo_user = User.create!(email: "demo@user.com", password: "123456", username: "joseph", date_of_birth: "22/12/1999")
@@ -27,6 +29,11 @@ chase = User.create!(email: "chase@user.com", password: "123456", username: "cha
 banana = Server.create!(name:"banana", owner_id:2, public:false)
 valorant = Server.create!(name:"valorant", owner_id:3, public:true, genre:"gaming")
 aa = Server.create!(name:"aa", owner_id:4, public:true, genre:"education")
+
+banana_general = Channel.create!(name:"general", server_id:1)
+banana_leetcodes = Channel.create!(name:"leetcodes", server_id:1)
+valorant_general = Channel.create!(name:"general", server_id:2)
+aa_general = Channel.create!(name:"general", server_id:3)
 
 demo_banana = Membership.create!(user_id:1, server_id:1, description:"server")
 jo_banana = Membership.create!(user_id:2, server_id:1, description:"server")
