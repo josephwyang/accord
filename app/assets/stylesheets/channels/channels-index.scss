@@ -50,44 +50,52 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
-    margin-bottom: 5px;
     transition: all 0.1s;
 
     div {
       display: flex;
       align-items: center;
-    }
+      height: 100%;
+      width: 100%;
+      margin-top: 10px;
+      padding: 5px 0px;
+      order: 1;
 
-    img {
-      height: 6px;
-      width: 6px;
-      padding: 5px;
-      transform: rotate(-90deg);
-      transition: transform 0.1s;
-    }
+      img {
+        height: 6px;
+        width: 6px;
+        padding: 5px;
+        transform: rotate(-90deg);
+        transition: transform 0.1s;
+      }
 
-    &.selected img { transform: rotate(0deg); }
+      &.selected img { transform: rotate(0deg); }
 
-    h2 {
-      font-size: 13px;
-      line-height: 16px;
-      font-weight: 600;
-    }
+      h2 {
+        font-size: 13px;
+        line-height: 16px;
+        font-weight: 600;
+      }
 
-    &:hover {
-      cursor: pointer;
-      h2 { color: $light-grey; }
-      img { filter: brightness(2) }
+      &:hover {
+        cursor: pointer;
+        h2 { color: $light-grey; }
+        img { filter: brightness(2) }
+      }
     }
 
     p {
+      margin-top: 10px;
+      margin-right: 5px;
+      padding: 5px;
       font-size: 14px;
-      padding: 0px 10px;
-      margin-right: 10px;
       line-height: 16px;
+      order: 2;
 
-      &:hover { color: $light-grey; }
+      &:hover, &:hover + div {
+        cursor: pointer;
+        color: $light-grey;
+      }
     }
   }
 

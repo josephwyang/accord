@@ -17,12 +17,12 @@ const ChannelsIndex = props => {
         <img src={window.downArrow} alt="down-arrow" />
         <img src={window.xButton} alt="x-button" />
       </div>
-      <div id="channel-header" onClick={() => props.toggleOpen("channelHeader")} className={props.channelHeaderOpen ? "selected" : ""}>
-        <div>
+      <div id="channel-header">
+        <p onClick={props.openChannelForm}>+</p>
+        <div onClick={() => props.toggleOpen("channelHeader")} className={props.channelHeaderOpen ? "selected" : ""}>
           <img src={window.downArrow} alt="down-arrow" />
           <h2>TEXT CHANNELS</h2>
         </div>
-        <p onClick={props.openChannelForm}>+</p>
       </div>
       <ul id="channels-list">
         {channels}
