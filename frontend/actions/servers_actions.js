@@ -4,6 +4,7 @@ import { receiveErrors } from "./errors_actions";
 
 export const RECEIVE_SERVERS = "RECEIVE_SERVERS";
 export const RECEIVE_SERVER = "RECEIVE_SERVER";
+export const REMOVE_SERVER = "REMOVE_SERVER";
 
 const receiveServers = servers => ({
   type: RECEIVE_SERVERS,
@@ -15,18 +16,29 @@ const receiveServer = server => ({
   server
 });
 
+const removeServer = server => ({
+  type: REMOVE_SERVER,
+  server
+});
+
 export const getServers = () => dispatch => (
   ServersUtil.getServers()
     .then(servers => dispatch(receiveServers(servers)),
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 
-export const getServer = id => dispatch => (
-  ServersUtil.getServer(id)
+export const getServer = serverId => dispatch => (
+  ServersUtil.getServer(serverId)
     .then(({channels, ...server}) => {
       dispatch(receiveServer(server));
       dispatch(receiveChannels(channels));
     }, errors => dispatch(receiveErrors(errors.responseJSON)))
+);
+
+export const getPublicServers = () => dispatch => (
+  ServersUtil.getPublicServers()
+    .then(servers => dispatch(receiveServers(servers)),
+      errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 
 export const postServer = server => dispatch => (
@@ -35,8 +47,14 @@ export const postServer = server => dispatch => (
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 
-export const getPublicServers = () => dispatch => (
-  ServersUtil.getPublicServers()
-    .then(servers => dispatch(receiveServers(servers)),
-    errors => dispatch(receiveErrors(errors.responseJSON)))
+export const patchServer = server => dispatch => (
+  ServersUtil.patchServer(server)
+    .then(server => dispatch(receiveServer(server)),
+      errors => dispatch(receiveErrors(errors.responseJSON)))
+);
+
+export const deleteServer = serverId => dispatch => (
+  ServersUtil.deleteServer(serverId)
+    .then(server => dispatch(removeServer(server)),
+      errors => dispatch(receiveErrors(errors.responseJSON)))
 );

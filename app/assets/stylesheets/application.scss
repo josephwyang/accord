@@ -23,6 +23,7 @@ html, #root, #app {
 body {
   height: 100%;
   font-family: $mukta;
+  overflow: hidden;
 }
 
 h1 { font-family: $montserrat }
@@ -31,6 +32,11 @@ h1 { font-family: $montserrat }
   width: 100%;
   display: flex;
   align-items: center;
+
+  -webkit-user-select: none; // Safari
+  -moz-user-select: none; // Firefox
+  -ms-user-select: none; // IE10+/Edge
+  user-select: none; // Standard
 }
 
 .modal-screen {
@@ -65,11 +71,6 @@ input[type='file'] {
   height: 100%;
   width: 240px;
 
-  -webkit-user-select: none; // Safari
-  -moz-user-select: none; // Firefox
-  -ms-user-select: none; // IE10+/Edge
-  user-select: none; // Standard
-  
   background-color: $dark-blue-grey;
 }
 
@@ -91,4 +92,108 @@ input[type='file'] {
     cursor: pointer;
     color: $dark-grey;
   }
+}
+
+.settings {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+  background-color: $dark-grey;
+  &:not(.landed) { animation: mount-settings 0.2s; }
+
+  .settings-nav-div {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    box-sizing: border-box;
+    width: calc(100% * 0.35);
+    min-width: 350px;
+    background-color: $darker-grey;
+
+    .settings-nav {
+      position: absolute;
+      top: 65px; right: 15px;
+      width: 200px;
+
+      > h3 {
+        color: $grey;
+        padding-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: 700;
+        &:not(:first-of-type) { border-top: 1px solid $dark-grey; }
+        &:not(:last-of-type) { padding-top: 10px; }
+      }
+
+      li {
+        padding: 3px 10px 1px 10px;
+        margin-bottom: 5px;
+
+        font-size: 16px;
+        color: $light-grey;
+        line-height: 28px;
+        border-radius: 3px;
+        &.red { color: $red; }
+
+        &:hover:not(.selected) {
+          cursor: pointer;
+          background-color: $darkerish-grey;
+          &:not(.red) { color: $light-grey; }
+        }
+
+        &.selected {
+          color: white;
+          background-color: $dark-grey;
+        }
+      }
+    }
+  }
+
+  .settings-content {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    
+    box-sizing: border-box;
+    width: calc(100% * 0.65);
+    min-width: 650px;
+    padding-top: 90px;
+    padding-left: 60px;
+    
+    @media all and (max-width: 1000px) {
+        & {
+            margin-left: 0px;
+            left: 350px;
+        }
+    }
+
+    .esc {
+      position: absolute;
+      left: 550px;
+
+      > img {
+        height: 15px; width: 15px;
+        padding: 10px;
+        border: 1px solid $grey;
+        border-radius: 50%;
+
+        &:hover {
+          cursor: pointer;
+          background-color: $greyer;
+        }
+      }
+
+      > p {
+        width: 100%;
+        margin-top: 3px;
+        font-size: 12px;
+        color: $grey;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.settings-error {
+  animation: shake 0.2s;
+  animation-iteration-count: 2;
 }

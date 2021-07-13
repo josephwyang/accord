@@ -7,7 +7,8 @@
 
   #server-header {
     position: relative;
-    z-index: 51;
+    background-color: $dark-blue-grey;
+    z-index: 99;
 
     h1 {
       padding: 15px 16px;
@@ -113,7 +114,7 @@
 
       &:hover {
         color: $light-grey;
-        background-color: $darkish-grey;
+        background-color: $darkerish-grey;
       }
 
       &.selected {
@@ -146,18 +147,13 @@
   padding: 8px;
   border-radius: 4px;
   background-color: $black;
-  animation: 0.1s fade-in;
+  animation: drop-down 0.2s;
 
   li {
     padding: 10px 5px;
     font-size: 14px;
     color: $light-grey;
     &:first-of-type { color: $lighter-blue; }
-
-    -webkit-user-select: none; // Safari
-    -moz-user-select: none; // Firefox
-    -ms-user-select: none; // IE10+/Edge
-    user-select: none; // Standard
 
     &:hover {
       cursor: pointer;

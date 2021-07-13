@@ -29,7 +29,7 @@ export default class LogInForm extends React.Component {
   showErrors(field) {
     const errors = this.props.errors;
 
-    for (let key in errors) {
+    for (const key in errors) {
       if (errors[key].includes("Login")) { return <span>- {errors[key]}</span> };
     };
 

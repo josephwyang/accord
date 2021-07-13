@@ -6,3 +6,13 @@ export const publicServersByGenre = (state, genre) => {
     server => server.public && server.genre === genre
   );
 };
+
+export const fullServer = (state, serverId) => {
+  let {icon, description, banner, ...server} = state.entities.servers[serverId];
+  return ({
+    icon: icon || "",
+    description: description || "",
+    banner: banner || "",
+    ...server
+  })
+}

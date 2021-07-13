@@ -17,6 +17,6 @@ class Api::ChannelsController < ApplicationController
   end
 
   def channel_params
-    params.require(:channel).transform_keys { |key| key.to_s.underscore }.permit(:name, :server_id)
+    params.require(:channel).permit(:name, :serverId).transform_keys { |key| key.to_s.underscore }
   end
 end

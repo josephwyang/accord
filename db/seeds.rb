@@ -60,8 +60,8 @@ chase_aa = Membership.create!(user_id:9, server_id:3, description:"server")
 
 require 'open-uri'
 banana_file = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/banana.png')
-banana.photo.attach(io: banana_file, filename: 'banana.png')
+banana.icon.attach(io: banana_file, filename: 'banana.png')
 valorant_file = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/valorant.png')
-valorant.photo.attach(io: valorant_file, filename: 'valorant.png')
+valorant.icon.attach(io: valorant_file, filename: 'valorant.png')
 aa_file = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/aA.png')
-aa.photo.attach(io: aa_file, filename: 'aA.png')
+aa.icon.attach(io: aa_file, filename: 'aA.png')

@@ -41,13 +41,13 @@ class Api::ServersController < ApplicationController
     @server = Server.find_by(id:params[:id])
     if @server.owner != current_user
       render json: ["only the owner can delete a server"], status: 401
-    else 
+    else
       @server.destroy
-      redirect_to servers_url
+      render :show
     end
   end
 
   def server_params
-    params.require(:server).permit(:name, :owner_id, :public, :genre, :photo)
+    params.require(:server).permit(:name, :ownerId, :public, :genre, :icon, :description, :banner).transform_keys { |key| key.to_s.underscore }
   end
 end

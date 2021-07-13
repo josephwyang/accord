@@ -5,10 +5,17 @@ export const getServers = () => (
   })
 );
 
-export const getServer = id => (
+export const getServer = serverId => (
   $.ajax({
     method: "GET",
-    url: `/api/servers/${id}`
+    url: `/api/servers/${serverId}`
+  })
+);
+
+export const getPublicServers = () => (
+  $.ajax({
+    method: "GET",
+    url: "/api/servers/explore"
   })
 );
 
@@ -22,9 +29,19 @@ export const postServer = formData => (
   })
 );
 
-export const getPublicServers = () => (
+export const patchServer = (formData)=> (
   $.ajax({
-    method: "GET",
-    url: "/api/servers/explore"
+    method: "PATCH",
+    url: `/api/servers/${formData.get("server[id]")}`,
+    data: formData,
+    contentType: false,
+    processData: false
+  })
+);
+
+export const deleteServer = serverId => (
+  $.ajax({
+    method: "DELETE",
+    url: `/api/servers/${serverId}`
   })
 );

@@ -56,11 +56,6 @@
   bottom: 0;
   min-width: 688px;
 
-  -webkit-user-select: none; // Safari
-  -moz-user-select: none; // Firefox
-  -ms-user-select: none; // IE10+/Edge
-  user-select: none; // Standard
-
   background-color: $dark-grey;
 
   > img {
@@ -107,20 +102,16 @@
       transition: all 0.2s;
 
       #server-banner {
-        height: 150px;
-        width: 100%;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         overflow: hidden;
-
+        
         img {
+          height: 150px;
           width: 100%;
-          position: relative;
-          top: 50%;
-          transform: translateY(-50%);
+          object-fit: cover;
           transition: transform 0.2s;
         }
-
       }
 
       #server-icon {
@@ -156,7 +147,7 @@
       &:hover {
         cursor: pointer;
         background-color: $darkest-grey;
-        #server-banner img { transform: translateY(-50%) scale(1.02) }
+        #server-banner img { transform: scale(1.02) }
         #server-icon {
           background-color: $darkest-grey;
           border-color: $darkest-grey;

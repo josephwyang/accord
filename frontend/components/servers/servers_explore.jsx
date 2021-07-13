@@ -22,15 +22,16 @@ export default class ServersExplore extends React.Component {
         {toWords(genre)}
       </li>
     ));
-
+    
     const servers = this.props.serversWithGenre(this.state.genre).map(
-      server => <li key={`server-${server.id}`}>
-        <div id="server-banner"><img src={server.banner || window.defaultBanner} alt="server-banner" /></div>
-        <img id="server-icon" src={server.photo} alt="server-icon" />
-        <h3>{server.name}</h3>
-        <p>This is where the server's description would go. This information is written after the server has already been created.</p>
+      server => (
+        <li key={`server-${server.id}`}>
+          <div id="server-banner"><img src={server.banner || window.defaultBanner} alt="server-banner" /></div>
+          <img id="server-icon" src={server.icon} alt="server-icon" />
+          <h3>{server.name}</h3>
+          <p>{server.description}</p>
         </li>
-    );
+    ));
 
     return (
       <>

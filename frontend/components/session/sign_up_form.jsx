@@ -33,7 +33,7 @@ export default class SessionForm extends React.Component {
   showErrors(field) {
     const fieldErrors = this.props.errors.filter(error => error.includes(field.charAt(0).toUpperCase() + field.slice(1)));
     
-    for (let error of fieldErrors) {
+    for (const error of fieldErrors) {
       if (error.includes("blank") || (field === "Password" && !this.state.password))
       { return <span>- This field is required</span> };
       if (error.includes("invalid") && field === "Email") { return <span>- Must be a valid email</span> }

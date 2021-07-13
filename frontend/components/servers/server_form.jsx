@@ -8,8 +8,8 @@ export default class ServerForm extends React.Component {
       name: `${props.currentUser.username}'s server`,
       public: null,
       genre: "",
-      photo: null,
-      photoURL: "",
+      icon: null,
+      iconUrl: "",
       firstModalOpen: true,
       secondModalOpen: false,
       thirdModalOpen: false
@@ -23,11 +23,11 @@ export default class ServerForm extends React.Component {
   handleFile(e) {
     const file = e.target.files[0];
     const reader = new FileReader();
-    reader.onloadend = () => this.setState({ photo: file, photoURL: reader.result });
+    reader.onloadend = () => this.setState({ icon: file, iconUrl: reader.result });
     if (file) {
       reader.readAsDataURL(file);
     } else {
-      this.setState({ photo: null, photoURL: "" });
+      this.setState({ icon: null, iconUrl: "" });
     }
   }
 
@@ -35,7 +35,7 @@ export default class ServerForm extends React.Component {
     const modals = ["firstModalOpen", "secondModalOpen", "thirdModalOpen"];
     const modalToOpen = modals[num-1];
 
-    for(let modal of modals) {
+    for (const modal of modals) {
       if (modalToOpen !== modal) {this.setState({ [modal]:false })};
     }
 
@@ -66,14 +66,9 @@ export default class ServerForm extends React.Component {
     formData.append('server[name]', this.state.name);
     formData.append('server[public]', this.state.public);
     formData.append('server[genre]', this.state.genre);
-    formData.append('server[owner_id]', this.props.currentUser.id);
+    formData.append('server[ownerId]', this.props.currentUser.id);
 
-    if (this.state.photo) {
-      formData.append('server[photo]', this.state.photo);
-    }
-    // else {
-    //   formData.append('server[photo')
-    // }
+    if (this.state.icon) { formData.append('server[icon]', this.state.icon); }
 
     this.props.postServer(formData);
   }
@@ -117,17 +112,15 @@ export default class ServerForm extends React.Component {
       </>
     );
 
-    const uploadIcon = this.state.photoURL ? (
-      <>
-        <img id="uploaded-server-icon" src={this.state.photoURL} alt="uploaded-server-icon" />
-      </>
+    const uploadIcon = this.state.iconUrl ? (
+      <img id="uploaded-server-icon" src={this.state.iconUrl} alt="uploaded-server-icon" />
     ) : (
       <>
         <img id="camera-icon" src={window.camera} alt="camera" />
         <p>UPLOAD</p>
         <p id="upload-plus">+</p>
       </>
-    )
+    );
 
     return (
       <div id="server-form-modal">
