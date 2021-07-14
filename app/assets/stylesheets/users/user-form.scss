@@ -3,26 +3,9 @@
 @import "variables/keyframes";
 
 .background {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: $light-blue;
-  
-  > img {
-    position: absolute;
-    bottom: 0;
-    animation: fade-in 0.3s;
-  }
-
-  .clouds {
-    width: 100%;
-  }
-}
-
-#log-in-form .background .toon-right {
-  right: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
 }
 
 .user-form {
@@ -45,10 +28,12 @@
   }
 
   h1 {
-    font-size: 24px;
-    font-weight: 700;
-    color: white;
     margin-bottom: 8px;
+    font-family: $lato;
+    font-size: 24px;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 0.5px;
   }
 
   h2 {
@@ -163,9 +148,10 @@
   top: 32px;
   right: 32px;
   margin: 0px;
-  background-color: $grey;
+  border: 1px solid $darker-grey;
+  background-color: $even-greyer;
 }
 
 #demo-user:hover {
-  background-color: $light-grey;
+  background-color: $greyer;
 }

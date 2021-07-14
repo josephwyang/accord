@@ -1,4 +1,5 @@
 import React from "react";
+import ServersIndexContainer from "./servers_index_container"
 
 export default class ServersExplore extends React.Component {
   constructor(props) {
@@ -35,6 +36,7 @@ export default class ServersExplore extends React.Component {
 
     return (
       <>
+        <ServersIndexContainer {...this.props} />
         <ul id="genre-list" className="nav">
           <h1>Discover</h1>
           <li key="home" onClick={() => this.setState({ genre: "" })} className={this.state.genre === "" ? "selected" : ""}>

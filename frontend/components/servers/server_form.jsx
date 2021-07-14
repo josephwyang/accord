@@ -166,7 +166,7 @@ export default class ServerForm extends React.Component {
           <input id="file-button" type="file" onChange={this.handleFile.bind(this)} />
 
           <label id="server-name" htmlFor="server-name-input">SERVER NAME</label>
-          <input id="server-name-input" type="text" value={this.state.name} onChange={e => this.setState({ name: e.target.value })} />
+            <input id="server-name-input" type="text" value={this.state.name} onChange={e => this.setState({ name: e.target.value })} />
 
           <div className="form-nav">
             <p className="back-button" onClick={() => this.openModal(2)}>Back</p>

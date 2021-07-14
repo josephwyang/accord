@@ -27,12 +27,7 @@ const App = () => (
           <ServerContainer {...props} />
         </>
       )} />
-      <ProtectedRoute path="/explore" render={props => (
-        <>
-          <ServersIndexContainer {...props} />
-          <ServersExploreContainer {...props} />
-        </>
-      )} />
+      <ProtectedRoute path="/explore" component={ServersExploreContainer} />
       {/* <Route render={() => <Redirect to="/" />} /> */}
     </Switch>
   </div>

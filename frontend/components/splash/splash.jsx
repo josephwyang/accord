@@ -3,31 +3,100 @@ import { Link } from "react-router-dom";
 
 
 export default class Splash extends React.Component {
+
+  handleScroll(scrollY) {
+    if (scrollY > 450) {
+      $("#splash-info-2").addClass("show-content");
+      $("#scroll-to-top").addClass("scroll-to-top");
+    } else { $("#scroll-to-top").removeClass("scroll-to-top"); }
+
+    if (scrollY > 1150) { $("#splash-info-3").addClass("show-content"); }
+    
+    if (scrollY > 626) { $("#splash").addClass("scrolled-down"); }
+    else { $("#splash").removeClass("scrolled-down"); }
+  }
+
+  componentDidMount() { document.addEventListener("scroll", () => window.requestAnimationFrame(() => this.handleScroll(window.scrollY))); }
+  componentWillUnmount() { document.removeEventListener("scroll", () => window.requestAnimationFrame(() => this.handleScroll(window.scrollY))); }
+
   render() {
     const splashButton = this.props.loggedIn ? (
       <button id="splash-button" onClick={this.props.logOut.bind(this)}>Log Out</button>
     ) : (
       <Link id="splash-button" to="/login">Log In</Link>
     );
-    
+
     return (
       <div id="splash">
-        <img className="clouds" src={window.clouds} alt="clouds" />
-        <img className="toon-left" src={window.toonLeft} alt="toon-left" />
-        <img className="toon-right" src={window.toonRight} alt="toon-right" />
-
-        <nav id="nav-links">
-          <a href="https://github.com/josephwyang">
-            <img id="github" src={window.github} alt="github" />
-          </a>
-          <a href="https://www.linkedin.com/in/josephwyang/">
-            <img id="linkedin" src={window.linkedin} alt="linkedin" />
-          </a>
-        </nav>
-
-        {splashButton}
-        <h1>EXPLORE ACCORD</h1>
-        <p>where you belong to a community</p>
+        <div id="splash-banner">
+          <img id="clouds" src={window.clouds} alt="clouds" />
+          <img id="toon-left" src={window.toonLeft} alt="toon-left" />
+          <img id="toon-right" src={window.toonRight} alt="toon-right" />
+          <div id="splash-header">
+            <Link id="home-button" to="/">
+              <img id="logo" src={window.logo} alt="logo" />
+              <img id="accord" src={window.accord} alt="accord" />
+            </Link>
+            <nav id="nav-links">
+              <a href="https://github.com/josephwyang/accord">
+                <img id="github" src={window.github} alt="github" />
+              </a>
+              <a href="https://www.linkedin.com/in/josephwyang/">
+                <img id="linkedin" src={window.linkedin} alt="linkedin" />
+              </a>
+            </nav>
+            {splashButton}
+          </div>
+          <h1>EXPLORE ACCORD</h1>
+          <p>where you belong to a community</p>
+        </div>
+        <div id="splash-content">
+          <div id="splash-background-1">
+            <div id="splash-info-1" className="show-content">
+              <img id="splash-image-1" src={window.splashImage1} alt="splash-image-1" />
+              <div>
+                <h2>Join Accord today</h2>
+                <p>Accord is a clone of the Discord instant messaging, supporting real-time chat and many other features.</p>
+              </div>
+            </div>
+          </div>
+          <div id="splash-background-2">
+            <div id="splash-info-2">
+              <img id="splash-image-2" src={window.splashImage2} alt="splash-image-2" />
+              <div>
+                <h2>Find servers, meet people, join communities</h2>
+                <p>With a Servers Explore feature, all public servers are visible and free to join.</p>
+              </div>
+            </div>
+          </div>
+          <div id="splash-background-3">
+            <div id="splash-info-3">
+              <img id="splash-image-3" src={window.splashImage3} alt="splash-image-3" />
+              <div>
+                <h2>Message friends directly</h2>
+                <p>With direct messaging, send texts to friends privately or even in a group message.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="scroll-to-top" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>
+          SCROLL TO TOP
+        </div>
+        <div id="footer">
+          <h1>EXPLORE ACCORD</h1>
+          <p>where you belong to a community</p>
+          <nav id="footer-links">
+            <a href="https://github.com/josephwyang/accord">
+              <p>GITHUB</p>
+              <img id="github" src={window.github} alt="github" />
+            </a>
+            <a href="https://www.linkedin.com/in/josephwyang/">
+              <p>LINKEDIN</p>
+              <img id="linkedin" src={window.linkedin} alt="linkedin" />
+            </a>
+          </nav>
+          <p>Disclaimer: For the purposes of creating an accurate clone, some images used in the making of Accord were taken directly from the official Discord website. All credits belong to Discord.</p>
+        </div>
       </div>
     )
   }

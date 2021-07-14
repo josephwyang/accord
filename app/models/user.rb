@@ -33,6 +33,8 @@ class User < ApplicationRecord
     class_name: :Server,
     dependent: :destroy
 
+  has_one_attached :profile_photo
+
   def username_valid
     errors.add(:username, :exclusion, message: "cannot contain @ or #") if %w(@ #).any? { |char| username.include?(char) }
   end

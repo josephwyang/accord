@@ -44,10 +44,7 @@ export default class LogInForm extends React.Component {
 
     return (
       <div id="log-in-form">
-        <div className="background">
-          <img className="clouds" src={window.clouds} alt="clouds" />
-          <img className="toon-right" src={window.toonRight} alt="toon-right" />
-        </div>
+        <img className="background" src={window.background} alt="background" />
         <div className="user-form">
           <h1>Welcome back!</h1>
           <h2>We're so excited to see you again!</h2>

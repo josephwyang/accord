@@ -20,12 +20,15 @@
 
   h1 {
     padding-top: 16px;
+    font-family: $lato;
     font-size: 24px;
+    font-weight: 900;
     line-height: 30px;
     font-weight: 800;
   }
 
   h2 {
+    margin-top: 3px;
     padding-bottom: 16px;
     font-size: 12px;
     color: $light-grey;
@@ -42,6 +45,7 @@
   }
 
   input {
+    margin-bottom: 5px;
     padding: 8px;
     padding-left: 30px;
     box-sizing: border-box;
@@ -51,13 +55,15 @@
     font-size: 14px;
     letter-spacing: 0.3px;
     
-    border: 1px solid $light-grey;
+    background-color: $darkerish-grey;
+    border: 1px solid $darkest-grey;
     border-radius: 3px;
+    &:focus { border-color: $lightest-blue; }
   }
 
   > p {
     position: absolute;
-    top: 124px;
+    top: 127px;
     left: 25px;
 
     font-family: $montserrat;

@@ -32,7 +32,7 @@ export default class ChannelForm extends React.Component {
           <h1>Create Text Channel</h1>
           <h2>Post images, GIFs, stickers, opinions and puns.</h2>
           <label htmlFor="channel-name">CHANNEL NAME</label>
-          <input id="channel-name" type="text" placeholder="new-channel" autoComplete="false"
+          <input id="channel-name" type="text" placeholder="new-channel"
             value={this.state.name} onChange={this.handleChange.bind(this)} />
           <p>#</p>
           <div>

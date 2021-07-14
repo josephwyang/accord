@@ -83,10 +83,7 @@ export default class SessionForm extends React.Component {
 
     return (
       <div id="sign-up-form">
-        <div className="background">
-          <img className="clouds" src={window.clouds} alt="clouds" />
-          <img className="toon-left" src={window.toonLeft} alt="toon-left" />
-        </div>
+        <img className="background" src={window.background} alt="background" />
         <div className="user-form">
           <h1>Create an account</h1>
           <form>
