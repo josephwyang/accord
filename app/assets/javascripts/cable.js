@@ -7,7 +7,6 @@
 
 (function() {
   this.App || (this.App = {});
-  // App.cable = ActionCable.createConsumer("ws://localhost:3000/cable");
-  App.cable = ActionCable.createConsumer("ws://www.accord-chat.herokuapp.com/cable");
+  App.cable = ActionCable.createConsumer("ws://localhost:3000/cable");
 
 }).call(this);
