@@ -7,13 +7,17 @@ export default class Splash extends React.Component {
   handleScroll(scrollY) {
     if (scrollY > 450) {
       $("#splash-info-2").addClass("show-content");
-      $("#scroll-to-top").addClass("scroll-to-top");
-    } else { $("#scroll-to-top").removeClass("scroll-to-top"); }
+    }
 
     if (scrollY > 1150) { $("#splash-info-3").addClass("show-content"); }
     
-    if (scrollY > 626) { $("#splash").addClass("scrolled-down"); }
-    else { $("#splash").removeClass("scrolled-down"); }
+    if (scrollY > 626) {
+      $("#splash").addClass("scrolled-down");
+      $("#scroll-to-top").addClass("scroll-to-top");
+    } else {
+      $("#splash").removeClass("scrolled-down");
+      $("#scroll-to-top").removeClass("scroll-to-top");
+    }
   }
 
   componentDidMount() { document.addEventListener("scroll", () => window.requestAnimationFrame(() => this.handleScroll(window.scrollY))); }

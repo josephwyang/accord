@@ -21,10 +21,10 @@
   padding: 32px;
   width: 480px;
   border-radius: 5px;
-  background-color: $dark-grey;
+  background-color: $grey-3;
 
   * {
-    color: $light-grey;
+    color: $light-grey-2;
   }
 
   h1 {
@@ -47,7 +47,7 @@
     margin-top: 20px;
     margin-bottom: 8px;
     font-size: 12px;
-    color: $light-grey;
+    color: $light-grey-2;
     font-weight: 600;
     letter-spacing: 0.7px;
   }
@@ -59,9 +59,9 @@
 
   input, select {
     padding: 10px;
-    background-color: $darkish-grey;
+    background-color: $dark-grey-0;
     font-size: 16px;
-    border: 1px solid $darkest-grey;
+    border: 1px solid $dark-grey-4;
     border-radius: 3px;
     transition: border-color 0.17s;
   }
@@ -93,7 +93,7 @@
     margin-top: 25px;
     margin-bottom: 10px;
     padding: 2px 16px;
-    background-color: $blue;
+    background-color: $light-blue-2;
     color: white;
     font-size: 16px;
     border-radius: 3px;
@@ -102,18 +102,18 @@
 
   button:hover {
     cursor: pointer;
-    background-color: $dark-blue;
+    background-color: $blue-2;
   }
 
   p {
     display: inline;
-    color: $grey;
+    color: $grey-0;
     font-size: 14px;
     margin-right: 3px;
   }
 
   a {
-    color: $lightest-blue;
+    color: $light-blue-0;
     font-size: 14px;
   }
 
@@ -148,10 +148,10 @@
   top: 32px;
   right: 32px;
   margin: 0px;
-  border: 1px solid $darker-grey;
-  background-color: $even-greyer;
+  border: 1px solid $dark-grey-3;
+  background-color: $grey-2;
 }
 
 #demo-user:hover {
-  background-color: $greyer;
+  background-color: $grey-1;
 }

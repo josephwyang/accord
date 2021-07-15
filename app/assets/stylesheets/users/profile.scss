@@ -1,0 +1,96 @@
+@import "variables/colors";
+@import "variables/fonts";
+@import "variables/keyframes";
+
+#profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  left: 72px;
+  bottom: 0px;
+
+  box-sizing: border-box;
+  height: 53px;
+  width: 240px;
+  padding: 0px 18px 0px 10px;
+  background-color: $dark-grey-3;
+
+  display: flex;
+  align-items: center;
+
+  #profile-name:hover { cursor: pointer; }
+
+  #profile-name > p {
+    position: absolute;
+    left: 50px;
+
+    &:first-of-type {
+      top: 12px;
+      font-size: 14px;
+      color: white;
+    }
+
+    &:last-child {
+      top: 30px;
+      font-size: 12px;
+      color: $light-grey-2;
+    }
+  }
+
+  #cog {
+    box-sizing: border-box;
+    height: 32px;
+    width: 32px;
+    padding: 7px;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $grey-3;
+    }
+  }
+
+  #profile-name-copied {
+    display: none;
+    position: absolute;
+    top: -24px;
+    left: 42px;
+    padding: 6px 9px;
+
+    font-size: 12px;
+    color: white;
+    background-color: $green;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px $black;
+    animation: fade-in 0.1s;
+
+    &.copied, &.copied + .arrow-down { display: block; }
+  }
+
+  .arrow-down {
+    position: absolute;
+    left: 62.5px;
+    top: 3px;
+    animation: fade-in 0.1s;
+  }
+}
+
+.profile-photo {
+  height: 32px;
+  width: 32px;
+  background-color: $light-grey-3;
+  border-radius: 50%;
+}
+
+div.arrow-down {
+  display: none;
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid $green;
+	font-size: 0;
+	line-height: 0;
+}

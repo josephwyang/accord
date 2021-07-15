@@ -2,6 +2,8 @@ import React from "react";
 import ServerSettingsContainer from "./server_settings_container"
 import ChannelsIndex from "../channels/channels_index";
 import ChannelFormContainer from "../channels/channel_form_container";
+import ChannelContainer from "../channels/channel_container";
+import Profile from "../users/profile";
 
 export default class Server extends React.Component {
   constructor(props) {
@@ -15,8 +17,16 @@ export default class Server extends React.Component {
     };
   }
 
-  componentDidMount() {
-    if (jQuery.isEmptyObject({})) { this.props.getServer(); }
+  loadServer() {
+    this.props.getServer().then(({ payload }) => {
+      this.props.history.push(`/channels/${this.props.server.id}/${(this.props.firstChannelId(payload.channels))}`)
+    });
+  }
+
+  componentDidMount() { this.loadServer() }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.serverId != this.props.match.params.serverId) { this.loadServer() }
   }
 
   toggleOpen(field) {
@@ -25,7 +35,6 @@ export default class Server extends React.Component {
 
   render() {
     if (!this.props.server) { return null; }
-
     return (
       <div id="server">
         <ChannelsIndex toggleOpen={this.toggleOpen.bind(this)} openChannelForm={() => this.setState({ channelFormOpen: true })} openServerSettings={() => this.setState({ serverSettingsOpen: true })}
@@ -52,6 +61,8 @@ export default class Server extends React.Component {
         {this.state.serverSettingsOpen ? (
           <ServerSettingsContainer closeSettings={() => this.setState({ serverSettingsOpen: false })} />
         ) : null}
+        <Profile currentUser={this.props.currentUser} />
+        <ChannelContainer /> 
       </div>
     )
   }

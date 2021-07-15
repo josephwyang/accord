@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     get "/servers/explore", to: "users#index_public"
     resource :session, only: [:create, :destroy]
     resources :servers, only: [:index, :show, :create, :update, :destroy]
-    resources :channels, only: [:index, :create, :update, :destroy]
+    resources :channels, only: [:index, :show, :create, :update, :destroy]
+    resources :messages, only: [:index, :create, :update, :destroy]
+
+    mount ActionCable.server => '/cable'
   end
 end

@@ -3,7 +3,7 @@ import { receiveErrors } from "./errors_actions";
 
 export const RECEIVE_USERS = "RECEIVE_USERS";
 
-const receiveUsers = users => ({
+export const receiveUsers = users => ({
   type: RECEIVE_USERS,
   users
 });

@@ -1,0 +1,21 @@
+@import "variables/colors";
+
+#message-form {
+  position: absolute;
+  right: 0; bottom: 0; left: 312px;
+  min-width: 388px;
+
+  input {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 70px);
+    padding: 11px 15px;
+
+    font-size: 16px;
+    color: white;
+    border-radius: 3px;
+    background-color: $blue-grey-2;
+  }
+}

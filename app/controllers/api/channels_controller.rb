@@ -1,7 +1,17 @@
 class Api::ChannelsController < ApplicationController
+  def show
+    @channel = Channel.includes(:messages).order("created_at DESC").find_by(id: params[:id])
+    if @channel
+      render :show
+    else
+      render json: ["invalid channel id"], status:400
+    end
+  end
+
   def create
     @channel = Channel.new(channel_params)
     if @channel.save
+      # ActionCable.server.broadcast "servers_channel_#{@channel.id}", ApplicationController.render :show
       render :show
     else
       render json: @channel.errors.full_messages, status:400

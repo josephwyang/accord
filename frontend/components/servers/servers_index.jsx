@@ -8,21 +8,17 @@ export default class ServersIndex extends React.Component {
     super(props);
 
     this.state = { serverModalOpen: false };
-
     this.setModal = this.setModal.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getServers();
-  }
+  componentDidMount() { this.props.getServers(); }
 
-  setModal(bool) {
-    this.setState({ serverModalOpen:bool });
-  }
+  setModal(bool) { this.setState({ serverModalOpen:bool }); }
 
   render() {
     const servers = this.props.servers.map(({id, name, icon}) => <ServerIndexItem key={`server-index-${id}`} id={id} name={name} icon={icon} getServer={this.props.getServer.bind(this, id)}/>);
 
+    if (!this.props.servers.length) { return null; }
     return (
       <>
         <ul id="server-index">

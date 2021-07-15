@@ -25,15 +25,15 @@
     }
     &:first-of-type img { filter: grayscale(1) brightness(1.5); }
 
-    color: $light-grey;
+    color: $light-grey-2;
     font-size: 16px;
     line-height: 32px;
     border-radius: 3px;
 
     &:hover {
       cursor: pointer;
-      color: $lighter-grey;
-      background-color: $dark-grey;
+      color: $light-grey-1;
+      background-color: $grey-3;
       
       img { filter: brightness(1.5) }
       &:first-of-type img { filter: grayscale(1) brightness(3); }
@@ -41,10 +41,10 @@
   }
 
   .selected {
-    background-color: $blue;
+    background-color: $light-blue-2;
     &, &:first-of-type { color: white; }
     &:first-of-type img, img { filter: brightness(0) invert(1) }
-    &:hover { background-color: $blue; }
+    &:hover { background-color: $light-blue-2; }
   }
 }
 
@@ -56,7 +56,7 @@
   bottom: 0;
   min-width: 688px;
 
-  background-color: $dark-grey;
+  background-color: $grey-3;
 
   > img {
     padding: 32px 16px 32px 32px;
@@ -102,7 +102,7 @@
     }
 
       color: white;
-      background-color: $darker-grey;
+      background-color: $dark-grey-3;
       transition: all 0.2s;
 
       #server-banner {
@@ -125,9 +125,9 @@
         top: 128px;
         left: 18px;
 
-        border: 2px solid $darker-grey;
+        border: 2px solid $dark-grey-3;
         border-radius: 30%;
-        background-color: $darker-grey;
+        background-color: $dark-grey-3;
       }
 
       h3 {
@@ -145,18 +145,18 @@
         height: 75px;
         font-size: 13px;
         font-weight: 400;
-        color: $light-grey;
+        color: $light-grey-2;
       }
 
       &:hover {
         cursor: pointer;
-        background-color: $darkest-grey;
+        background-color: $dark-grey-4;
         #server-banner img { transform: scale(1.02) }
         #server-icon {
-          background-color: $darkest-grey;
-          border-color: $darkest-grey;
+          background-color: $dark-grey-4;
+          border-color: $dark-grey-4;
         }
-        box-shadow: 0px 5px 10px $darker-grey;
+        box-shadow: 0px 5px 10px $dark-grey-3;
       }
     }
   }

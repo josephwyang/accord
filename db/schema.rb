@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_12_154910) do
+ActiveRecord::Schema.define(version: 2021_07_14_174857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,12 +66,11 @@ ActiveRecord::Schema.define(version: 2021_07_12_154910) do
   create_table "messages", force: :cascade do |t|
     t.integer "sender_id", null: false
     t.integer "replied_message_id"
-    t.integer "chat_id", null: false
-    t.string "chat_type", null: false
     t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["chat_id"], name: "index_messages_on_chat_id"
+    t.integer "channel_id", null: false
+    t.index ["channel_id"], name: "index_messages_on_channel_id"
     t.index ["replied_message_id"], name: "index_messages_on_replied_message_id"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
@@ -106,6 +105,7 @@ ActiveRecord::Schema.define(version: 2021_07_12_154910) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "phone_number", limit: 15
+    t.string "last_path_visited", default: "/explore"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true

@@ -17,16 +17,16 @@ export default class LogInForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.logInUser(this.state)
-      .then(() => this.props.history.push("/channels/1"));
+      .then(data => this.props.history.push(data.currentUser.lastPathVisited));
   }
 
   handleDemoLogin(e) {
     e.preventDefault();
     this.props.logInUser({identifier: "demo@user.com", password: "123456"})
-      .then(() => this.props.history.push("/channels/1"));
+      .then(data => this.props.history.push(data.currentUser.lastPathVisited));
   }
 
-  showErrors(field) {
+  showErrors() {
     const errors = this.props.errors;
 
     for (const key in errors) {

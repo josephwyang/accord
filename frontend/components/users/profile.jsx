@@ -14,10 +14,30 @@ export default class Profile extends React.Component {
     })
   }
 
+  copyName() {
+    const text = document.createElement("textarea");
+    document.body.appendChild(text);
+    text.value = `${this.props.currentUser.username}#${this.props.currentUser.tag}`;
+    text.select();
+    document.execCommand("copy");
+    document.body.removeChild(text);
+    const copied = document.getElementById("profile-name-copied")
+    copied.className="copied";
+    setTimeout(() => { copied.className="" }, 2000);
+  }
+
   render() {
+    return (
     <div id="profile">
-      <img src={this.props.currentUser.profilePhoto} alt="profile-photo" />
-      <p>{this.props.currentUser.username}<span>{this.props.currentUser.tag}</span></p>
+        <img className="profile-photo" src={this.props.currentUser.profilePhoto || window.logo} alt="profile-photo" />
+        <div id="profile-name" onClick={this.copyName.bind(this)}>
+          <p>{this.props.currentUser.username}</p>
+          <p>#{this.props.currentUser.tag}</p>
+      </div>
+      <img id="cog" src={window.cog} alt="settings" />
+      <p id="profile-name-copied">Copied!</p>
+      <div className="arrow-down"></div>
     </div>
+    )
   }
 }

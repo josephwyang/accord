@@ -1,12 +1,16 @@
 @import "variables/colors";
 @import "variables/fonts";
 
+#server {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+}
+
 #messages {
   position: absolute;
-  top: 0;
+  top: 0; right: 0; bottom: 0;
   left: 312px;
-  right: 0;
-  bottom: 0;
   // min-width: 688px;
-  background-color: $dark-grey;
+  background-color: $grey-3;
 }

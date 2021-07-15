@@ -8,7 +8,7 @@
   width: 100%;
   // min-width: 700px;
   overflow-x: hidden;
-  background-color: $sky-blue;
+  background-color: $blue-1;
 
   #clouds {
     margin-left: 50%;
@@ -26,7 +26,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: $sky-blue;
+    background-color: $blue-1;
     height: 80px;
     z-index: 100;
     transition: all 0.3s;
@@ -79,8 +79,8 @@
       border-radius: 5px;
       transition: all 0.2s;
       &:hover {
-        box-shadow: 0 0 5px $dark-blue;
-        background-color: $light-blue;
+        box-shadow: 0 0 5px $blue-2;
+        background-color: $blue-0;
       }
     }
   }
@@ -90,7 +90,7 @@
     top: 21.5px;
     right: 150px;
     padding: 10px 16px;
-    color: $darkest-grey;
+    color: $dark-grey-4;
     font-size: 14px;
     background-color: white;
     border-radius: 40px;
@@ -99,8 +99,8 @@
 
   #splash-button:hover {
     cursor: pointer;
-    color: $blue;
-    box-shadow: -2px 2px 10px $dark-grey;
+    color: $light-blue-2;
+    box-shadow: -2px 2px 10px $grey-3;
   }
 
   h1, p {
@@ -156,7 +156,7 @@
         }
 
         p {
-          color: $dark-grey;
+          color: $grey-3;
           font-size: 20px;
         }
       }
@@ -176,7 +176,7 @@
 
   #splash-background-2 {
     top: 1386px;
-    background-color: $lightest-grey;
+    background-color: $light-grey-0;
     #splash-info-2 > div { top: 192.5px; }
     img { order: 2; }
   }
@@ -195,21 +195,21 @@
   #nav-links {
     img { filter: brightness(0) invert(0.5); }
     a:hover {
-      box-shadow: 0 0 5px $light-grey;
-      background-color: $lighter-grey;
+      box-shadow: 0 0 5px $light-grey-2;
+      background-color: $light-grey-1;
     }
   }
 
   #splash-button {
-    color: $even-greyer;
-    background-color: $lighter-grey;
+    color: $grey-2;
+    background-color: $light-grey-1;
     border-radius: 40px;
     transition: all 0.2s;
   }
 
   #splash-button:hover {
-    color: $darkest-grey;
-    box-shadow: -1px 1px 7px $light-grey;
+    color: $dark-grey-4;
+    box-shadow: -1px 1px 7px $light-grey-2;
   }
 }
 
@@ -228,14 +228,14 @@
   color: white;
   text-align: center;
   line-height: 40px;
-  background-color: $even-greyer;
+  background-color: $grey-2;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   animation: pop-up-bottom 0.7s ease-in-out;
 
   &:hover {
     cursor: pointer;
-    background-color: $dark-grey;
+    background-color: $grey-3;
   }
 }
 
@@ -250,7 +250,7 @@
   min-width: 700px;
   padding: 70px 100px;
 
-  background-color: $darkest-grey;
+  background-color: $dark-grey-4;
 
   h1 {
     font-family: $montserrat;
@@ -262,7 +262,7 @@
   p {
     margin-top: 5px;
     font-size: 16px;
-    color: $light-grey;
+    color: $light-grey-2;
     font-weight: 200;
     letter-spacing: 1px;
   }

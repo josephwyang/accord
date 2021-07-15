@@ -6,9 +6,11 @@
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: center;
-  height: 100%;
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  z-index: 1;
   width: 72px;
-  background-color: $darker-blue-grey;
+  background-color: $blue-grey-4;
   
   > * { margin-top: 10px; }
 
@@ -21,17 +23,17 @@
     text-align: center;
     color: white;
     transition: all 0.3s;
-    background-color: $dark-grey;
+    background-color: $grey-3;
     border-radius: 50%;
 
     &:hover, &.selected, &.selected > img {
       cursor: pointer;
       border-radius: 30%;
-      background-color: $blue;
+      background-color: $light-blue-2;
     }
   }
   p {
-    background-color: $dark-grey;
+    background-color: $grey-3;
     color: $green;
     font-size: 24px;
     font-weight: 400;

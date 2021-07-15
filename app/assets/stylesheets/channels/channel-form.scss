@@ -13,7 +13,7 @@
 
   color: white;
   text-align: center;
-  background-color: $dark-grey;
+  background-color: $grey-3;
   border-radius: 5px;
 
   > .exit:hover { color: white }
@@ -29,9 +29,9 @@
 
   h2 {
     margin-top: 3px;
-    padding-bottom: 16px;
+    margin-bottom: 20px;
     font-size: 12px;
-    color: $light-grey;
+    color: $light-grey-2;
     line-height: 16px;
   }
 
@@ -39,13 +39,13 @@
     display: block;
     text-align: left;
     font-size: 13px;
-    color: $lightest-grey;
+    color: $light-grey-0;
     letter-spacing: 0.5px;
-    margin-bottom: 8px;
+    margin-bottom: 9px;
   }
 
   input {
-    margin-bottom: 5px;
+    margin-bottom: 7px;
     padding: 8px;
     padding-left: 30px;
     box-sizing: border-box;
@@ -55,15 +55,15 @@
     font-size: 14px;
     letter-spacing: 0.3px;
     
-    background-color: $darkerish-grey;
-    border: 1px solid $darkest-grey;
+    background-color: $dark-grey-1;
+    border: 1px solid $dark-grey-4;
     border-radius: 3px;
-    &:focus { border-color: $lightest-blue; }
+    &:focus { border-color: $light-blue-0; }
   }
 
   > p {
     position: absolute;
-    top: 127px;
+    top: 132px;
     left: 25px;
 
     font-family: $montserrat;
@@ -80,7 +80,7 @@
     top: calc(100% - 5px);
     left: 0;
     border: none;
-    background-color: $darker-grey;
+    background-color: $dark-grey-3;
     
     width: 100%;
     padding: 15px 0px;
@@ -104,13 +104,13 @@
       margin-right: 16px;
       padding: 12px 24px;
       color: white;
-      background-color: $light-blue;  
+      background-color: $blue-0;  
       border-radius: 3px;
       transition: background-color 0.2s;
 
       &:hover {
         cursor: pointer;
-        background-color: $dark-blue;
+        background-color: $blue-2;
       }
     }
   }

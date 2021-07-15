@@ -18,25 +18,25 @@
 
     text-align: center;
     background-color: white;
-    border: 1px solid $blue-grey;
+    border: 1px solid $blue-grey-1;
     border-bottom: none;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     animation: fade-in 0.3s;
 
     h1 {
-      font-family: $montserrat;
+      font-family: $lato;
       font-weight: 800;
-      font-size: 24px;
+      font-size: 23px;
     }
 
     h2 {
       font-family: $mukta;
       font-size: 16px;
       font-weight: 200;
-      margin: 5px 15px 20px 15px;
+      margin: 8px 15px 20px 15px;
       letter-spacing: 0.5px;
-      color: $blue-grey;
+      color: $blue-grey-1;
     }
 
     ul {
@@ -50,13 +50,13 @@
       &::-webkit-scrollbar { width: 3px; }
       
       &::-webkit-scrollbar-thumb {
-        background-color: $light-grey;
+        background-color: $light-grey-2;
         border-radius: 1px;
       }   
         
       p {
         margin-top: 20px;
-        color: $grey;
+        color: $grey-0;
         font-size: 14px;
         font-weight: 600;
       }
@@ -77,7 +77,7 @@
         &:first-child { margin-top: 0px; }
         width: 340px;
 
-        border: 1px solid $lighter-grey;
+        border: 1px solid $light-grey-1;
         border-radius: 3px;
         
         div {
@@ -96,7 +96,7 @@
 
         &:hover {
           cursor: pointer;
-          background-color: $lightest-grey;
+          background-color: $light-grey-0;
         }
       }
     }
@@ -112,7 +112,7 @@
       width: 80px;
       margin: 20px;
 
-      border: 2px dashed $blue-grey;
+      border: 2px dashed $blue-grey-1;
       border-radius: 50%;
 
       transition: background-color 0.1s;
@@ -123,7 +123,7 @@
       }
 
       p {
-        color: $blue-grey;
+        color: $blue-grey-1;
         letter-spacing: 1px;
       }
 
@@ -139,9 +139,9 @@
         border-radius: 50%;
         
         font-size: 18px;
-        color: $light-grey;
+        color: $light-grey-2;
         line-height: 22px;
-        background-color: $blue;
+        background-color: $light-blue-2;
       }
 
       #uploaded-server-icon {
@@ -152,7 +152,7 @@
 
       &:hover {
         cursor: pointer;
-        background-color: $lightest-grey;
+        background-color: $light-grey-0;
       }
     }
 
@@ -160,7 +160,7 @@
       width: 100%;
       text-align: left;
       font-size: 13px;
-      color: $grey;
+      color: $grey-0;
       letter-spacing: 0.5px;
       margin-bottom: 8px;
     }
@@ -171,7 +171,7 @@
       font-family: $mukta;
       font-size: 14px;
       letter-spacing: 0.3px;
-      border: 1px solid $light-grey;
+      border: 1px solid $light-grey-2;
       border-radius: 3px;
     }
   }
@@ -187,8 +187,8 @@
   width: 100%;
   padding: 15px 0px;
   
-  background-color: $lightest-grey;
-  border: 1px solid $blue-grey;
+  background-color: $light-grey-0;
+  border: 1px solid $blue-grey-1;
   border-top-style: none;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -216,8 +216,8 @@
 
   #form-button {
     margin-right: 16px;
-    background-color: $light-blue;
-    &:hover { background-color: $dark-blue; }
+    background-color: $blue-0;
+    &:hover { background-color: $blue-2; }
   }
 
   h3 {
@@ -226,10 +226,10 @@
     width: 100%;
 
     + button {
-      background-color: $light-blue-grey;
+      background-color: $blue-grey-0;
       margin: 10px 14px 0px 14px;
       width: 100%;
-      &:hover { background-color: $blue-grey; }
+      &:hover { background-color: $blue-grey-1; }
     }
   }
 }

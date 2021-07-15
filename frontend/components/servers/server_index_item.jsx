@@ -1,11 +1,20 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
+import { firstChannelId } from "../../reducers/channels_selector";
 
-const ServerIndexItem = ({id, name, icon, getServer}) => {
+const ServerIndexItem = ({id, name, icon, getServer, history}) => {
   const serverIcon = icon ? <img src={icon} alt="icon" /> : name.split(" ").map(word => word[0]).slice(0,2);
+  
+  const handleClick = e => {
+    e.preventDefault();
+    getServer().then(({ payload }) => {history.push(`/channels/${id}/${firstChannelId(payload.channels)}`)})
+  }
+
   return (
-    <NavLink to={`/channels/${id}`} activeClassName="selected" onClick={() => getServer()}>{serverIcon}</NavLink>
+    <NavLink to={`/channels/${id}`} onClick={handleClick} activeClassName="selected">
+      {serverIcon}
+    </NavLink>
   )
 }
 
-export default ServerIndexItem;
+export default withRouter(ServerIndexItem);

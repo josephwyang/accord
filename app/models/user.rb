@@ -2,16 +2,17 @@
 #
 # Table name: users
 #
-#  id              :bigint           not null, primary key
-#  username        :string(32)       not null
-#  email           :string           not null
-#  password_digest :string           not null
-#  date_of_birth   :date             not null
-#  tag             :string(4)        not null
-#  session_token   :string           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  phone_number    :string(15)
+#  id                :bigint           not null, primary key
+#  username          :string(32)       not null
+#  email             :string           not null
+#  password_digest   :string           not null
+#  date_of_birth     :date             not null
+#  tag               :string(4)        not null
+#  session_token     :string           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  phone_number      :string(15)
+#  last_path_visited :string           default("/explore")
 #
 class User < ApplicationRecord
   validates :username, presence:true, length: { minimum:2, maximum:32 }, uniqueness: { scope: :tag }
@@ -32,6 +33,7 @@ class User < ApplicationRecord
     foreign_key: :owner_id,
     class_name: :Server,
     dependent: :destroy
+  has_many :messages, foreign_key: :sender_id
 
   has_one_attached :profile_photo
 

@@ -13,4 +13,5 @@ class Channel < ApplicationRecord
   validates :name, presence:true, length: { maximum:100 }
 
   belongs_to :server
+  has_many :messages
 end

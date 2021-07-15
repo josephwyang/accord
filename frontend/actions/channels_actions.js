@@ -1,4 +1,5 @@
 import * as ChannelsUtil from "../utils/channels_util";
+import { receiveMessages } from "./messages_actions";
 import { receiveErrors } from "./errors_actions";
 
 export const RECEIVE_CHANNELS = "RECEIVE_CHANNELS";
@@ -9,10 +10,16 @@ export const receiveChannels = channels => ({
   channels
 });
 
-const receiveChannel = channel => ({
+const receiveChannel = payload => ({
   type: RECEIVE_CHANNEL,
-  channel
+  payload
 });
+
+export const getChannel = channelId  => dispatch => (
+  ChannelsUtil.getChannel(channelId)
+    .then(payload => dispatch(receiveChannel(payload)),
+      errors => dispatch(receiveErrors(errors)))
+);
 
 export const postChannel = channel => dispatch => (
   ChannelsUtil.postChannel(channel)

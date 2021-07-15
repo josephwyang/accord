@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const ChannelsIndex = props => {
+function ChannelsIndex(props) {
   const shownChannels = props.channelHeaderOpen ? props.channels : props.channels.filter(channel => channel.id == props.channelId);
 
   const channels = (shownChannels.map(channel => (
@@ -28,7 +28,7 @@ const ChannelsIndex = props => {
         {channels}
       </ul>
     </nav>
-  )
-};
+  );
+}
 
 export default ChannelsIndex;

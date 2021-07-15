@@ -2,6 +2,10 @@
 @import "variables/fonts";
 @import "variables/keyframes";
 
+#server-settings {
+  overflow: hidden;
+}
+
 #overview-settings {
   h1 {
     margin-bottom: 20px;
@@ -25,7 +29,7 @@
       color: white;
       text-align: center;
       line-height: 100px;
-      background-color: $blue;
+      background-color: $light-blue-2;
     }
 
     label p {
@@ -42,7 +46,7 @@
       border-radius: 50%;
       
       box-shadow: inset 0 0 7px $black;
-      border: 2px solid $dark-grey;
+      border: 2px solid $grey-3;
       opacity: 0;
       transition: opacity 0.2s;
       
@@ -78,10 +82,10 @@
     margin-top: 15px;
     padding: 7px;
 
-    color: $lightest-grey;
+    color: $light-grey-0;
     font-size: 12px;
     text-align: center;
-    border: 1px solid $lightest-grey;
+    border: 1px solid $light-grey-0;
     border-radius: 3px;
 
     transition: all 0.15s;
@@ -90,7 +94,7 @@
       cursor: pointer;
     }
     &:active {
-      background-color: $greyer;
+      background-color: $grey-1;
     }
   }
 
@@ -108,7 +112,7 @@
       margin-top: 15px;
       padding: 0px 10px;
       font-size: 14px;
-      color: $grey;
+      color: $grey-0;
     }
   }
 
@@ -128,7 +132,7 @@
       width: 100%;
       margin-top: 5px;
       padding-right: 5px;
-      color: $grey;
+      color: $grey-0;
       text-align: right;
     }
 
@@ -137,7 +141,7 @@
       &::-webkit-scrollbar { width: 3px; }
       
       &::-webkit-scrollbar-thumb {
-        background-color: $grey;
+        background-color: $grey-0;
         border-radius: 1px;
       }   
     }
@@ -158,7 +162,7 @@
     p {
       margin-bottom: 15px;
       font-size: 14px;
-      color: $grey;
+      color: $grey-0;
     }
 
     > label {
@@ -187,10 +191,10 @@
         margin-top: 5px;
         padding: 7px;
 
-        color: $lightest-grey;
+        color: $light-grey-0;
         font-size: 12px;
         text-align: center;
-        border: 1px solid $lightest-grey;
+        border: 1px solid $light-grey-0;
         border-radius: 3px;
 
         transition: all 0.15s;
@@ -199,7 +203,7 @@
           cursor: pointer;
         }
         &:active {
-          background-color: $greyer;
+          background-color: $grey-1;
         }
       }
 
@@ -213,7 +217,7 @@
 
   label, h3 {
     font-size: 13px;
-    color: $light-grey;
+    color: $light-grey-2;
     font-weight: 600;
     margin-bottom: 10px;
   }
@@ -224,8 +228,8 @@
     font-size: 14px;
     letter-spacing: 0.3px;
     color: white;
-    background-color: $darkerish-grey;
-    border: 1px solid $darkest-grey;
+    background-color: $dark-grey-1;
+    border: 1px solid $dark-grey-4;
     border-radius: 3px;
   }
 
@@ -246,7 +250,7 @@
   
   * { font-size: 14px; }
   color: white;
-  background-color: $darkest-grey;
+  background-color: $dark-grey-4;
   border-radius: 3px;
   transition: background-color 0.4s;
   animation: pop-up 0.3s;
@@ -302,7 +306,7 @@
     width: 420px;
 
     font-size: 14px;
-    color: $light-grey;
+    color: $light-grey-2;
     text-align: center;
     line-height: 16px;
   }
@@ -358,10 +362,10 @@
   top: calc(50% - 20.5px); left: 50%;
   transform: translate(-50%, -50%);
 
-  color: $light-grey;
+  color: $light-grey-2;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  background-color: $darker-grey;
+  background-color: $dark-grey-3;
   z-index: 101;
 
   #delete-server-message {
@@ -369,7 +373,7 @@
     h1 {
       font-family: $lato;
       font-size: 20px;
-      color: $lighter-grey;
+      color: $light-grey-1;
     }
     p {
       margin-top: 15px;
@@ -380,7 +384,7 @@
   }
   .form-nav {
     border: none;
-    background-color: $darkest-grey;
+    background-color: $dark-grey-4;
     
     > p {
       height: 20px;

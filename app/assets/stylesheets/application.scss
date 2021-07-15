@@ -31,11 +31,6 @@ body {
 h1 { font-family: $montserrat }
 
 #app {
-  // position: relative;
-  // width: 100%;
-  // display: flex;
-  // align-items: center;
-
   -webkit-user-select: none; // Safari
   -moz-user-select: none; // Firefox
   -ms-user-select: none; // IE10+/Edge
@@ -49,7 +44,7 @@ h1 { font-family: $montserrat }
   right: 0;
   bottom: 0;
   z-index: 100;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .transparent-modal-screen {
@@ -65,6 +60,10 @@ input[type='file'] {
   display: none;
 }
 
+input[type='text']:focus {
+  outline: none;
+}
+
 .nav {
   position: absolute;
   top: 0;
@@ -74,7 +73,7 @@ input[type='file'] {
   height: 100%;
   width: 240px;
 
-  background-color: $dark-blue-grey;
+  background-color: $dark-grey-2;
 }
 
 .exit {
@@ -87,13 +86,38 @@ input[type='file'] {
   margin: 16px;
   
   font-size: 18px;
-  color: $light-grey;
+  color: $light-grey-2;
   line-height: 20px;
   transition: color 0.1s;
 
   &:hover {
     cursor: pointer;
-    color: $dark-grey;
+    color: $grey-3;
+  }
+}
+
+#grey-screen {
+  position: absolute;
+  background-color: $dark-grey-1;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -100;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; 
+    width: 72px;
+    background-color: $blue-grey-4;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 72px;
+    width: 240px;
+    background-color: $dark-grey-3;
   }
 }
 
@@ -101,7 +125,7 @@ input[type='file'] {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: 1000;
-  background-color: $dark-grey;
+  background-color: $grey-3;
   &:not(.landed) { animation: mount-settings 0.2s; }
 
   .settings-nav-div {
@@ -110,7 +134,7 @@ input[type='file'] {
     box-sizing: border-box;
     width: calc(100% * 0.35);
     min-width: 350px;
-    background-color: $darker-grey;
+    background-color: $dark-grey-3;
 
     .settings-nav {
       position: absolute;
@@ -118,13 +142,13 @@ input[type='file'] {
       width: 200px;
 
       > h3 {
-        color: $grey;
+        color: $grey-0;
         padding-left: 10px;
         margin-top: 10px;
         margin-bottom: 5px;
         font-size: 14px;
         font-weight: 700;
-        &:not(:first-of-type) { border-top: 1px solid $dark-grey; }
+        &:not(:first-of-type) { border-top: 1px solid $grey-3; }
         &:not(:last-of-type) { padding-top: 10px; }
       }
 
@@ -133,20 +157,20 @@ input[type='file'] {
         margin-bottom: 5px;
 
         font-size: 16px;
-        color: $light-grey;
+        color: $light-grey-2;
         line-height: 28px;
         border-radius: 3px;
         &.red { color: $red; }
 
         &:hover:not(.selected) {
           cursor: pointer;
-          background-color: $darkerish-grey;
-          &:not(.red) { color: $light-grey; }
+          background-color: $dark-grey-1;
+          &:not(.red) { color: $light-grey-2; }
         }
 
         &.selected {
           color: white;
-          background-color: $dark-grey;
+          background-color: $grey-3;
         }
       }
     }
@@ -176,12 +200,12 @@ input[type='file'] {
       > img {
         height: 15px; width: 15px;
         padding: 10px;
-        border: 1px solid $grey;
+        border: 1px solid $grey-0;
         border-radius: 50%;
 
         &:hover {
           cursor: pointer;
-          background-color: $greyer;
+          background-color: $grey-1;
         }
       }
 
@@ -189,7 +213,7 @@ input[type='file'] {
         width: 100%;
         margin-top: 3px;
         font-size: 12px;
-        color: $grey;
+        color: $grey-0;
         text-align: center;
       }
     }

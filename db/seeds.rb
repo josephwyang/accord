@@ -14,9 +14,11 @@ Channel.delete_all
 Channel.connection.execute('ALTER SEQUENCE channels_id_seq RESTART WITH 1')
 Membership.delete_all
 Membership.connection.execute('ALTER SEQUENCE memberships_id_seq RESTART WITH 1')
+Message.delete_all
+Message.connection.execute('ALTER SEQUENCE messages_id_seq RESTART WITH 1')
 ActiveStorage::Attachment.all.each { |attachment| attachment.purge }
 
-demo_user = User.create!(email: "demo@user.com", password: "123456", username: "joseph", date_of_birth: "22/12/1999")
+demo_user = User.create!(email: "demo@user.com", password: "123456", username: "demo", date_of_birth: "22/12/1999")
 jo = User.create!(email: "jo@user.com", password: "123456", username: "jo", date_of_birth: "22/12/1999")
 isaac = User.create!(email: "isaac@user.com", password: "123456", username: "isaac", date_of_birth: "03/02/1998")
 raph = User.create!(email: "raph@user.com", password: "123456", username: "raph", date_of_birth: "26/03/1998")
@@ -26,7 +28,7 @@ migs = User.create!(email: "migs@user.com", password: "123456", username: "migs"
 jack = User.create!(email: "jack@user.com", password: "123456", username: "jack", date_of_birth: "27/10/1996")
 chase = User.create!(email: "chase@user.com", password: "123456", username: "chase", date_of_birth: "28/12/1987")
 
-banana = Server.create!(name:"banana", owner_id:2, public:false)
+banana = Server.create!(name:"banana", owner_id:1, public:false)
 valorant = Server.create!(name:"valorant", owner_id:3, public:true, genre:"gaming")
 aa = Server.create!(name:"aa", owner_id:4, public:true, genre:"education")
 
@@ -59,9 +61,24 @@ jack_aa = Membership.create!(user_id:8, server_id:3, description:"server")
 chase_aa = Membership.create!(user_id:9, server_id:3, description:"server")
 
 require 'open-uri'
-banana_file = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/banana.png')
-banana.icon.attach(io: banana_file, filename: 'banana.png')
-valorant_file = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/valorant.png')
-valorant.icon.attach(io: valorant_file, filename: 'valorant.png')
-aa_file = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/aA.png')
-aa.icon.attach(io: aa_file, filename: 'aA.png')
+banana_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/banana.png')
+banana.icon.attach(io: banana_icon, filename: 'banana')
+banana_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/banana.jpeg')
+banana.banner.attach(io: banana_banner, filename: 'banana')
+valorant_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/valorant.png')
+valorant.icon.attach(io: valorant_icon, filename: 'valorant')
+valorant_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/valorant.jpeg')
+valorant.banner.attach(io: valorant_banner, filename: 'valorant')
+aa_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/aA.png')
+aa.icon.attach(io: aa_icon, filename: 'aA')
+aa_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/aA.png')
+aa.banner.attach(io: aa_banner, filename: 'aA')
+
+jo_profile_photo = open('https://accord-chat-seeds.s3.amazonaws.com/profile-photos/jo.png')
+jo.profile_photo.attach(io: jo_profile_photo, filename: 'jo')
+isaac_profile_photo = open('https://accord-chat-seeds.s3.amazonaws.com/profile-photos/isaac.png')
+isaac.profile_photo.attach(io: isaac_profile_photo, filename: 'isaac')
+
+test_message_1 = Message.create!(sender_id:2, channel_id:1, body:"this is a test")
+test_message_2 = Message.create!(sender_id:3, channel_id:2, body:"this is another test")
+test_message_3 = Message.create!(sender_id:4, channel_id:3, body:"this is a third test")

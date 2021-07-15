@@ -1,5 +1,6 @@
-import * as ServersUtil from "../utils/servers_util"
-import { receiveChannels } from "./channels_actions"
+import * as ServersUtil from "../utils/servers_util";
+import { receiveUsers } from "./users_actions";
+import { receiveChannels } from "./channels_actions";
 import { receiveErrors } from "./errors_actions";
 
 export const RECEIVE_SERVERS = "RECEIVE_SERVERS";
@@ -11,9 +12,9 @@ const receiveServers = servers => ({
   servers
 });
 
-const receiveServer = server => ({
+const receiveServer = payload => ({
   type: RECEIVE_SERVER,
-  server
+  payload
 });
 
 const removeServer = server => ({
@@ -29,10 +30,8 @@ export const getServers = () => dispatch => (
 
 export const getServer = serverId => dispatch => (
   ServersUtil.getServer(serverId)
-    .then(({channels, ...server}) => {
-      dispatch(receiveServer(server));
-      dispatch(receiveChannels(channels));
-    }, errors => dispatch(receiveErrors(errors.responseJSON)))
+    .then(payload => dispatch(receiveServer(payload))
+      , errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 
 export const getPublicServers = () => dispatch => (
