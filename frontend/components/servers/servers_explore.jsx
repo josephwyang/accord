@@ -9,6 +9,7 @@ export default class ServersExplore extends React.Component {
       genre: ""
     });
   }
+  
   render() {
     const toWords = str => {
       const words = str.replace(/([A-Z])/g, " $1").replace("And", "&");

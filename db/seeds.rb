@@ -28,7 +28,7 @@ migs = User.create!(email: "migs@user.com", password: "123456", username: "migs"
 jack = User.create!(email: "jack@user.com", password: "123456", username: "jack", date_of_birth: "27/10/1996")
 chase = User.create!(email: "chase@user.com", password: "123456", username: "chase", date_of_birth: "28/12/1987")
 
-banana = Server.create!(name:"banana", owner_id:1, public:false)
+banana = Server.create!(name:"banana", owner_id:1, public:false, genre:"createMyOwn")
 valorant = Server.create!(name:"valorant", owner_id:3, public:true, genre:"gaming")
 aa = Server.create!(name:"aa", owner_id:4, public:true, genre:"education")
 
@@ -79,6 +79,6 @@ jo.profile_photo.attach(io: jo_profile_photo, filename: 'jo')
 isaac_profile_photo = open('https://accord-chat-seeds.s3.amazonaws.com/profile-photos/isaac.png')
 isaac.profile_photo.attach(io: isaac_profile_photo, filename: 'isaac')
 
-test_message_1 = Message.create!(sender_id:2, channel_id:1, body:"this is a test")
-test_message_2 = Message.create!(sender_id:3, channel_id:2, body:"this is another test")
-test_message_3 = Message.create!(sender_id:4, channel_id:3, body:"this is a third test")
+Message.create!(sender_id:2, channel_id:1, body:"hi, this is banana")
+Message.create!(sender_id:3, channel_id:2, body:"wow, let's do leetcodes")
+Message.create!(sender_id:4, channel_id:3, body:"who wants to play valorant with me?")
