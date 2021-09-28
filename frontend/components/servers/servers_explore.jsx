@@ -1,5 +1,6 @@
 import React from "react";
-import ServersIndexContainer from "./servers_index_container"
+import { firstChannelId } from "../../reducers/channels_selector";
+import Profile from "../users/profile";
 
 export default class ServersExplore extends React.Component {
   constructor(props) {
@@ -8,6 +9,20 @@ export default class ServersExplore extends React.Component {
     this.state = ({
       genre: ""
     });
+  }
+
+  componentDidMount() {
+    this.props.getPublicServers();
+  }
+
+  getServer(server) {
+    if (Object.keys(this.props.servers).some(serverId => serverId == server.id)) {
+      return this.props.getServer(server.id);
+    } else { return this.props.previewServer(server.id); }
+  }
+
+  handleClick(e, server) {
+    this.getServer(server).then(({ payload }) => { this.props.history.push(`/channels/${server.id}/${firstChannelId(payload.channels)}`) })
   }
   
   render() {
@@ -27,17 +42,16 @@ export default class ServersExplore extends React.Component {
     
     const servers = this.props.serversWithGenre(this.state.genre).map(
       server => (
-        <li key={`server-${server.id}`}>
+        <li key={`server-${server.id}`} onClick={e => this.handleClick(e, server)}>
           <div id="server-banner"><img src={server.banner || window.defaultBanner} alt="server-banner" /></div>
-          <img id="server-icon" src={server.icon} alt="server-icon" />
+          {server.icon ? <img id="server-icon" src={server.icon} alt="server-icon" /> : <p id="server-icon" style={{ backgroundColor: "#393C43"}}>{server.name.split(" ").map(word => word[0]).slice(0, 2)}</p>}
           <h3>{server.name}</h3>
-          <p>{server.description}</p>
+          <p id="server-description">{server.description}</p>
         </li>
     ));
 
     return (
       <>
-        <ServersIndexContainer {...this.props} />
         <ul id="genre-list" className="nav">
           <h1>Discover</h1>
           <li key="home" onClick={() => this.setState({ genre: "" })} className={this.state.genre === "" ? "selected" : ""}>
@@ -45,11 +59,12 @@ export default class ServersExplore extends React.Component {
           </li>
           {genres}
         </ul>
+        <Profile currentUser={this.props.currentUser} />
         <div id="servers-explore">
           <img src={window.exploreHeader} alt="explore-header" />
           <h1>Find your community on Accord</h1>
           <h2>From gaming, to music, to learning, there's a place for you.</h2>
-          <ul>{servers}</ul>
+          <ul id="public-servers">{servers}</ul>
         </div>
       </>
     )

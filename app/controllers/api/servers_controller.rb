@@ -24,6 +24,21 @@ class Api::ServersController < ApplicationController
     if @server.save
       Membership.create!(user_id: current_user.id, server_id: @server.id, description: "server")
       Channel.create!(server_id: @server.id, name:"general")
+
+      case server_params[:genre]
+      when "gaming"
+        Channel.create!(server_id: @server.id, name:"gaming")
+        Channel.create!(server_id: @server.id, name:"highlights")
+      when "music"
+        Channel.create!(server_id: @server.id, name:"trending")
+      when "education"
+        Channel.create!(server_id: @server.id, name:"q-and-a")
+      when "scienceAndTech"
+        Channel.create!(server_id: @server.id, name:"latest-news")
+      when "entertainment"
+        Channel.create!(server_id: @server.id, name:"clips")
+      end
+
       render :show
     else
       render json: @server.errors.full_messages, status:400
@@ -47,7 +62,7 @@ class Api::ServersController < ApplicationController
       render json: ["only the owner can delete a server"], status: 401
     else
       @server.destroy
-      render :show
+      render json: {id: @server.id}
     end
   end
 

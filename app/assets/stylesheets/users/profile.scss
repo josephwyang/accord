@@ -19,9 +19,9 @@
   display: flex;
   align-items: center;
 
-  #profile-name:hover { cursor: pointer; }
+  > #profile-name:hover { cursor: pointer; }
 
-  #profile-name > p {
+  > #profile-name > p {
     position: absolute;
     left: 50px;
 
@@ -38,7 +38,7 @@
     }
   }
 
-  #cog {
+  > #cog {
     box-sizing: border-box;
     height: 32px;
     width: 32px;
@@ -49,31 +49,69 @@
     &:hover {
       cursor: pointer;
       background-color: $grey-3;
+
+      + #user-settings-bubble { display: block; }
     }
   }
 
-  #profile-name-copied {
+  #profile-name-copied, #user-settings-bubble { z-index: 100; }
+
+  > #profile-name-copied {
     display: none;
     position: absolute;
-    top: -24px;
-    left: 42px;
-    padding: 6px 9px;
 
-    font-size: 12px;
-    color: white;
-    background-color: $green;
-    border-radius: 3px;
-    box-shadow: 0 2px 5px $black;
-    animation: fade-in 0.1s;
+    > p {
+      position: absolute;
+      top: -50px;
+      left: 32px;
+      padding: 6px 9px;
 
-    &.copied, &.copied + .arrow-down { display: block; }
+      font-size: 12px;
+      color: white;
+      background-color: $green;
+      border-radius: 3px;
+      box-shadow: 0 2px 5px $black;
+      animation: fade-in 0.1s;
+
+    }
+    
+    > .arrow-down {
+      position: absolute;
+      top: -23px;
+      left: 52.5px;
+      
+      border-top: 5px solid $green;
+      animation: fade-in 0.1s;
+    }
+
+    &.copied { display: block; }
   }
 
-  .arrow-down {
+  > #user-settings-bubble {
+    display: none;
     position: absolute;
-    left: 62.5px;
-    top: 3px;
-    animation: fade-in 0.1s;
+
+    > p { 
+      position: absolute;
+      top: -50px;
+      left: 153px;
+      padding: 6px 9px;
+      width: 68px;
+
+      font-size: 12px;
+      color: white;
+      background-color: $black;
+      border-radius: 3px;
+      box-shadow: 0 2px 5px $dark-grey-2;
+
+      & + .arrow-down {
+        position: absolute;
+        top: -23px;
+        left: 190.5px;
+
+        border-top: 5px solid $black;
+      }
+    }
   }
 }
 
@@ -85,12 +123,10 @@
 }
 
 div.arrow-down {
-  display: none;
 	width: 0; 
 	height: 0; 
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
-	border-top: 5px solid $green;
 	font-size: 0;
 	line-height: 0;
 }

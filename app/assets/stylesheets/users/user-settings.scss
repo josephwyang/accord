@@ -1,0 +1,29 @@
+@import "variables/fonts";
+@import "variables/colors";
+
+#user-settings {
+  #account-settings {
+    // &::before {
+    //   content: "";
+    //   position: absolute;
+    //   margin-left: -16px;
+
+    //   height: 20px;
+    //   width: calc(100% * 0.65 - 32px);
+    //   min-width: 618px;
+
+    //   background-color: white;
+    // }
+
+    // padding: 16px;
+
+    background-color: $black;
+    border-radius: 10px;
+
+    #account-setting-options {
+      // padding: 10px;
+      background: $dark-grey-1;
+      border-radius: 10px;
+    }
+  }
+}

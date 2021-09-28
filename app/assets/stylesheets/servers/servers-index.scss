@@ -11,10 +11,20 @@
   z-index: 1;
   width: 72px;
   background-color: $blue-grey-4;
+
+  overflow-y: scroll;
+  &::-webkit-scrollbar { width: 0px; }
   
   > * { margin-top: 10px; }
 
-  * {
+  > #server-index-divider {
+    width: 35px;
+    border: 0;
+    border-top: 1px solid $grey-2;
+    margin: 10px 0px 0px;
+  }
+
+  *:not(hr) {
     width: 48px;
     height: 48px;
     text-align: center;
@@ -48,11 +58,11 @@
     }
   }
 
-  > a:last-child {
-    img {
-      height: 20px;
-      width: 20px;
-      padding: 14px;
+  > a:first-child, > a:last-child {
+    > img {
+      height: 30px;
+      width: 30px;
+      padding: 9px;
       background-color: transparent;
     }
 
@@ -61,6 +71,12 @@
       border-radius: 30%;
     }
 
-    img:hover, &.selected > img { filter: brightness(0) invert(1); }
+    &.selected > img, > img:hover { filter: brightness(0) invert(1); }
+  }
+
+  > a:last-child > img {
+    height: 20px; width: 20px;
+    padding: 14px;
+    margin-bottom: 10px;
   }
 }

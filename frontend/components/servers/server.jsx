@@ -19,15 +19,12 @@ export default class Server extends React.Component {
 
   loadServer() {
     this.props.getServer().then(({ payload }) => {
-      this.props.history.push(`/channels/${this.props.server.id}/${(this.props.firstChannelId(payload.channels))}`)
+      const serverUrl = `/channels/${this.props.server.id}/${this.props.currentChannel ? this.props.currentChannel.id : (this.props.firstChannelId(payload.channels))}`;
+      if (this.props.location.pathname !== serverUrl) this.props.history.push(serverUrl);
     });
   }
 
-  componentDidMount() { this.loadServer() }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.serverId != this.props.match.params.serverId) { this.loadServer() }
-  }
+  componentDidMount() { if(!Object.values(this.props.server).length) this.loadServer(); }
 
   toggleOpen(field) {
     this.setState({ [`${field}Open`]: !this.state[`${field}Open`] })

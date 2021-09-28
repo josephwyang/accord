@@ -7,15 +7,6 @@
 }
 
 #overview-settings {
-  h1 {
-    margin-bottom: 20px;
-
-    font-family: $lato;
-    font-size: 20px;
-    color: white;
-    line-height: 24px;
-  }
-
   #update-server-icon {
     position: relative;
 
@@ -189,6 +180,7 @@
         height: 15px;
         width: 115px;
         margin-top: 5px;
+        margin-bottom: 60px;
         padding: 7px;
 
         color: $light-grey-0;
@@ -356,7 +348,7 @@
   }
 }
 
-#delete-server-form {
+#delete-server-form, #log-out-form {
   width: 440px;
   position: absolute;
   top: calc(50% - 20.5px); left: 50%;
@@ -368,7 +360,7 @@
   background-color: $dark-grey-3;
   z-index: 101;
 
-  #delete-server-message {
+  #delete-server-message, #log-out-message {
     padding: 30px 20px;
     h1 {
       font-family: $lato;

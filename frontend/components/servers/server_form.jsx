@@ -48,7 +48,7 @@ export default class ServerForm extends React.Component {
   }
 
   handleFirstClick(genre) {
-    this.setState({ genre: genre.toLowerCase() });
+    this.setState({ genre });
     this.openModal(2);
   }
 
@@ -84,7 +84,7 @@ export default class ServerForm extends React.Component {
 
     const genreTypes = ["createMyOwn", "gaming", "music", "education", "scienceAndTech", "entertainment"];
     const genres = genreTypes.map(genre => (
-      <li key={toKebab(genre)} onClick={this.handleFirstClick.bind(this, toWords(genre))}>
+      <li key={toKebab(genre)} onClick={this.handleFirstClick.bind(this, genre)}>
         <div>
           <img src={window[genre]} alt={toWords(genre).toLowerCase()} />
           {toWords(genre)}

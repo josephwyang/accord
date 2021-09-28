@@ -1,9 +1,8 @@
 import { connect } from "react-redux";
-import { currentUser } from "../../reducers/users_selector";
 import Profile from "./profile";
 
 const mSTP = state => ({
-  currentUser: currentUser(state)
+  currentUser: state.session.currentUser,
 });
 
 const ProfileContainer = connect(mSTP)(Profile);

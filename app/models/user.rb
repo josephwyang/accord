@@ -33,6 +33,7 @@ class User < ApplicationRecord
     foreign_key: :owner_id,
     class_name: :Server,
     dependent: :destroy
+  has_many :memberships, dependent: :destroy
   has_many :messages, foreign_key: :sender_id
 
   has_one_attached :profile_photo

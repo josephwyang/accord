@@ -1,18 +1,21 @@
 import { connect } from "react-redux";
-import { getServer } from "../../actions/servers_actions";
+import { getServer, getServers, previewServer } from "../../actions/servers_actions";
 import Server from "./server";
-import { currentUser } from "../../reducers/users_selector";
 import { firstChannelId } from "../../reducers/channels_selector";
 
 const mSTP = (state, ownProps) => ({
-  server: state.entities.servers[ownProps.match.params.serverId],
+  servers: state.entities.servers,
+  server: state.entities.servers[ownProps.match.params.serverId] || state.entities.preview,
   channels: Object.values(state.entities.channels),
-  currentUser: currentUser(state),
+  currentChannel: state.entities.channels[ownProps.match.params.channelId],
+  currentUser: state.session.currentUser,
   firstChannelId
 });
 
 const mDTP = (dispatch, ownProps) => ({
-  getServer: () => dispatch(getServer(ownProps.match.params.serverId))
+  getServers: () => dispatch(getServers()),
+  getServer: () => dispatch(getServer(ownProps.match.params.serverId)),
+  previewServer: () => dispatch(previewServer(ownProps.match.params.serverId))
 });
 
 const ServerContainer = connect(mSTP, mDTP)(Server);

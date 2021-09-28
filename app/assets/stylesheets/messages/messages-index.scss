@@ -15,10 +15,13 @@
   }
 
   position: absolute;
-  top: 0; right: 0;
+  top: 0;
   left: 312px;
+  right: 240px;
   bottom: 62px;
   padding: 30px;
+
+  min-width: 448px;
 }
 
 .message {

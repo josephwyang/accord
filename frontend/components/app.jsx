@@ -11,24 +11,19 @@ import ServerContainer from "./servers/server_container";
 
 const App = () => (
   <div id="app">
+    <ProtectedRoute path={["/explore", "/channels/:serverId/:channelId?"]} component={ServersIndexContainer} />
     <Switch>
       <Route exact path="/" component={SplashContainer} />
       <AuthRoute path="/signup" component={SignUpFormContainer} />
       <AuthRoute path="/login" component={LogInFormContainer} />
-      <ProtectedRoute path="/channels/:serverId/:channelId" render={props => (
+      <ProtectedRoute path="/channels/:serverId/:channelId?" render={props => (
         <>
-          <ServersIndexContainer {...props}/>
+          {/* <ServersIndexContainer {...props}/> */}
           <ServerContainer {...props} />
         </>
         )} />
-      <ProtectedRoute path="/channels/:serverId/" render={props => (
-        <>
-          <ServersIndexContainer {...props} />
-          <ServerContainer {...props} />
-        </>
-      )} />
       <ProtectedRoute path="/explore" component={ServersExploreContainer} />
-      {/* <Route render={() => <Redirect to="/" />} /> */}
+      <Route render={() => <Redirect to="/" />} />
     </Switch>
   </div>
 );

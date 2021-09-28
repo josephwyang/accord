@@ -17,11 +17,17 @@ export default class ServersIndex extends React.Component {
 
   render() {
     const servers = this.props.servers.map(({id, name, icon}) => <ServerIndexItem key={`server-index-${id}`} id={id} name={name} icon={icon} getServer={this.props.getServer.bind(this, id)}/>);
-
+    const {id: previewId, name: previewName, icon: previewIcon} = this.props.preview;
+    
     if (!this.props.servers.length) { return null; }
     return (
       <>
         <ul id="server-index">
+          <NavLink to="/explore" activeClassName="selected"><img src={window.logo} alt="dms" /></NavLink>
+          {Object.values(this.props.preview).length ?
+            <ServerIndexItem key={`server-index-${previewId}`} id={previewId} name={previewName} icon={previewIcon}/>
+          : null}
+          <hr id="server-index-divider"/>
           {servers}
           <p id="add-server" className={this.state.serverModalOpen ? "selected" : ""} onClick={() => this.setModal(true)}>+</p>
           <NavLink to="/explore" activeClassName="selected"><img src={window.compass} alt="compass" /></NavLink>

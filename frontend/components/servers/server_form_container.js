@@ -1,10 +1,9 @@
 import { connect } from "react-redux";
 import ServerForm from "./server_form";
 import { postServer } from "../../actions/servers_actions";
-import { currentUser } from "../../reducers/users_selector";
 
 const mSTP = state => ({
-  currentUser: currentUser(state)
+  currentUser: state.session.currentUser,
 })
 
 const mDTP = dispatch => ({

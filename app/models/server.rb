@@ -19,7 +19,7 @@ class Server < ApplicationRecord
   validates :description, length: { maximum:255 }
 
   belongs_to :owner, class_name: :User
-  has_many :memberships, dependent: :delete_all
+  has_many :memberships, dependent: :destroy
   has_many :members, through: :memberships, source: :user
   has_many :channels, dependent: :destroy
 

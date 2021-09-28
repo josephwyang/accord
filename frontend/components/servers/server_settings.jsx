@@ -249,7 +249,7 @@ export default class ServerSettings extends React.Component {
             <div id="delete-server-form">
               <div id="delete-server-message">
                 <h1>Delete '{this.state.name}'?</h1>
-                <p>Are you sure you want to delete <span>{this.state.name}</span>? This action cannot be undone.</p>
+                <p>Are you sure you want to delete <span>{this.state.name}</span> ? This action cannot be undone.</p>
               </div>
               <div className="form-nav">
                 <p onClick={this.closeModal}>Cancel</p>
