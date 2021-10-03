@@ -1,5 +1,4 @@
 import * as ChannelsUtil from "../utils/channels_util";
-import { receiveMessages } from "./messages_actions";
 import { receiveErrors } from "./errors_actions";
 
 export const RECEIVE_CHANNELS = "RECEIVE_CHANNELS";

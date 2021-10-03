@@ -1,0 +1,26 @@
+@import "variables/colors";
+@import "variables/fonts";
+
+#message-settings {
+  height: 26px;
+  width: 78px;
+  border: 1px solid $dark-grey-3;
+  border-radius: 3px;
+  background-color: $dark-grey-1;
+
+  > img {
+    height: 14px;
+    width: 14px;
+    padding: 6px;
+
+    &:last-of-type {
+      height: 12px;
+      width: 12px;
+      padding: 7px;
+    }
+
+    &:hover {
+      background-color: $dark-grey-0;
+    }
+  }
+}

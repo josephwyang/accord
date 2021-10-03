@@ -1,13 +1,16 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import UserSettings from "./user_settings";
-import { logOutUser } from "../../actions/session_actions";
+import { patchUser, verifyPhoneNumber,logOutUser } from "../../actions/session_actions";
 
 const mSTP = state => ({
   currentUser: state.session.currentUser,
+  verificationCode: state.session.verificationCode
 });
 
 const mDTP = dispatch => ({
+  patchUser: data => dispatch(patchUser(data)),
+  verifyPhoneNumber: phoneNumber => dispatch(verifyPhoneNumber(phoneNumber)),
   logOut: () => dispatch(logOutUser())
 });
 

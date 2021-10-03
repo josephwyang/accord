@@ -91,7 +91,7 @@ input[type='text']:focus {
 
   &:hover {
     cursor: pointer;
-    color: $grey-3;
+    color: $grey-4;
   }
 }
 
@@ -124,14 +124,14 @@ input[type='text']:focus {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: 1000;
-  background-color: $grey-3;
+  background-color: $grey-4;
   &:not(.landed) { animation: mount-settings 0.2s; }
 
   .settings-nav-div {
     position: absolute;
     top: 0; left: 0; bottom: 0;
     box-sizing: border-box;
-    width: calc(100% * 0.35);
+    width: 35%;
     min-width: 350px;
     background-color: $dark-grey-3;
 
@@ -147,7 +147,7 @@ input[type='text']:focus {
         margin-bottom: 5px;
         font-size: 14px;
         font-weight: 700;
-        &:not(:first-of-type) { border-top: 1px solid $grey-3; }
+        &:not(:first-of-type) { border-top: 1px solid $grey-4; }
         &:not(:last-of-type) { padding-top: 10px; }
       }
 
@@ -169,7 +169,7 @@ input[type='text']:focus {
 
         &.selected {
           color: white;
-          background-color: $grey-3;
+          background-color: $grey-4;
         }
       }
     }
@@ -180,23 +180,23 @@ input[type='text']:focus {
     top: 0; right: 0; bottom: 0;
     
     box-sizing: border-box;
-    width: calc(100% * 0.65);
+    width: 65%;
     min-width: 650px;
     padding: 90px 0px 90px 60px;
 
     overflow-y: scroll;
-    &::-webkit-scrollbar { width: 3px; }
+    &::-webkit-scrollbar { width: 10px; }
       
     &::-webkit-scrollbar-thumb {
       background-color: $dark-grey-2;
-      border-radius: 1px;
+      border-radius: 5px;
     }
     
     @media all and (max-width: 1000px) {
-        & {
-            margin-left: 0px;
-            left: 350px;
-        }
+      & {
+        margin-left: 0px;
+        left: 350px;
+      }
     }
 
     h1 {
@@ -205,6 +205,7 @@ input[type='text']:focus {
       font-family: $lato;
       font-size: 20px;
       color: white;
+      font-weight: 700;
       line-height: 24px;
     }
 

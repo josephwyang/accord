@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { getServer, getServers, previewServer } from "../../actions/servers_actions";
 import Server from "./server";
 import { firstChannelId } from "../../reducers/channels_selector";
+import { withRouter } from "react-router";
 
 const mSTP = (state, ownProps) => ({
   servers: state.entities.servers,
@@ -18,5 +19,5 @@ const mDTP = (dispatch, ownProps) => ({
   previewServer: () => dispatch(previewServer(ownProps.match.params.serverId))
 });
 
-const ServerContainer = connect(mSTP, mDTP)(Server);
+const ServerContainer = withRouter(connect(mSTP, mDTP)(Server));
 export default ServerContainer;

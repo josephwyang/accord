@@ -1,4 +1,4 @@
-import * as UsersUtil from "../utils/users_util"
+import * as UsersUtil from "../utils/users_util";
 import { receiveErrors } from "./errors_actions";
 
 export const RECEIVE_USERS = "RECEIVE_USERS";

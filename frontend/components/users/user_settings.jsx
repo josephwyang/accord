@@ -1,43 +1,146 @@
 // container: patchUser()
-// modals: username, password, email, phone number, theme, delete account
+// modals: password, phone number, theme, delete account
 
 import React from "react";
 
 export default class UserSettings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props.currentUser, {
+
+    this.state = {
       selectedNav: "My Account",
       editModal: null,
-      logOutModalOpen: false
-    });
+      deleteModal: null,
+      phoneNumberModal: null,
+      revealEmail: false,
+      revealPhoneNumber: false,
+      verificationInput: "",
+      confirmPassword: "",
+      user: {
+        ...props.currentUser,
+        phoneNumber: "",
+        password: "",
+        currentPassword: ""
+      }
+    };
     this.handleEsc = this.handleEsc.bind(this);
+    this.handleVerificationInput = this.handleVerificationInput.bind(this);
+    this.handleInputKey = this.handleInputKey.bind(this);
     this.closeEditModal = this.closeEditModal.bind(this);
-    this.closeLogOutModal = this.closeLogOutModal.bind(this);
+    this.closeDeleteModal = this.closeDeleteModal.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
 
   handleEsc(e) { if (e.keyCode === 27) { this.props.closeSettings(); } }
   componentDidMount() { document.addEventListener("keydown", this.handleEsc); }
   componentWillUnmount() { document.removeEventListener("keydown", this.handleEsc); }
 
-  handleInput(field) {
-    e => this.state.setState({ [field]: e.target.value });
+  toggleReveal(type) {
+    const capType = `${type.slice(0, 1).toUpperCase() + type.slice(1)}`;
+    this.setState({ ["reveal" + capType]: !this.state["reveal" + capType] })
   }
 
-  handleSubmit(e) {
+  openEditModal(type) {
+    this.setState({
+      editModal: type,
+      user: {
+        ...this.props.currentUser,
+        phoneNumber: "",
+        password: "",
+        currentPassword: ""
+      }
+    });
+  }
+  closeEditModal() { this.setState({ editModal: null }); }
+  closeDeleteModal() { this.setState({ deleteModal: null }); }
+
+  displayPhoneNumber(number) {
+    if (number.length >= 4) { number = `(${number.slice(0, 3)}) ${number.slice(3)}` };
+    if (number.length >= 10) { number = `${number.slice(0, 9)}-${number.slice(9)}` };
+    return number;
+  }
+
+  handlePhoneNumber(e) {
+    let number = e.target.value.split("").map(char => {
+      if (!["(", ")", "-", ".", " "].includes(char)) return char
+    }).join("");
+
+    if ((/^\d+$/.test(number) || number === "") && number.length < 11) {
+      if(this.state.user.phoneNumber.length > number.length) {
+        this.setState({ user: { ...this.state.user, phoneNumber: number }});
+      } else {
+        this.setState({ user: { ...this.state.user, phoneNumber: number }});
+      };
+    }
+  }
+
+  verifyPhoneNumber(e) {
     e.preventDefault();
-    this.props.closeSettings();
+    if(this.state.user.phoneNumber.length === 10) {
+      this.props.verifyPhoneNumber("+1" + this.state.user.phoneNumber)
+      this.setState({ phoneNumberModal: 2 });
+    };
+  }
 
+  prevInput(currentInput) {
+    document.getElementById(`verification-input-${currentInput}`).disabled = true;
+    document.getElementById(`verification-input-${currentInput - 1}`).disabled = false;
+    document.getElementById(`verification-input-${currentInput - 1}`).focus();
+  }
+
+  nextInput(currentInput) {
+    document.getElementById(`verification-input-${currentInput}`).disabled = true;
+    document.getElementById(`verification-input-${currentInput + 1}`).disabled = false;
+    document.getElementById(`verification-input-${currentInput + 1}`).focus();
+  }
+
+  handleVerificationInput(e) {
+    const digit = e.target.value;
+    const length = this.state.verificationInput.length;
+
+    if (digit === "" && length > 0) {
+      this.setState({ verificationInput: this.state.verificationInput.slice(0, -1) });
+      if (length < 6) this.prevInput(length + 1);
+    }
+
+    if (/^\d+$/.test(digit) && length < 6) {
+      this.setState({ verificationInput: this.state.verificationInput + digit });
+      if (length < 5) { this.nextInput(length + 1) }
+      else if (this.state.verificationInput + digit === this.props.verificationCode) { this.handleSave() };
+    }
+  }
+
+  handleInputKey(e) {
+    const length = this.state.verificationInput.length;
+    if((e.keyCode === 8 || e.keyCode === 46) && length > 0 && length < 6) {
+      this.setState({ verificationInput: this.state.verificationInput.slice(0, -1) });
+      this.prevInput(length + 1)
+    }
+  }
+
+  focusVerificationInput() {
+    for (const input of document.getElementsByClassName("verification-input")[0].children) {
+      if (!input.disabled) { input.focus(); return; }
+    }
+  }
+
+  handleSave(e) {
+    if (e) e.preventDefault();
     const formData = new FormData();
-    formData.append('user[email]', this.state.public);
-    formData.append('user[username]', this.state.username);
-    formData.append('user[phoneNumber]', this.state.phoneNumber);
-    formData.append('user[password]', this.state.password);
-    formData.append('user[currentPassword]', this.state.currentPassword);
+    for (let type of ["id", "username", "email", "password", "currentPassword"]) {
+      formData.append(`user[${type}]`, this.state.user[type]);
+    }
+    if (this.state.user.phoneNumber.length === 10) formData.append("user[phoneNumber]", `+1${this.state.user.phoneNumber}`);
+    if (this.state.user.profilePhoto) { formData.append('server[profilePhoto]', this.state.user.profilePhoto); }
+    this.props.patchUser(formData);
 
-    if (this.state.icon) { formData.append('user[icon]', this.state.icon); }
-
-    this.props.postServer(formData);
+    this.setState({ editModal: null, phoneNumberModal: null,
+      user: {
+        ...this.props.currentUser,
+        phoneNumber: "",
+        password: "",
+        currentPassword: ""
+      } });
   }
 
   handleLogOut(e) {
@@ -46,18 +149,17 @@ export default class UserSettings extends React.Component {
     this.props.history.push("/");
   }
 
-  openEditModal(type) {
-    this.setState({ editModal: type })
-  }
-
-  closeEditModal() { this.setState({ editModal: null }) }
-
-  closeLogOutModal() {
-    this.setState({ logOutModalOpen: false })
+  handleDeleteAccount(e) {
+    e.preventDefault();
+    this.props.logOut();
+    this.props.history.push("/");
+    // delete account
   }
 
   render() {
-    const navOptions = ["My Account", "Password & Security", "Appearance"].map(
+    const { username, tag, profilePhoto, email, phoneNumber } = this.props.currentUser;
+
+    const navOptions = ["My Account", "User Profile", "Appearance"].map(
       option => (
         <li key={`user-${option}-setting`} className={this.state.selectedNav === option ? "selected" : ""}
           onClick={() => this.setState({ selectedNav: option })}>
@@ -65,6 +167,8 @@ export default class UserSettings extends React.Component {
         </li>
       )
     );
+
+    const mapToStars = word => word.split("").map(() => "*").join("");
 
     return (
       <div id="user-settings" className="settings">
@@ -75,7 +179,7 @@ export default class UserSettings extends React.Component {
             <h3>APP SETTINGS</h3>
             {navOptions.slice(2)}
             <h3></h3>
-            <li className="red" onClick={() => this.setState({logOutModalOpen: true})}>Log Out</li>
+            <li className="red" onClick={() => this.setState({ deleteModal: "Log Out" })}>Log Out</li>
           </ul>
         </div>
 
@@ -87,48 +191,123 @@ export default class UserSettings extends React.Component {
             </div>
             <h1>My Account</h1>
             <div id="account-settings">
-              <img className="profile-photo" src={this.props.currentUser.profilePhoto || window.logo} alt="profile-photo" />
-              <p id="settings-username">{this.props.currentUser.username}<span id="settings-tag">#{this.props.currentUser.tag}</span></p>
+              <img className="profile-photo" src={profilePhoto || window.logo} alt="profile-photo" />
+              <p>{username}<span id="settings-tag">#{tag}</span></p>
+              <button id="edit-profile-btn" onClick={() => this.setState({ selectedNav: "User Profile" })}>Edit Profile</button>
               <div id="account-setting-options">
                 <div id="username-option">
                   <h3>USERNAME</h3>
-                  <p>{this.props.currentUser.username}<span>#{this.props.currentUser.tag}</span></p>
+                  <p>{username}<span>#{tag}</span></p>
                   <button onClick={this.openEditModal.bind(this, "username")}>Edit</button>
                 </div>
 
                 <div id="email-option">
-                  <h3>USERNAME</h3>
-                  <p>{this.props.currentUser.username}<span>#{this.props.currentUser.tag}</span></p>
-                  <p className="reveal">Reveal</p>
-                  <button onClick={this.openEditModal.bind(this, "email address")}>Edit</button>
+                  <h3>EMAIL</h3>
+                  <p>{this.state.revealEmail ? email : mapToStars(email.split("@")[0]) + "@" + email.split("@")[1]}</p>
+                  <p className="reveal" onClick={this.toggleReveal.bind(this, "email")}>{this.state.revealEmail ? "Hide" : "Reveal"}</p>
+                  <button onClick={this.openEditModal.bind(this, "email")}>Edit</button>
                 </div>
 
                 <div id="phone-number-option">
-                  <h3>USERNAME</h3>
-                  <p>{this.props.currentUser.username}<span>#{this.props.currentUser.tag}</span></p>
-                  <button onClick={this.openEditModal}>Edit</button>
-                </div>
+                  <h3>PHONE NUMBER</h3>
+                  {phoneNumber ?
+                    <>
+                      <p>{this.state.revealPhoneNumber ? phoneNumber : mapToStars(phoneNumber.slice(0, -4)) + phoneNumber.slice(-4)}</p>
+                      <p className="reveal" onClick={this.toggleReveal.bind(this, "phoneNumber")}>{this.state.revealPhoneNumber ? "Hide" : "Reveal"}</p>
+                      <button onClick={() => this.setState({ phoneNumberModal: 1 })}>Edit</button>
+                    </>
+                  :
+                    <button id="add-phone-number" onClick={() => this.setState({ phoneNumberModal: 1 })}>Add Phone Number</button>
+                  }
+                  </div>
               </div>
-
-              {this.state.editModal ?
-                <UserSettingsModal type={this.state.editModal} currentUser={this.props.currentUser} closeModal={this.closeEditModal} />
-              : null}
 
             </div>
           </div>
-        : null}
+          : null}
+        
+        {this.state.selectedNav === "User Profile" ?
+          <div className="settings-content">
+            <div className="esc" onClick={this.props.closeSettings}>
+              <img src={window.xButton} alt="exit" />
+              <p>ESC</p>
+            </div>
+            <h1>User Profile</h1>
+            <label htmlFor="change-profile-photo"><img className="profile-photo" src={profilePhoto || window.logo} alt="profile-photo" /></label>
+            <input id="change-profile-photo" type="file" />
+            <div><img src={window.camera} alt="+" /></div>
+            <p>{username}<span id="settings-tag">#{tag}</span></p>
 
-        {this.state.logOutModalOpen ?
-          <div id="log-out-modal">
-            <div className="modal-screen" onClick={this.closeLogOutModal}></div>
-            <div id="log-out-form">
-              <div id="log-out-message">
-                <h1>Log Out</h1>
-                <p>Are you sure you want to log out?</p>
+            <hr />
+
+            <h1>Password and Security</h1>
+            <p>Protect your Accord account. Never share your password.</p>
+            <img id="security-icon" src={window.security} alt="security" />
+            <button onClick={this.openEditModal.bind(this, "password")}>Change Password</button>
+
+            <hr />
+
+            <h3>ACCOUNT DELETION</h3>
+            <button className="red" onClick={() => this.setState({ deleteModal: "Delete Account" })}>Delete Account</button>
+          </div>
+          : null}
+
+        {this.state.editModal ?
+          <UserSettingsModal type={this.state.editModal} state={this.state.user}
+          handleInput={(e, type) => this.setState({ user: {...this.state.user, [type]: e.target.value}})}
+          handleCurrentPassword={e => this.setState({ user: {...this.state.user, currentPassword: e.target.value} })}
+          closeModal={this.closeEditModal} handleSave={this.handleSave}/>
+          : null}
+
+        {this.state.phoneNumberModal ?
+          <div className="user-settings-modal">
+            <div className="modal-screen" onClick={() => this.setState({ phoneNumberModal: null, verificationInput: "", user: { ...this.state.user, phoneNumber: "" } })}></div>
+            <form className="settings-modal">
+              <img src={window.xButton} alt="X" className="modal-exit" onClick={() => this.setState({ phoneNumberModal: null, verificationInput: "", user: { ...this.state.user, phoneNumber: "" } })} />
+              <div className="settings-modal-message">
+                <img src={window.phone} alt="phone" />
+                <h1>{this.state.phoneNumberModal === 1 ? "Enter a Phone Number" : "Enter your verification code"}</h1>
+                {this.state.phoneNumberModal === 1 ? <>
+                  <p>You will receive a text message with a verification code.</p>
+                  <p>Your phone number can be used to verify one Accord account at a time and is only used for verification and login.</p>
+                </> : <p>Enter the six digit code that was sent to the provided phone number.</p>}
+              </div>
+              {this.state.phoneNumberModal === 1 ?
+              <>
+                <p id="area-code">+1</p>
+                <input id="phone-number" type="text" onChange={this.handlePhoneNumber.bind(this)} value={this.displayPhoneNumber(this.state.user.phoneNumber)}/>
+                <button className="input-btn" onClick={this.verifyPhoneNumber.bind(this)}>Next</button>
+              </> : <>
+                <div className="verification-input" onClick={this.focusVerificationInput}>
+                  <input id="verification-input-1" autoFocus type="text" maxLength="1" onChange={this.handleVerificationInput} onKeyDown={this.handleInputKey} tabIndex="0" value={this.state.verificationInput.slice(0, 1)}/>
+                  <input id="verification-input-2" disabled type="text" maxLength="1" onChange={this.handleVerificationInput} onKeyDown={this.handleInputKey} tabIndex="0" value={this.state.verificationInput.slice(1, 2)}/>
+                  <input id="verification-input-3" disabled type="text" maxLength="1" onChange={this.handleVerificationInput} onKeyDown={this.handleInputKey} tabIndex="0" value={this.state.verificationInput.slice(2, 3)}/>
+                  <input id="verification-input-4" disabled type="text" maxLength="1" onChange={this.handleVerificationInput} onKeyDown={this.handleInputKey} tabIndex="0" value={this.state.verificationInput.slice(3, 4)}/>
+                  <input id="verification-input-5" disabled type="text" maxLength="1" onChange={this.handleVerificationInput} onKeyDown={this.handleInputKey} tabIndex="0" value={this.state.verificationInput.slice(4, 5)}/>
+                  <input id="verification-input-6" disabled type="text" maxLength="1" onChange={this.handleVerificationInput} onKeyDown={this.handleInputKey} tabIndex="0" value={this.state.verificationInput.slice(5, 6)}/>
+                </div>
+                <div className="form-nav">
+                  <p className="with-span">Didn't receive a message?<span onClick={this.verifyPhoneNumber.bind(this)}>Resend Code</span></p>
+                </div>
+              </>}
+            </form>
+          </div>
+          : null}
+
+        {this.state.deleteModal ?
+          <div id="delete-modal">
+            <div className="modal-screen" onClick={this.closeDeleteModal}></div>
+            <div className="settings-modal">
+              <div className="settings-modal-message">
+                <h1>{this.state.deleteModal}</h1>
+                <p> {this.state.deleteModal === "Log Out" ?
+                  "Are you sure you want to log out?"
+                  : "Are you sure you want to delete your account? This action cannot be undone."}
+                </p>
               </div>
               <div className="form-nav">
-                <p onClick={this.closeLogOutModal}>Cancel</p>
-                <button onClick={this.handleLogOut.bind(this)}>Log Out</button>
+                <p onClick={this.closeDeleteModal}>Cancel</p>
+                <button onClick={this[`handle${this.state.deleteModal.split(" ").join("")}`].bind(this)}>{this.state.deleteModal}</button>
               </div>
             </div>
           </div>
@@ -140,16 +319,29 @@ export default class UserSettings extends React.Component {
 
 const UserSettingsModal = props => {
   return (
-    <>
+    <div className="user-settings-modal">
       <div className="modal-screen" onClick={props.closeModal}></div>
-      <form id="user-settings-modal">
-        <h3>Change your {props.type}</h3>
-        <p>Enter a new {props.type} and your existing password.</p>
+      <form className="settings-modal">
+        <img src={window.xButton} alt="X" className="modal-exit" onClick={props.closeModal}/>
+        <div className="settings-modal-message">
+          <h1>{props.type === "email" ? "Enter an email address" : `Change your ${props.type}`}</h1>
+          <p>Enter a new {props.type === "email" ? "email address" : props.type} and your existing password.</p>
+        </div>
         <label htmlFor={`${props.type}`}>{props.type.toUpperCase()}</label>
-        <input id={`${props.type}`} type="text" value={props.currentUser.username}/>
+        <input id={`${props.type}`} type={props.type === "password" ? "password" : "text"} value={props.state[`${props.type}`]} onChange={e => props.handleInput(e, props.type)}/>
+        { props.type === "password" ?
+          <>
+            <label htmlFor="confirm-password">CONFIRM PASSWORD</label>
+            <input id="confirm-password" type="password" value={props.state[`${props.type}`]} onChange={e => props.handleInput(e, "confirmPassword")}/>
+          </>
+          : null}
         <label htmlFor="current-password">CURRENT PASSWORD</label>
-        <input id="current-password" type="password" />
+        <input id="current-password" type="password" onChange={props.handleCurrentPassword}/>
+        <div className="form-nav">
+          <p onClick={props.closeModal}>Cancel</p>
+          <button onClick={props.handleSave}>Done</button>
+        </div>
       </form>
-    </>
+    </div>
   )
 }

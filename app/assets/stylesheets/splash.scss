@@ -100,7 +100,7 @@
   #splash-button:hover {
     cursor: pointer;
     color: $light-blue-2;
-    box-shadow: -2px 2px 10px $grey-3;
+    box-shadow: -2px 2px 10px $grey-4;
   }
 
   h1, p {
@@ -156,7 +156,7 @@
         }
 
         p {
-          color: $grey-3;
+          color: $grey-4;
           font-size: 20px;
         }
       }
@@ -235,7 +235,7 @@
 
   &:hover {
     cursor: pointer;
-    background-color: $grey-3;
+    background-color: $grey-4;
   }
 }
 

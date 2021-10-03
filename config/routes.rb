@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   root to: "static_pages#root"
 
   namespace :api, format: :json do
-    resources :users, only: [:index, :show, :create]
     get "/servers/explore", to: "servers#index_public"
+    get "/users/verify", to: "users#verify_phone_number"
+    resources :users, only: [:index, :show, :create, :update, :destroy]
     resource :session, only: [:create, :destroy]
     resources :servers, only: [:index, :show, :create, :update, :destroy]
     resources :channels, only: [:index, :show, :create, :update, :destroy]

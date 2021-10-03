@@ -11,7 +11,7 @@
 #  session_token     :string           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  phone_number      :string(15)
+#  phone_number      :string(12)       default("")
 #  last_path_visited :string           default("/explore")
 #
 class User < ApplicationRecord
@@ -24,9 +24,9 @@ class User < ApplicationRecord
   validates :password_digest, presence:true
   validates :date_of_birth, presence:true
   validates :session_token, presence:true, uniqueness:true
-  validates :phone_number, uniqueness:true, length: { maximum:15}, if: :phone_number_given?
+  validates :phone_number, presence: true, length: { minimum:12, maximum:12 }, allow_blank:true, uniqueness: { allow_blank:true }
 
-  after_initialize :ensure_session_token, :accord_tag
+  after_initialize :ensure_session_token, :accord_tag, :set_phone_number
   attr_reader :password
 
   has_many :owned_servers,
@@ -77,8 +77,8 @@ class User < ApplicationRecord
     @accord_tag ||= username + "#" + tag
   end
 
-  def phone_number=(number)
-    @phone_number = parse_number(number)
+  def set_phone_number
+    self.phone_number = (self.phone_number.empty? ? self.phone_number : "+" + parse_number(self.phone_number))
   end
 
   def reset_session_token!
@@ -89,7 +89,7 @@ class User < ApplicationRecord
 
   private
   def find_by_phone_number(number)
-    User.find_by(number) || User.find_by("1" + number);
+    User.find_by("+" + number) || User.find_by("+1" + number);
   end
 
   def tagBuilder
@@ -97,7 +97,7 @@ class User < ApplicationRecord
   end
 
   def parse_number(string)
-    allowed = ["(", ")", "-", ".", " "]
+    allowed = ["(", ")", "-", ".", " ", "+"]
     string.split("").select do |char|
       if !allowed.include?(char)
         begin
@@ -110,10 +110,6 @@ class User < ApplicationRecord
         false
       end
     end.join
-  end
-
-  def phone_number_given?
-    !!self.phone_number
   end
 
   def generate_session_token

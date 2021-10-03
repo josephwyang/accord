@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import ServersExplore from "./servers_explore";
 import { previewServer, getServer, getPublicServers } from "../../actions/servers_actions";
 import { publicServersByGenre } from "../../reducers/servers_selector";
+import { withRouter } from "react-router";
 
 const mSTP = state => ({
   currentUser: state.session.currentUser,
@@ -15,5 +16,5 @@ const mDTP = dispatch => ({
   getPublicServers: () => dispatch(getPublicServers())
 });
 
-const ServersExploreContainer = connect(mSTP, mDTP)(ServersExplore);
+const ServersExploreContainer = withRouter(connect(mSTP, mDTP)(ServersExplore));
 export default ServersExploreContainer;

@@ -1,5 +1,4 @@
 import React from "react";
-import MessagesIndexContainer from "../messages/messages_index_container"
 import MessageFormContainer from "../messages/message_form_container"
 
 export default class Channel extends React.Component {
@@ -29,7 +28,6 @@ export default class Channel extends React.Component {
   render() {
     return (
       <div id="channel">
-        <MessagesIndexContainer />
         <MessageFormContainer />
       </div>
     );

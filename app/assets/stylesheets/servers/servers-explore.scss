@@ -33,7 +33,7 @@
     &:hover {
       cursor: pointer;
       color: $light-grey-1;
-      background-color: $grey-3;
+      background-color: $grey-4;
       
       img { filter: brightness(1.5) }
       &:first-of-type img { filter: grayscale(1) brightness(3); }
@@ -54,8 +54,8 @@
   left: 312px;
   min-width: 688px;
 
-  background-color: $grey-3;
-  border-right: 3px solid $grey-3;
+  background-color: $grey-4;
+  border-right: 3px solid $grey-4;
 
   overflow-y: scroll;
   &::-webkit-scrollbar { width: 8px; }

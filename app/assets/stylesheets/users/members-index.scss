@@ -1,0 +1,60 @@
+@import "variables/colors";
+@import "variables/fonts";
+
+#members-index {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 53px; bottom: 0; right: 0;
+  width: 212px;
+  padding: 16px 14px 0px;
+  background-color: $dark-grey-2;
+
+  @media all and (max-width: 800px) {
+    & { left: 560px; }
+  }
+
+  > h3 {
+    padding: 10px;
+    margin-bottom: 5px;
+
+    font-family: $lato;
+    color: $light-grey-3;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+  }
+
+  > li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+    padding: 4px 6px;
+    border-radius: 3px;
+
+    > img:first-child {
+      height: 32px;
+      width: 32px;
+      border-radius: 50%;
+    }
+
+    > img:not(:first-child) {
+      height: 12px;
+      width: 12px;
+      margin-left: 10px;
+    }
+
+    > p {
+      margin-left: 8px;
+
+      font-family: $sans;
+      font-size: 14px;
+      color: $light-grey-2;
+    }
+
+    &:hover {
+      background-color: $grey-3;
+      > p { color: white; }
+    }
+  }
+}

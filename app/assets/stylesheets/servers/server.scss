@@ -5,12 +5,42 @@
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   overflow: hidden;
+  min-width: 800px;
+
+  > #channel-header {
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+    top: 0; right: 0;
+    left: 312px;
+    height: 20px;
+    padding: 16px;
+    min-width: 456px;
+
+    font-family: $sans;
+    font-size: 15px;
+    color: white;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    
+    background-color: $grey-4;
+    border-bottom: 1px solid $dark-grey-4;
+
+    > img {
+      margin-right: 5px;
+      filter: brightness(0.5);
+      height: 20px;
+      width: 20px;
+    }
+  }
 }
 
 #messages {
   position: absolute;
-  top: 0; right: 0; bottom: 0;
+  top: 53px; right: 0; bottom: 0;
   left: 312px;
-  // min-width: 688px;
-  background-color: $grey-3;
+  min-width: 448px;
+  background-color: $grey-4;
 }

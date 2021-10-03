@@ -11,7 +11,7 @@
 #  session_token     :string           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  phone_number      :string(15)
+#  phone_number      :string(12)       default("")
 #  last_path_visited :string           default("/explore")
 #
 

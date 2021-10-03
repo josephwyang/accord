@@ -5,7 +5,9 @@ import { withRouter } from "react-router-dom";
 import { fullServer } from "../../reducers/servers_selector";
 
 const mSTP = (state, ownProps) => ({
-  server: fullServer(state, ownProps.match.params.serverId)
+  server: fullServer(state, ownProps.match.params.serverId),
+  members: Object.values(state.entities.users),
+  currentUser: state.session.currentUser
 });
 
 const mDTP = (dispatch, ownProps) => ({

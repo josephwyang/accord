@@ -146,6 +146,16 @@ export default class ServerSettings extends React.Component {
       )
     );
     const icon = this.state.iconUrl ? <img src={this.state.iconUrl} alt="icon" /> : <p>{this.state.name.split(" ").map(word => word[0]).slice(0, 2)}</p>;
+    const members = this.props.members.map(member => <li key={`member-${member.id}`}>
+      <img src={member.profilePhotoUrl || window.logo} alt="profile-photo" />
+      <p>{member.username}<span>#{member.tag}</span></p>
+      {this.props.server.ownerId === member.id ?
+        <img src={window.owner} alt="owner" />
+        : <>
+            <div>PASS OWNERSHIP</div>
+            <div>KICK</div>
+        </> }
+    </li>)
 
     return (
       <div id="server-settings" className="settings">
@@ -242,12 +252,16 @@ export default class ServerSettings extends React.Component {
               <img src={window.xButton} alt="exit" />
               <p>ESC</p>
             </div>
+            <ul>
+              <h1>Members</h1>
+              {members}
+            </ul>
           </div>) : null}
         {this.state.deleteServerModalOpen ? (
           <div id="delete-server-modal">
             <div className="modal-screen" onClick={this.closeModal}></div>
-            <div id="delete-server-form">
-              <div id="delete-server-message">
+            <div className="settings-modal">
+              <div className="settings-modal-message">
                 <h1>Delete '{this.state.name}'?</h1>
                 <p>Are you sure you want to delete <span>{this.state.name}</span> ? This action cannot be undone.</p>
               </div>

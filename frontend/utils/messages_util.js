@@ -12,3 +12,18 @@ export const postMessage = message => (
     data: { message }
   })
 );
+
+export const patchMessage = message => (
+  $.ajax({
+    method: "PATCH",
+    url: `/api/messages${message.id}`,
+    data: { message }
+  })
+);
+
+export const deleteMessage = messageId => (
+  $.ajax({
+    method: "DELETE",
+    url: `/api/messages/${messageId}`
+  })
+);
