@@ -3,6 +3,7 @@ import * as UsersUtil from "../utils/users_util";
 import { receiveErrors } from "./errors_actions";
 
 export const LOG_IN_USER = "LOG_IN_USER";
+export const UPDATE_USER = "UPDATE_USER";
 export const LOG_OUT_USER = "LOG_OUT_USER";
 export const RECEIVE_VERIFICATION_CODE = "RECEIVE_VERIFICATION_CODE";
 
@@ -18,7 +19,12 @@ const deleteSession = () => ({
 const receiveVerificationCode = code => ({
   type: RECEIVE_VERIFICATION_CODE,
   code
-})
+});
+
+const updateUser = currentUser => ({
+  type: UPDATE_USER,
+  currentUser
+});
 
 export const logInUser = currentUser => dispatch => (
   SessionUtil.postSession(currentUser)
@@ -46,7 +52,7 @@ export const verifyPhoneNumber = phoneNumber => dispatch => (
 
 export const patchUser = formData => dispatch => (
   UsersUtil.patchUser(formData)
-    .then(user => dispatch(receiveSession(user)),
+    .then(user => dispatch(updateUser(user)),
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 

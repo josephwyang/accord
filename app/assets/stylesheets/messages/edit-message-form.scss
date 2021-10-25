@@ -1,0 +1,37 @@
+@import "variables/colors";
+@import "variables/fonts";
+
+#edit-message-form {
+  width: 100%;
+
+  > span {
+    display: block;
+    padding: 11px 16px;
+    margin-bottom: 7px;
+    font-family: $sans;
+    font-size: 14px;
+
+    background-color: $grey-2;
+    border-radius: 3px;
+  }
+
+  > p {
+    font-size: 12px;
+    > span {
+      color: $light-blue-0;
+      cursor: pointer;
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+.message {
+  &.editing {
+    padding: 10px 22px;
+    background-color: $dark-grey-1;
+
+    &.followup-message {
+      padding-left: 50px;
+    }
+  }
+}

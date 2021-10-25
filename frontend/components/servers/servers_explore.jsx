@@ -1,18 +1,19 @@
 import React from "react";
 import { firstChannelId } from "../../reducers/channels_selector";
-import Profile from "../users/profile";
 
 export default class ServersExplore extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = ({
-      genre: ""
+      genre: "",
+      search: ""
     });
   }
 
   componentDidMount() {
     this.props.getPublicServers();
+    document.querySelector("#servers-explore > input").focus();
   }
 
   getServer(server) {
@@ -41,14 +42,18 @@ export default class ServersExplore extends React.Component {
     ));
     
     const servers = this.props.serversWithGenre(this.state.genre).map(
-      server => (
-        <li key={`server-${server.id}`} onClick={e => this.handleClick(e, server)}>
-          <div id="server-banner"><img src={server.banner || window.defaultBanner} alt="server-banner" /></div>
-          {server.icon ? <img id="server-icon" src={server.icon} alt="server-icon" /> : <p id="server-icon" style={{ backgroundColor: "#393C43"}}>{server.name.split(" ").map(word => word[0]).slice(0, 2)}</p>}
-          <h3>{server.name}</h3>
-          <p id="server-description">{server.description}</p>
-        </li>
-    ));
+      server => {
+        if (server.name.includes(this.state.search)) {
+          return (
+            <li key={`server-${server.id}`} onClick={e => this.handleClick(e, server)}>
+              <div id="server-banner"><img src={server.banner || window.defaultBanner} alt="server-banner" /></div>
+              {server.icon ? <img id="server-icon" src={server.icon} alt="server-icon" /> : <p id="server-icon" style={{ backgroundColor: "#393C43"}}>{server.name.split(" ").map(word => word[0]).slice(0, 2)}</p>}
+              <h3>{server.name}</h3>
+              <p id="server-description">{server.description}</p>
+            </li>
+          )
+        }
+      });
 
     return (
       <>
@@ -59,12 +64,16 @@ export default class ServersExplore extends React.Component {
           </li>
           {genres}
         </ul>
-        <Profile currentUser={this.props.currentUser} />
         <div id="servers-explore">
           <img src={window.exploreHeader} alt="explore-header" />
           <h1>Find your community on Accord</h1>
           <h2>From gaming, to music, to learning, there's a place for you.</h2>
-          <ul id="public-servers">{servers}</ul>
+          <input type="text" placeholder="Explore communities" onChange={e => this.setState({ search: e.target.value })} />
+          <img src={window.search} alt="search" />
+          <ul id="public-servers">
+            <h3>{this.state.genre === "" ? "Featured Communities" : "Popular Communities"}</h3>
+            {servers}
+          </ul>
         </div>
       </>
     )

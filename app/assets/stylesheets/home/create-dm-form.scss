@@ -1,0 +1,146 @@
+@import "variables/colors";
+@import "variables/fonts";
+
+#create-dm-form {
+  position: absolute;
+  top: 155px; left: 270px;
+  background-color: $grey-3;
+  width: 400px;
+  
+  border: 1px solid $blue-grey-1;
+  border-radius: 5px;
+  overflow: hidden;
+
+  > h3 {
+    margin: 16px 16px 8px;
+    
+    font-size: 21px;
+    color: white;
+    font-weight: 900;
+    letter-spacing: 0.1px;
+  }
+
+  > input {
+    margin: 0px 14px 8px;
+    padding: 6px 8px;
+    width: calc(100% - 44px);
+
+    font-size: 15px;
+    color: white;
+    letter-spacing: 0.2px;
+    background-color: $dark-grey-1;
+    border-radius: 3px;
+  }
+
+  > #checked-friends {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px 16px;
+    margin-bottom: 6px;
+    
+    > div {
+      margin-right: 5px;
+      margin-bottom: 5px;
+      padding: 3px 6px;
+      display: flex;
+      align-items: center;
+      background-color: $dark-grey-2;
+      border-radius: 3px;
+
+      cursor: pointer;
+      &, & > * { transition: all 0.15s; }
+      &:hover {
+        background-color: $dark-grey-3;
+        > p { color: white; }
+        > img { filter: brightness(3);}
+      }
+
+      > p {
+        font-size: 12px;
+        color: $light-grey-2;
+      }
+
+      > img {
+        margin-left: 6px;
+        height: 6px;
+        width: 6px;
+      }
+    }
+  }
+
+  > ul:not(#checked-friends) {
+    padding-left: 10px;
+    padding-right: 2px;
+    margin-right: 4px;
+    max-height: 190px;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-thumb { border-radius: 4px; }
+    &:hover::-webkit-scrollbar-thumb { background-color: $dark-grey-4; }
+    
+    > label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      padding: 6px 10px;
+      border-radius: 3px;
+      
+      cursor: pointer;
+      &:hover { background-color: $grey-2;}
+      > input { opacity: 0; }
+
+      > .friend-info {
+        display: flex;
+        align-items: center;
+
+        > img:first-child {
+          height: 30px;
+          width: 30px;
+          border-radius: 50%;
+        }
+
+        > p {
+          margin-left: 10px;
+          font-size: 16px;
+          color: white;
+          letter-spacing: 0.2px;
+
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          > span { color: $light-grey-2; }
+        }
+      }
+
+      > .checkbox {
+        height: 16px;
+        width: 16px;
+      }
+    }
+  }
+
+  > div {
+    padding: 16px;
+    // background-color: white;
+
+    > button {
+      width: 100%;
+      padding: 12px 24px;
+
+      font-size: 14px;
+      color: white;
+      border-radius: 3px;
+      background-color: $blue-0;
+      
+      cursor: pointer;
+      transition: background-color 0.2s;
+      &:hover:not(:disabled) { background-color: $blue-2; }
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    }
+  }
+}

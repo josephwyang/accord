@@ -1,26 +1,118 @@
 @import "variables/colors";
 @import "variables/fonts";
+@import "variables/keyframes";
 
 #message-settings {
-  height: 26px;
-  width: 78px;
-  border: 1px solid $dark-grey-3;
+  display: none;
+
+  position: absolute;
+  right: 25px;
+
+  height: 30px;
+  width: 120px;
+  border: 1px solid $dark-grey-2;
   border-radius: 3px;
-  background-color: $dark-grey-1;
+  background-color: $grey-3;
 
-  > img {
-    height: 14px;
-    width: 14px;
-    padding: 6px;
+  transition: box-shadow 0.2s;
+  &:hover { box-shadow: -1px 3px 2px $dark-grey-2; }
 
-    &:last-of-type {
-      height: 12px;
-      width: 12px;
+  > div {
+    position: relative;
+    &:hover { background-color: $grey-1; }
+
+    > img {
+      height: 16px;
+      width: 16px;
       padding: 7px;
+
+      cursor: pointer;
+      &:hover {
+        filter: brightness(0) invert(1);
+        + .bubble { display: flex; }
+      }
     }
 
-    &:hover {
-      background-color: $dark-grey-0;
+    &:first-child {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      &:hover { background-color: $red; }
+    }
+  }
+
+  &.other-sender {
+    width: 60px;
+    > div:last-child:hover { background-color: $grey-1; }
+  }
+}
+
+#delete-message-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 100;
+
+  > .settings-modal {
+    animation: appear 0.2s;
+
+    > #message-preview {
+      display: flex;
+      padding: 12px 14px;
+      margin: -10px 14px 24px;
+
+      color: white;
+      border: 1px solid $dark-grey-4;
+      border-radius: 3px;
+      background-color: $dark-grey-2;
+      box-shadow: 0px 0px 10px $dark-grey-4;
+
+      
+      > .profile-photo {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background-color: $grey-0;
+      }
+
+      > div {
+        width: calc(100% - 50px);
+        margin-left: 12px;
+        
+        > .sender-info {
+          display: flex;
+          margin-top: 2px;
+          overflow: hidden;
+          white-space: nowrap;
+          > { line-height: 16px; }
+      
+          > .username {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+          }
+      
+          > .date-stamp {
+            margin-left: 8px;
+            font-size: 12px;
+            color: $light-grey-4;
+            line-height: 20px;
+          }
+        }
+      }
+
+      .message-body {
+        top: 20px;
+        width: 100%;
+
+        font-family: $sans;
+        font-size: 15px;
+        overflow-wrap: break-word;
+        height: auto;
+      }
     }
   }
 }

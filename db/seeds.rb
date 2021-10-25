@@ -1,13 +1,10 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
 User.delete_all
 User.connection.execute('ALTER SEQUENCE users_id_seq RESTART WITH 1')
+Friendship.delete_all
+Friendship.connection.execute('ALTER SEQUENCE friendships_id_seq RESTART WITH 1')
 Server.delete_all
 Server.connection.execute('ALTER SEQUENCE servers_id_seq RESTART WITH 1')
 Channel.delete_all
@@ -29,15 +26,26 @@ migs = User.create!(email: "migs@user.com", password: "123456", username: "migs"
 jack = User.create!(email: "jack@user.com", password: "123456", username: "jack", date_of_birth: "27/10/1996")
 chase = User.create!(email: "chase@user.com", password: "123456", username: "chase", date_of_birth: "28/12/1987")
 
+# friendships
+jo_friend = Friendship.create!(user_id: 2, friend_id: 1, accepted: true)
+isaac_friend = Friendship.create!(user_id: 1, friend_id: 3, accepted: true)
+raph_friend = Friendship.create!(user_id: 4, friend_id: 1)
+eric_friend = Friendship.create!(user_id: 5, friend_id: 1)
+kin_friend = Friendship.create!(user_id: 6, friend_id: 1)
+migs_friend = Friendship.create!(user_id: 1, friend_id: 7)
+jack_friend = Friendship.create!(user_id: 1, friend_id: 8)
+chase_friend = Friendship.create!(user_id: 1, friend_id: 9)
+
 # demo servers
 banana = Server.create!(name:"banana", owner_id:1, public:false, genre:"createMyOwn")
-valorant = Server.create!(name:"valorant", owner_id:3, public:true, genre:"gaming")
-aa = Server.create!(name:"aA", owner_id:3, public:true, genre:"education")
+maplestory = Server.create!(name:"maplestory", owner_id:8, public:true, genre:"gaming")
+study_together = Server.create!(name:"study together", owner_id:6, public:true, genre:"education")
+react = Server.create!(name:"react", owner_id:2, public:true, genre:"scienceAndTech")
 
 # education servers
-english = Server.create!(name:"english", owner_id:4, public:true, genre:"education")
+aa = Server.create!(name:"aA", owner_id:2, public:true, genre:"education")
+english = Server.create!(name:"english", owner_id:2, public:true, genre:"education")
 khan_academy = Server.create!(name:"khan academy", owner_id:2, public:true, genre:"education")
-study_together = Server.create!(name:"study together", owner_id:2, public:true, genre:"education")
 
 # entertainment servers
 demon_slayer = Server.create!(name:"demon slayer", owner_id:2, public:true, genre:"entertainment")
@@ -48,8 +56,8 @@ my_hero_academia = Server.create!(name:"my hero academia", owner_id:2, public:tr
 league = Server.create!(name:"league", owner_id:2, public:true, genre:"gaming")
 smash = Server.create!(name:"smash", owner_id:2, public:true, genre:"gaming")
 fortnite = Server.create!(name:"fortnite", owner_id:2, public:true, genre:"gaming")
-maplestory = Server.create!(name:"maplestory", owner_id:2, public:true, genre:"gaming")
 minecraft = Server.create!(name:"minecraft", owner_id:2, public:true, genre:"gaming")
+valorant = Server.create!(name:"valorant", owner_id:2, public:true, genre:"gaming")
 
 # music servers
 blackpink = Server.create!(name:"blackpink", owner_id:2, public:true, genre:"music")
@@ -64,26 +72,25 @@ css = Server.create!(name:"css", owner_id:2, public:true, genre:"scienceAndTech"
 javascript = Server.create!(name:"javascript", owner_id:2, public:true, genre:"scienceAndTech")
 python = Server.create!(name:"python", owner_id:2, public:true, genre:"scienceAndTech")
 rails = Server.create!(name:"rails", owner_id:2, public:true, genre:"scienceAndTech")
-react = Server.create!(name:"react", owner_id:2, public:true, genre:"scienceAndTech")
 ruby = Server.create!(name:"ruby", owner_id:2, public:true, genre:"scienceAndTech")
 
 # demo server channels
 banana_general = Channel.create!(name:"general", server_id:1)
 banana_leetcodes = Channel.create!(name:"leetcodes", server_id:1)
-valorant_general = Channel.create!(name:"general", server_id:2)
-valorant_gaming = Channel.create!(name:"gaming", server_id:2)
-valorant_highlights = Channel.create!(name:"highlights", server_id:2)
-aa_general = Channel.create!(name:"general", server_id:3)
-aa_q_and_a = Channel.create!(name:"q-and-a", server_id:3)
+maplestory_general = Channel.create!(name:"general", server_id:2)
+maplestory_gaming = Channel.create!(name:"gaming", server_id:2)
+maplestory_highlights = Channel.create!(name:"highlights", server_id:2)
+study_together_general = Channel.create!(name:"general", server_id:3)
+study_together_q_and_a = Channel.create!(name:"q-and-a", server_id:3)
 
 # education server channels
-english_general = Channel.create!(name:"general", server_id:4)
-khan_academy_general = Channel.create!(name:"general", server_id:5)
-study_together_general = Channel.create!(name:"general", server_id:6)
+aa_general = Channel.create!(name:"general", server_id:4)
+english_general = Channel.create!(name:"general", server_id:5)
+khan_academy_general = Channel.create!(name:"general", server_id:6)
 
-english_q_and_a = Channel.create!(name:"q-and-a", server_id:4)
-khan_academy_q_and_a = Channel.create!(name:"q-and-a", server_id:5)
-study_together_q_and_a = Channel.create!(name:"q-and-a", server_id:6)
+aa_q_and_a = Channel.create!(name:"q-and-a", server_id:4)
+english_q_and_a = Channel.create!(name:"q-and-a", server_id:5)
+khan_academy_q_and_a = Channel.create!(name:"q-and-a", server_id:6)
 
 # entertainment server channels
 demon_slayer_general = Channel.create!(name:"general", server_id:7)
@@ -98,20 +105,20 @@ my_hero_academia_clips = Channel.create!(name:"clips", server_id:9)
 league_general = Channel.create!(name:"general", server_id:10)
 smash_general = Channel.create!(name:"general", server_id:11)
 fortnite_general = Channel.create!(name:"general", server_id:12)
-maplestory_general = Channel.create!(name:"general", server_id:13)
-minecraft_general = Channel.create!(name:"general", server_id:14)
+minecraft_general = Channel.create!(name:"general", server_id:13)
+valorant_general = Channel.create!(name:"general", server_id:14)
 
 league_gaming = Channel.create!(name:"gaming", server_id:10)
 smash_gaming = Channel.create!(name:"gaming", server_id:11)
 fortnite_gaming = Channel.create!(name:"gaming", server_id:12)
-maplestory_gaming = Channel.create!(name:"gaming", server_id:13)
-minecraft_gaming = Channel.create!(name:"gaming", server_id:14)
+minecraft_gaming = Channel.create!(name:"gaming", server_id:13)
+valorant_gaming = Channel.create!(name:"gaming", server_id:14)
 
 league_highlights = Channel.create!(name:"highlights", server_id:10)
 smash_highlights = Channel.create!(name:"highlights", server_id:11)
 fortnite_highlights = Channel.create!(name:"highlights", server_id:12)
-maplestory_highlights = Channel.create!(name:"highlights", server_id:13)
-minecraft_highlights = Channel.create!(name:"highlights", server_id:14)
+minecraft_highlights = Channel.create!(name:"highlights", server_id:13)
+valorant_highlights = Channel.create!(name:"highlights", server_id:14)
 
 smash_tournaments = Channel.create!(name:"tournaments", server_id:11)
 maplestory_boss_runs = Channel.create!(name:"boss-runs", server_id:13)
@@ -159,32 +166,35 @@ kin_banana = Membership.create!(user_id:6, server_id:1, description:"server")
 jack_banana = Membership.create!(user_id:8, server_id:1, description:"server")
 chase_banana = Membership.create!(user_id:9, server_id:1, description:"server")
 
-demo_valorant = Membership.create!(user_id:1, server_id:2, description:"server")
-isaac_valorant = Membership.create!(user_id:3, server_id:2, description:"server")
-raph_valorant = Membership.create!(user_id:4, server_id:2, description:"server")
+jack_maplestory = Membership.create!(user_id:8, server_id:2, description:"server")
+demo_maplestory = Membership.create!(user_id:1, server_id:2, description:"server")
+eric_maplestory = Membership.create!(user_id:5, server_id:2, description:"server")
+jo_maplestory = Membership.create!(user_id:2, server_id:2, description:"server")
+isaac_maplestory = Membership.create!(user_id:3, server_id:2, description:"server")
+raph_maplestory = Membership.create!(user_id:4, server_id:2, description:"server")
 
-demo_aa = Membership.create!(user_id:1, server_id:3, description:"server")
-jo_aa = Membership.create!(user_id:2, server_id:3, description:"server")
-isaac_aa = Membership.create!(user_id:3, server_id:3, description:"server")
-raph_aa = Membership.create!(user_id:4, server_id:3, description:"server")
-eric_aa = Membership.create!(user_id:5, server_id:3, description:"server")
-kin_aa = Membership.create!(user_id:6, server_id:3, description:"server")
-migs_aa = Membership.create!(user_id:7, server_id:3, description:"server")
-jack_aa = Membership.create!(user_id:8, server_id:3, description:"server")
-chase_aa = Membership.create!(user_id:9, server_id:3, description:"server")
+demo_study_together = Membership.create!(user_id:1, server_id:3, description:"server")
+jo_study_together = Membership.create!(user_id:2, server_id:3, description:"server")
+isaac_study_together = Membership.create!(user_id:3, server_id:3, description:"server")
+raph_study_together = Membership.create!(user_id:4, server_id:3, description:"server")
+eric_study_together = Membership.create!(user_id:5, server_id:3, description:"server")
+kin_study_together = Membership.create!(user_id:6, server_id:3, description:"server")
+migs_study_together = Membership.create!(user_id:7, server_id:3, description:"server")
+jack_study_together = Membership.create!(user_id:8, server_id:3, description:"server")
+chase_study_together = Membership.create!(user_id:9, server_id:3, description:"server")
 
 # owner membership for each server
-jo_english = Membership.create!(user_id:2, server_id:4, description:"server")
-jo_khan_academy = Membership.create!(user_id:2, server_id:5, description:"server")
-jo_study_together = Membership.create!(user_id:2, server_id:6, description:"server")
+jo_aa = Membership.create!(user_id:2, server_id:4, description:"server")
+jo_english = Membership.create!(user_id:2, server_id:5, description:"server")
+jo_khan_academy = Membership.create!(user_id:2, server_id:6, description:"server")
 jo_demon_slayer = Membership.create!(user_id:2, server_id:7, description:"server")
 jo_my_hero_academia = Membership.create!(user_id:2, server_id:8, description:"server")
 jo_naruto = Membership.create!(user_id:2, server_id:9, description:"server")
-jo_fortnite = Membership.create!(user_id:2, server_id:10, description:"server")
-jo_league = Membership.create!(user_id:2, server_id:11, description:"server")
-jo_maplestory = Membership.create!(user_id:2, server_id:12, description:"server")
+jo_league = Membership.create!(user_id:2, server_id:10, description:"server")
+jo_smash = Membership.create!(user_id:2, server_id:11, description:"server")
+jo_fortnite = Membership.create!(user_id:2, server_id:12, description:"server")
 jo_minecraft = Membership.create!(user_id:2, server_id:13, description:"server")
-jo_smash = Membership.create!(user_id:2, server_id:14, description:"server")
+jo_valorant = Membership.create!(user_id:2, server_id:14, description:"server")
 jo_blackpink = Membership.create!(user_id:2, server_id:15, description:"server")
 jo_groovy = Membership.create!(user_id:2, server_id:16, description:"server")
 jo_itzy = Membership.create!(user_id:2, server_id:17, description:"server")
@@ -194,16 +204,37 @@ jo_css = Membership.create!(user_id:2, server_id:20, description:"server")
 jo_google = Membership.create!(user_id:2, server_id:21, description:"server")
 jo_javascript = Membership.create!(user_id:2, server_id:22, description:"server")
 jo_python = Membership.create!(user_id:2, server_id:23, description:"server")
-jo_rails = Membership.create!(user_id:2, server_id:24, description:"server")
 jo_react = Membership.create!(user_id:2, server_id:25, description:"server")
+jo_rails = Membership.create!(user_id:2, server_id:24, description:"server")
 jo_ruby = Membership.create!(user_id:2, server_id:26, description:"server")
 
 # random memberships for each server
 (4..26).each do |server_id|
-  (3..9).to_a.sample(rand(3..6)).each do |user_id|
+  (3..9).to_a.sample(rand(3..7)).each do |user_id|
     Membership.create!(user_id:user_id, server_id:server_id, description:"server")
   end
 end
+
+# dms
+jo_dm = Server.create!(name:"dm", owner_id:2, public:false, genre:"dm")
+isaac_dm = Server.create!(name:"dm", owner_id:3, public:false, genre:"dm")
+
+jo_channel = Channel.create!(name:"dm", server_id:27)
+isaac_channel = Channel.create!(name:"dm", server_id:28)
+
+demo_jo = Membership.create!(user_id:1, server_id:27, description:"dm")
+demo_isaac = Membership.create!(user_id:1, server_id:28, description:"dm")
+jo_demo = Membership.create!(user_id:2, server_id:27, description:"dm")
+isaac_demo = Membership.create!(user_id:3, server_id:28, description:"dm")
+
+# gcs
+demo_raph_eric_gc = Server.create!(name:"demo, raph, eric", owner_id:4, public:false, genre:"gc")
+
+demo_raph_eric_channel = Channel.create!(name:"gc", server_id:29)
+
+demo_gc = Membership.create!(user_id:1, server_id:29, description:"gc")
+raph_gc = Membership.create!(user_id:4, server_id:29, description:"gc")
+eric_gc = Membership.create!(user_id:5, server_id:29, description:"gc")
 
 require 'open-uri'
 
@@ -212,14 +243,6 @@ banana_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/bana
 banana.icon.attach(io: banana_icon, filename: 'banana')
 banana_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/banana.jpeg')
 banana.banner.attach(io: banana_banner, filename: 'banana')
-valorant_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/valorant.png')
-valorant.icon.attach(io: valorant_icon, filename: 'valorant')
-valorant_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/valorant.jpeg')
-valorant.banner.attach(io: valorant_banner, filename: 'valorant')
-aa_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/aA.png')
-aa.icon.attach(io: aa_icon, filename: 'aA')
-aa_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/aA.png')
-aa.banner.attach(io: aa_banner, filename: 'aA')
 
 # server icons
 blackpink_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/blackpink.jpeg')
@@ -241,6 +264,8 @@ minecraft.icon.attach(io: minecraft_icon, filename: 'minecraft')
 naruto_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/naruto.jpeg')
 naruto.icon.attach(io: naruto_icon, filename: 'naruto')
 
+aa_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/aA.png')
+aa.icon.attach(io: aa_icon, filename: 'aA')
 apple_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/apple.png')
 apple.icon.attach(io: apple_icon, filename: 'apple')
 css_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/css.png')
@@ -269,6 +294,8 @@ smash_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/smash
 smash.icon.attach(io: smash_icon, filename: 'smash')
 study_together_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/study-together.png')
 study_together.icon.attach(io: study_together_icon, filename: 'study-together')
+valorant_icon = open('https://accord-chat-seeds.s3.amazonaws.com/server-icons/valorant.png')
+valorant.icon.attach(io: valorant_icon, filename: 'valorant')
 
 # server banners
 english_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/english.jpg')
@@ -310,7 +337,11 @@ smash_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/s
 smash.banner.attach(io: smash_banner, filename: 'smash')
 study_together_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/study-together.jpeg')
 study_together.banner.attach(io: study_together_banner, filename: 'study-together')
+valorant_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/valorant.jpeg')
+valorant.banner.attach(io: valorant_banner, filename: 'valorant')
 
+aa_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/aA.png')
+aa.banner.attach(io: aa_banner, filename: 'aA')
 groovy_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/groovy.png')
 groovy.banner.attach(io: groovy_banner, filename: 'groovy')
 javascript_banner = open('https://accord-chat-seeds.s3.amazonaws.com/server-banners/javascript.png')
@@ -333,8 +364,8 @@ kin_profile_photo = open('https://accord-chat-seeds.s3.amazonaws.com/profile-pho
 kin.profile_photo.attach(io: kin_profile_photo, filename: 'kin')
 # migs_profile_photo = open('https://accord-chat-seeds.s3.amazonaws.com/profile-photos/migs.png')
 # migs.profile_photo.attach(io: migs_profile_photo, filename: 'migs')
-# jack_profile_photo = open('https://accord-chat-seeds.s3.amazonaws.com/profile-photos/jack.png')
-# jack.profile_photo.attach(io: jack_profile_photo, filename: 'jack')
+jack_profile_photo = open('https://accord-chat-seeds.s3.amazonaws.com/profile-photos/jack.png')
+jack.profile_photo.attach(io: jack_profile_photo, filename: 'jack')
 chase_profile_photo = open('https://accord-chat-seeds.s3.amazonaws.com/profile-photos/chase.png')
 chase.profile_photo.attach(io: chase_profile_photo, filename: 'chase')
 

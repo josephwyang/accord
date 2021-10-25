@@ -10,8 +10,11 @@
   padding: 16px 14px 0px;
   background-color: $dark-grey-2;
 
+  &::-webkit-scrollbar { width: 0px; }
+  overflow-y: scroll;
+
   @media all and (max-width: 800px) {
-    & { left: 560px; }
+    & { left: 488px; }
   }
 
   > h3 {
@@ -29,8 +32,8 @@
     display: flex;
     align-items: center;
     margin-bottom: 2px;
-    padding: 4px 6px;
-    border-radius: 3px;
+    padding: 6px 8px;
+    border-radius: 5px;
 
     > img:first-child {
       height: 32px;
@@ -50,6 +53,10 @@
       font-family: $sans;
       font-size: 14px;
       color: $light-grey-2;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     &:hover {

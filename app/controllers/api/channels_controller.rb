@@ -11,7 +11,6 @@ class Api::ChannelsController < ApplicationController
   def create
     @channel = Channel.new(channel_params)
     if @channel.save
-      # ActionCable.server.broadcast "servers_channel_#{@channel.id}", ApplicationController.render :show
       render :show
     else
       render json: @channel.errors.full_messages, status:400

@@ -3,7 +3,6 @@ import ServerSettingsContainer from "./server_settings_container"
 import ChannelsIndex from "../channels/channels_index";
 import ChannelFormContainer from "../channels/channel_form_container";
 import ChannelContainer from "../channels/channel_container";
-import Profile from "../users/profile";
 import MembersIndexContainer from "../users/members_index_container";
 
 export default class Server extends React.Component {
@@ -40,11 +39,13 @@ export default class Server extends React.Component {
     return (
       <>
         <div id="server">
-          <h3 id="channel-header"><img src={window.hashtag} alt="#" />{this.props.currentChannel ? this.props.currentChannel.name : null}</h3>
+          <div id="channel-header">
+            <img src={window.hashtag} alt="#" />
+            <h3>{this.props.currentChannel ? this.props.currentChannel.name : null}</h3>
+          </div>
           <ChannelsIndex toggleOpen={this.toggleOpen.bind(this)} openChannelForm={() => this.setState({ channelFormOpen: true })} openServerSettings={() => this.setState({ serverSettingsOpen: true })}
             serverHeaderOpen={this.state.serverHeaderOpen} channelHeaderOpen={this.state.channelHeaderOpen}
             server={this.props.server} channels={this.props.channels} channelId={this.props.match.params.channelId} />
-          <ul id="messages"></ul>
           {this.state.serverHeaderOpen ? (
             <>
               <div className="transparent-modal-screen" onClick={() => this.setState({ serverHeaderOpen: false })}></div>
@@ -64,7 +65,6 @@ export default class Server extends React.Component {
           {this.state.serverSettingsOpen ? (
             <ServerSettingsContainer closeSettings={() => this.setState({ serverSettingsOpen: false })} />
           ) : null}
-          <Profile currentUser={this.props.currentUser} />
           <ChannelContainer />
         </div>
         <MembersIndexContainer ownerId={this.props.server.ownerId} />

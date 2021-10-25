@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_30_194537) do
+ActiveRecord::Schema.define(version: 2021_10_20_234914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,13 +44,24 @@ ActiveRecord::Schema.define(version: 2021_09_30_194537) do
     t.index ["server_id"], name: "index_channels_on_server_id"
   end
 
+  create_table "dms", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "friend_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_dms_on_friend_id"
+    t.index ["user_id", "friend_id"], name: "index_dms_on_user_id_and_friend_id", unique: true
+  end
+
   create_table "friendships", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "friend_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["friend_id"], name: "index_friendships_on_friend_id", unique: true
-    t.index ["user_id", "friend_id"], name: "index_friendships_on_user_id_and_friend_id", unique: true
+    t.boolean "accepted", default: false, null: false
+    t.index "GREATEST(user_id, friend_id), LEAST(user_id, friend_id)", name: "index_friendships_on_interchangable_user_id_and_friend_id", unique: true
+    t.index "LEAST(user_id, friend_id), GREATEST(user_id, friend_id)", name: "index_friendships_on_interchangable_friend_id_and_user_id", unique: true
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -70,6 +81,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_194537) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "channel_id", null: false
+    t.boolean "edited", default: false, null: false
     t.index ["channel_id"], name: "index_messages_on_channel_id"
     t.index ["replied_message_id"], name: "index_messages_on_replied_message_id"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
@@ -92,6 +104,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_194537) do
     t.datetime "updated_at", null: false
     t.boolean "public", null: false
     t.string "description", limit: 255
+    t.datetime "last_message", default: -> { "CURRENT_TIMESTAMP" }
     t.index ["owner_id"], name: "index_servers_on_owner_id"
   end
 

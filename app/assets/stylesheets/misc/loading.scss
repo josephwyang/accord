@@ -1,0 +1,19 @@
+@import "variables/colors";
+@import "variables/keyframes";
+
+.loading {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: $dark-grey-3;
+  z-index: 9999;
+
+  > img {
+    height: 10vh;
+    width: 10vh;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+
+    animation: spin 2s infinite;
+  }
+}

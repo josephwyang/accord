@@ -42,8 +42,8 @@ h1 { font-family: $montserrat }
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 100;
-  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 101;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .transparent-modal-screen {
@@ -65,8 +65,7 @@ input[type='text']:focus {
 
 .nav {
   position: absolute;
-  top: 0;
-  left: 72px;
+  top: 0; left: 0;
 
   box-sizing: border-box;
   height: 100%;
@@ -95,34 +94,10 @@ input[type='text']:focus {
   }
 }
 
-#grey-screen {
-  position: absolute;
-  background-color: $dark-grey-1;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: -100;
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 0; 
-    width: 72px;
-    background-color: $blue-grey-4;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 72px;
-    width: 240px;
-    background-color: $dark-grey-3;
-  }
-}
-
 .settings {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0; left: -72px; right: 0; bottom: 0;
+  min-width: 1000px;
   z-index: 1000;
   background-color: $grey-4;
   &:not(.landed) { animation: mount-settings 0.2s; }
@@ -141,7 +116,7 @@ input[type='text']:focus {
       width: 200px;
 
       > h3 {
-        color: $grey-0;
+        color: $light-grey-4;
         padding-left: 10px;
         margin-top: 10px;
         margin-bottom: 5px;
@@ -188,9 +163,11 @@ input[type='text']:focus {
     &::-webkit-scrollbar { width: 10px; }
       
     &::-webkit-scrollbar-thumb {
-      background-color: $dark-grey-2;
+      background-color: $dark-grey-4;
       border-radius: 5px;
     }
+
+    &::-webkit-scrollbar-track { background-color: $dark-grey-1; }
     
     @media all and (max-width: 1000px) {
       & {
@@ -216,12 +193,12 @@ input[type='text']:focus {
       > img {
         height: 15px; width: 15px;
         padding: 10px;
-        border: 1px solid $grey-0;
+        border: 1px solid $light-grey-4;
         border-radius: 50%;
 
         &:hover {
           cursor: pointer;
-          background-color: $grey-1;
+          background-color: $grey-0;
         }
       }
 
@@ -229,7 +206,7 @@ input[type='text']:focus {
         width: 100%;
         margin-top: 3px;
         font-size: 12px;
-        color: $grey-0;
+        color: $light-grey-4;
         text-align: center;
       }
     }

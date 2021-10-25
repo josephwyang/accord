@@ -1,7 +1,6 @@
-// container: patchUser()
-// modals: password, phone number, theme, delete account
+// modals: theme, delete account
 
-import React from "react";
+import React, { useEffect } from "react";
 
 export default class UserSettings extends React.Component {
   constructor(props) {
@@ -131,7 +130,7 @@ export default class UserSettings extends React.Component {
       formData.append(`user[${type}]`, this.state.user[type]);
     }
     if (this.state.user.phoneNumber.length === 10) formData.append("user[phoneNumber]", `+1${this.state.user.phoneNumber}`);
-    if (this.state.user.profilePhoto) { formData.append('server[profilePhoto]', this.state.user.profilePhoto); }
+    if (this.state.user.profilePhotoUrl) { formData.append('server[profilePhoto]', this.state.user.profilePhotoUrl); }
     this.props.patchUser(formData);
 
     this.setState({ editModal: null, phoneNumberModal: null,
@@ -157,7 +156,7 @@ export default class UserSettings extends React.Component {
   }
 
   render() {
-    const { username, tag, profilePhoto, email, phoneNumber } = this.props.currentUser;
+    const { username, tag, profilePhotoUrl, email, phoneNumber } = this.props.currentUser;
 
     const navOptions = ["My Account", "User Profile", "Appearance"].map(
       option => (
@@ -191,8 +190,8 @@ export default class UserSettings extends React.Component {
             </div>
             <h1>My Account</h1>
             <div id="account-settings">
-              <img className="profile-photo" src={profilePhoto || window.logo} alt="profile-photo" />
-              <p>{username}<span id="settings-tag">#{tag}</span></p>
+              <img className="profile-photo" src={profilePhotoUrl || window.logo} alt="profile-photo" />
+              <p>{username}<span id="settings-tag"> #{tag}</span></p>
               <button id="edit-profile-btn" onClick={() => this.setState({ selectedNav: "User Profile" })}>Edit Profile</button>
               <div id="account-setting-options">
                 <div id="username-option">
@@ -233,7 +232,7 @@ export default class UserSettings extends React.Component {
               <p>ESC</p>
             </div>
             <h1>User Profile</h1>
-            <label htmlFor="change-profile-photo"><img className="profile-photo" src={profilePhoto || window.logo} alt="profile-photo" /></label>
+            <label htmlFor="change-profile-photo"><img className="profile-photo" src={profilePhotoUrl || window.logo} alt="profile-photo" /></label>
             <input id="change-profile-photo" type="file" />
             <div><img src={window.camera} alt="+" /></div>
             <p>{username}<span id="settings-tag">#{tag}</span></p>
@@ -275,7 +274,7 @@ export default class UserSettings extends React.Component {
               {this.state.phoneNumberModal === 1 ?
               <>
                 <p id="area-code">+1</p>
-                <input id="phone-number" type="text" onChange={this.handlePhoneNumber.bind(this)} value={this.displayPhoneNumber(this.state.user.phoneNumber)}/>
+                <input id="phone-number" type="text" autoFocus onChange={this.handlePhoneNumber.bind(this)} value={this.displayPhoneNumber(this.state.user.phoneNumber)}/>
                 <button className="input-btn" onClick={this.verifyPhoneNumber.bind(this)}>Next</button>
               </> : <>
                 <div className="verification-input" onClick={this.focusVerificationInput}>
@@ -327,8 +326,8 @@ const UserSettingsModal = props => {
           <h1>{props.type === "email" ? "Enter an email address" : `Change your ${props.type}`}</h1>
           <p>Enter a new {props.type === "email" ? "email address" : props.type} and your existing password.</p>
         </div>
-        <label htmlFor={`${props.type}`}>{props.type.toUpperCase()}</label>
-        <input id={`${props.type}`} type={props.type === "password" ? "password" : "text"} value={props.state[`${props.type}`]} onChange={e => props.handleInput(e, props.type)}/>
+        <label className={props.type === "username" ? "username-input" : ""} htmlFor={`${props.type}`}>{props.type.toUpperCase()}</label>
+        <input id={`${props.type}`} type={props.type === "password" ? "password" : "text"} value={props.state[`${props.type}`]} onChange={e => props.handleInput(e, props.type)} autoFocus />
         { props.type === "password" ?
           <>
             <label htmlFor="confirm-password">CONFIRM PASSWORD</label>

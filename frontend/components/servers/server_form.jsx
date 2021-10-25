@@ -170,7 +170,7 @@ export default class ServerForm extends React.Component {
 
           <div className="form-nav">
             <p className="back-button" onClick={() => this.openModal(2)}>Back</p>
-            <button id="form-button" onClick={this.handleSubmit.bind(this)}>Create</button>
+            <button className="form-button" onClick={this.handleSubmit.bind(this)}>Create</button>
           </div>
         </form>) : null}
       </div>

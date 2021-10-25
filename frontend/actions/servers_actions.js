@@ -18,9 +18,9 @@ const receiveServer = payload => ({
   payload
 });
 
-const removeServer = server => ({
+const removeServer = serverId => ({
   type: REMOVE_SERVER,
-  server
+  serverId
 });
 
 const receivePublicServers = publicServers => ({
@@ -71,6 +71,6 @@ export const patchServer = server => dispatch => (
 
 export const deleteServer = serverId => dispatch => (
   ServersUtil.deleteServer(serverId)
-    .then(server => dispatch(removeServer(server)),
+    .then(serverId => dispatch(removeServer(serverId)),
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );

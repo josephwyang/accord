@@ -1,0 +1,80 @@
+@import "variables/colors";
+@import "variables/fonts";
+@import "variables/keyframes";
+
+#member-preview {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  right: 248px;
+  z-index: 1000;
+
+  box-sizing: border-box;
+  width: 300px;
+  
+  padding: 20px 16px;
+  color: white;
+  background-color: $black;
+  border-radius: 5px;
+
+  animation: appear-from-left 0.2s;
+  @media all and (max-width: 800px) {
+      & {
+        right: calc(248px - (800px - 100vw));
+      }
+    }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 66px;
+    background-color: $grey-2;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  
+  > img {
+    position: relative;
+    height: 80px;
+    width: 80px;
+    margin-right: 176px;
+    margin-bottom: 16px;
+
+    background-color: $light-grey-3;
+    border: 6px solid $black;
+    border-radius: 50%;
+  }
+
+  > p, span {
+    font-size: 18px;
+    word-break: break-all;
+    letter-spacing: 0.2px;
+
+    + span {
+      color: $light-grey-2;
+    }
+  }
+
+  > hr {
+    margin-top: 16px;
+    width: 100%;
+    border: none;
+    border-top: 1px solid $dark-grey-3;
+  }
+
+  > form {
+    width: 248px;
+    > input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 16px;
+
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    background-color: $dark-grey-1;
+    border-radius: 3px;
+
+    &:focus { outline: 1px solid $light-blue-0; }
+  }}
+}

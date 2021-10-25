@@ -3,9 +3,9 @@
 
 #messages-index {
   position: absolute;
-  top: 53px;
-  left: 312px;
-  right: 245px;
+  top: 0px;
+  left: 0px;
+  right: 5px;
   padding-bottom: 20px;
 
   display: flex;
@@ -20,7 +20,7 @@
   }
 
   &::-webkit-scrollbar-track {
-    background-color: $dark-grey-2;
+    background-color: $dark-grey-1;
     border-radius: 8px;
   }
 
@@ -31,14 +31,20 @@
   }
 
   > #welcome-message {
-    margin-top: 25px;
-    margin-left: 20px;
+    margin: 25px 20px 0px;
+
+    > img {
+      height: 75px;
+      width: 75px;
+      background-color: $grey-1;
+      border-radius: 50%;
+    }
 
     > div {
       height: 35px;
       width: 35px;
       padding: 15px;
-      background-color: $grey-2;
+      background-color: $grey-1;
       border-radius: 50%;
       
       > img {
@@ -79,7 +85,7 @@
     > .date-break {
       margin: 32px 16px 0px;
       border: none;
-      border-top: 1px solid $grey-2;
+      border-top: 1px solid $grey-1;
 
       + p {
         position: absolute;
@@ -88,11 +94,13 @@
         transform: translateX(-50%);
         padding: 0px 5px;
 
-        color: $grey-0;
+        color: $light-grey-4;
         font-size: 12px;
         background-color: $grey-4;
         line-height: 10px;
         letter-spacing: 0.1px;
+
+        + .message { margin-top: 16px;}
       }
     }
   }
@@ -103,25 +111,28 @@
   display: flex;
   padding: 5px 22px;
   margin-top: 10px;
+  margin-right: 5px;
+
   color: white;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
 
   &.followup-message {
     margin-top: 0px;
     > p:not(.time-stamp) { padding-left: 52px; }
   }
 
-  &:first-of-type { margin-top: 20px; }
-
-  &:hover {
+  &:hover:not(.editing) {
     background-color: $dark-grey-0;
     > .time-stamp { display: block; }
+    > #message-settings { display: flex; }
   }
-  
+
   > .profile-photo {
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    background-color: $grey-1;
+    background-color: $grey-0;
   }
 
   > div {
@@ -144,7 +155,7 @@
       > .date-stamp {
         margin-left: 8px;
         font-size: 12px;
-        color: $grey-0;
+        color: $light-grey-4;
         line-height: 20px;
       }
     }
@@ -155,7 +166,7 @@
     width: 100%;
 
     font-family: $sans;
-    font-size: 15px;
+    font-size: 14px;
     -webkit-user-select: text; // Safari
     -moz-user-select: text; // Firefox
     -ms-user-select: text; // IE10+/Edge
@@ -164,6 +175,12 @@
     min-width: 135px;
     overflow-wrap: break-word;
     height: auto;
+
+    > span {
+      margin-left: 4px;
+      font-size: 10px;
+      color: $light-grey-4;
+    }
   }
 
   > .time-stamp {

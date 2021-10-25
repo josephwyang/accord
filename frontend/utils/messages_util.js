@@ -16,7 +16,7 @@ export const postMessage = message => (
 export const patchMessage = message => (
   $.ajax({
     method: "PATCH",
-    url: `/api/messages${message.id}`,
+    url: `/api/messages/${message.id}`,
     data: { message }
   })
 );

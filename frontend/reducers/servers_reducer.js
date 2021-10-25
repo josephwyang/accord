@@ -7,9 +7,13 @@ const serversReducer = (state = {}, action) => {
     case RECEIVE_SERVERS:
       return Object.assign({}, action.servers);
     case RECEIVE_SERVER:
-      return Object.assign({}, state, { [action.payload.server.id]: action.payload.server });
+      if (action.payload.server.genre === "dm" || action.payload.server.genre === "gc") {
+        return state;
+      } else {
+        return Object.assign({}, state, { [action.payload.server.id]: action.payload.server });
+      }
     case REMOVE_SERVER:
-      const {[action.server.id]: removedServerId, ...newState} = state;
+      const {[action.serverId]: removedServerId, ...newState} = state;
       return newState;
     default:
       return state;

@@ -12,6 +12,19 @@ export const getUser = id => (
   })
 );
 
+export const getUserByTag = (accordTag) => {
+  const [username, tag] = accordTag.split("#");
+
+  return(
+    $.ajax({
+      method: "GET",
+      url: `/api/users/${accordTag}`,
+      data: { username, tag }
+    })
+  )
+};
+
+
 export const verifyPhoneNumber = phoneNumber => (
   $.ajax({
     method: "GET",

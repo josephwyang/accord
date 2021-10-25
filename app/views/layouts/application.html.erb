@@ -18,7 +18,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;900&display=swap" rel="stylesheet">
+
+  <%= favicon_link_tag asset_path('splash/logo.png') %>
 
   <script type="text/javascript">
     window.logo = "<%= image_url('/assets/splash/logo') %>";
@@ -42,6 +44,7 @@
     window.door = "<%= image_url('/assets/server_form/door') %>";
     window.camera = "<%= image_url('/assets/server_form/camera') %>";
     window.compass = "<%= image_url('/assets/server_form/compass') %>";
+    window.search = "<%= image_url('/assets/explore/search') %>";
     window.gamingIcon = "<%= image_url('/assets/explore/gaming-icon') %>";
     window.musicIcon = "<%= image_url('/assets/explore/music-icon') %>";
     window.educationIcon = "<%= image_url('/assets/explore/education-icon') %>";
@@ -59,8 +62,20 @@
     window.phone = "<%= image_url('/assets/profile/phone') %>"
     window.security = "<%= image_url('/assets/profile/security') %>"
     window.hashtag = "<%= image_url('/assets/message/hashtag') %>"
-    window.edit = "<%= image_url('/assets/message/edit') %>"
     window.reaction = "<%= image_url('/assets/message/reaction') %>"
+    window.edit = "<%= image_url('/assets/message/edit') %>"
+    window.reply = "<%= image_url('/assets/message/reply') %>"
+    window.trash = "<%= image_url('/assets/message/trash') %>"
+    window.friend = "<%= image_url('/assets/home/friend') %>"
+    window.unchecked = "<%= image_url('/assets/home/unchecked') %>"
+    window.checked = "<%= image_url('/assets/home/checked') %>"
+    window.group = "<%= image_url('/assets/home/group') %>"
+    window.message = "<%= image_url('/assets/home/message') %>"
+    window.checkmark = "<%= image_url('/assets/home/checkmark') %>"
+    window.onlineWumpus = "<%= image_url('/assets/home/online-wumpus') %>"
+    window.allWumpus = "<%= image_url('/assets/home/all-wumpus') %>"
+    window.pendingFriendsWumpus = "<%= image_url('/assets/home/pending-friends-wumpus') %>"
+    window.friendRequestsWumpus = "<%= image_url('/assets/home/friend-requests-wumpus') %>"
   </script>
 
   <%= stylesheet_link_tag 'application', media: 'all' %>

@@ -6,7 +6,6 @@
   position: relative;
   top: 80px;
   width: 100%;
-  // min-width: 700px;
   overflow-x: hidden;
   background-color: $blue-1;
 
@@ -201,7 +200,7 @@
   }
 
   #splash-button {
-    color: $grey-2;
+    color: $grey-1;
     background-color: $light-grey-1;
     border-radius: 40px;
     transition: all 0.2s;
@@ -215,7 +214,6 @@
 
 .scroll-to-top {
   margin-top: 2076px;
-  // transform: translateY(2080px);
   position: sticky;
   position: -webkit-sticky;
   left: 50px;
@@ -228,7 +226,7 @@
   color: white;
   text-align: center;
   line-height: 40px;
-  background-color: $grey-2;
+  background-color: $grey-1;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   animation: pop-up-bottom 0.7s ease-in-out;

@@ -8,7 +8,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show 
-    @user = User.find_by(id:params[:id])
+    @user = User.find_by(id:params[:id]) || User.find_by({ username:params[:username], tag:params[:tag] })
     render :show
   end
 
@@ -58,6 +58,6 @@ class Api::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:id, :email, :username, :password, :dateOfBirth, :currentPassword, :phoneNumber, :profilePhoto).transform_keys { |key| key.to_s.underscore }
+    params.require(:user).transform_keys { |key| key.to_s.underscore }.permit(:id, :email, :username, :password, :date_of_birth, :current_password, :phone_number, :profile_photo)
   end
 end

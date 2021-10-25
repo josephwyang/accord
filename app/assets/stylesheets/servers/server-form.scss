@@ -56,7 +56,7 @@
         
       p {
         margin-top: 20px;
-        color: $grey-0;
+        color: $light-grey-4;
         font-size: 14px;
         font-weight: 600;
       }
@@ -160,7 +160,7 @@
       width: 100%;
       text-align: left;
       font-size: 13px;
-      color: $grey-0;
+      color: $light-grey-4;
       letter-spacing: 0.5px;
       margin-bottom: 8px;
     }
@@ -214,7 +214,7 @@
     &:hover { cursor: pointer; }
   }
 
-  #form-button {
+  .form-button {
     margin-right: 16px;
     background-color: $blue-0;
     &:hover { background-color: $blue-2; }

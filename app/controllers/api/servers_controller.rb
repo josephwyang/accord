@@ -1,13 +1,21 @@
 class Api::ServersController < ApplicationController
   def index
-    server_memberships = Membership.server_memberships(current_user.id)
+    server_memberships = Membership.includes(:server).server_memberships(current_user.id)
     @servers = server_memberships.map { |membership| membership.server }
     render :index
   end
 
+  def dms_index
+    @dms = Membership.includes(:server, :channel).dm_memberships(current_user.id)
+    @gcs = Membership.includes(:server, :server_members, :channel).gc_memberships(current_user.id)
+    # @dms = dm_memberships.map { |membership| membership.server }
+    # @gcs = gc_memberships.map { |membership| membership.server }
+    render :dms_index
+  end
+
   def index_public
-    @servers = Server.all.where(public:true)
-    render :index
+    @servers = Server.all.where(public:true).joins(:members).group("servers.id").order('count(*) desc')
+    render :public_index
   end
 
   def show
@@ -22,8 +30,16 @@ class Api::ServersController < ApplicationController
   def create
     @server = Server.new(server_params)
     if @server.save
-      Membership.create!(user_id: current_user.id, server_id: @server.id, description: "server")
-      Channel.create!(server_id: @server.id, name:"general")
+      if server_params[:genre] == "dm" || server_params[:genre] == "gc"
+        @server.last_message = DateTime.now.to_i
+        Membership.create!(user_id: current_user.id, server_id: @server.id, description: server_params[:genre])
+        @channel = Channel.create!(server_id: @server.id, name:server_params[:genre])
+        @other_user = Membership.create!(user_id: @server.owner_id, server_id: @server.id, description: server_params[:genre]).user
+      else
+        Membership.create!(user_id: current_user.id, server_id: @server.id, description: "server")
+        Channel.create!(server_id: @server.id, name:"general")
+      end
+
 
       case server_params[:genre]
       when "gaming"
@@ -58,11 +74,14 @@ class Api::ServersController < ApplicationController
 
   def destroy
     @server = Server.find_by(id:params[:id])
-    if @server.owner != current_user
+    if @server.owner != current_user && @server.genre != "dm" && @server.genre != "gc"
+      debugger
       render json: ["only the owner can delete a server"], status: 401
+    elsif current_user.memberships.to_a.none? { |membership| membership.server_id == @server.id }
+      render json: ["only a member can delete a direct message"], status: 401
     else
       @server.destroy
-      render json: {id: @server.id}
+      render json: @server.id
     end
   end
 

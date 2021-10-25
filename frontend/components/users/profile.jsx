@@ -1,5 +1,6 @@
 import React from "react";
 import UserSettingsContainer from "./user_settings_container";
+import Bubble from "../misc/bubble";
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -28,15 +29,14 @@ export default class Profile extends React.Component {
     return (
     <>
       <div id="profile">
-          <img className="profile-photo" src={this.props.currentUser.profilePhoto || window.logo} alt="profile-photo" />
-          <div id="profile-name" onClick={this.copyName.bind(this)}>
-            <p>{this.props.currentUser.username}</p>
-            <p>#{this.props.currentUser.tag}</p>
+        <img className="profile-photo" src={this.props.currentUser.profilePhotoUrl || window.logo} alt="profile-photo" />
+        <div id="profile-name" onClick={this.copyName.bind(this)}>
+          <p>{this.props.currentUser.username}</p>
+          <p>#{this.props.currentUser.tag}</p>
         </div>
-        <img id="cog" src={window.cog} alt="settings" onClick={ () => this.setState({settingsOpen: true}) }/>
         <div id="user-settings-bubble">
-          <p>User Settings</p>
-          <div className="arrow-down"></div>
+          <img id="cog" src={window.cog} alt="settings" onClick={ () => this.setState({settingsOpen: true}) }/>
+          <Bubble text="User Settings" top="-36px" />
         </div>
         <div id="profile-name-copied">
           <p>Copied!</p>

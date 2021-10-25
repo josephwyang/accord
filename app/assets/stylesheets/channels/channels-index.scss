@@ -3,7 +3,7 @@
 @import "variables/keyframes";
 
 #channels-index {
-  color: $grey-0;
+  color: $light-grey-4;
 
   #server-header {
     position: relative;
@@ -47,7 +47,7 @@
     }
   }
 
-  #channel-header {
+  #channels-index-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -127,10 +127,10 @@
         font-family: $montserrat;
         font-style: italic;
         font-size: 18px;
-        color: $grey-0;
+        color: $light-grey-4;
       }
 
-      &:hover > span, &.selected > span { color: $grey-0; }
+      &:hover > span, &.selected > span { color: $light-grey-4; }
     }
   }
 }
@@ -138,7 +138,7 @@
 #server-header-modal {
   position: absolute;
   top: 60px;
-  left: 82px;
+  left: 10px;
   z-index: 51;
 
   box-sizing: border-box;
@@ -159,6 +159,31 @@
       cursor: pointer;
       color: white;
       background-color: $light-blue-2;
+    }
+  }
+}
+
+#channel {
+  position: absolute;
+  background-color: $grey-4;
+  top: 53px; left: 240px; right: 240px; bottom: 0;
+}
+
+#dm-messages {
+  position: absolute;
+  background-color: $grey-4;
+  top: 53px; right: 0; bottom: 0;
+  left: 240px;
+  min-width: 248px;
+
+  &.gc { right: 240px; }
+  &:not(.gc) {
+    @media all and (max-width: 800px) {
+      & {
+        width: 488px;
+        > #message-form { width: 488px}
+        > #messages-index { width: 483px; }
+      }
     }
   }
 }

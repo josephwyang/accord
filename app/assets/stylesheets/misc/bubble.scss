@@ -1,0 +1,47 @@
+@import "variables/colors";
+@import "variables/fonts";
+@import "variables/keyframes";
+
+.bubble {
+  &,  &:hover { display: none; }
+  align-items: center;
+  white-space: nowrap;
+
+  position: absolute;
+  z-index: 999;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  
+  > p {
+    font-family: $lato;
+    color: $light-grey-1;
+    font-weight: 700;
+    background-color: $black;
+  }
+
+  > .arrow {
+    width: 0; 
+    height: 0; 
+    font-size: 0;
+    line-height: 0;
+    border: 5px solid $black;
+
+    &.arrow-down {
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: none;
+    }
+
+    &.arrow-left {
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: none;
+    }
+
+    &.arrow-right {
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-right: none;
+    }
+  }
+}

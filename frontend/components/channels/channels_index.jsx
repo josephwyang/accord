@@ -17,7 +17,7 @@ function ChannelsIndex(props) {
         <img src={window.downArrow} alt="down-arrow" />
         <img src={window.xButton} alt="x-button" />
       </div>
-      <div id="channel-header">
+      <div id="channels-index-header">
         <p onClick={props.openChannelForm}>+</p>
         <div onClick={() => props.toggleOpen("channelHeader")} className={props.channelHeaderOpen ? "selected" : ""}>
           <img src={window.downArrow} alt="down-arrow" />

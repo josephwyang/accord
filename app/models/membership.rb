@@ -12,11 +12,24 @@
 class Membership < ApplicationRecord
   validates :user_id, presence:true, uniqueness: { scope: :server_id }
   validates :server_id, presence:true
-  validates :description, inclusion: { in: ["server", "dm"] }
+  validates :description, inclusion: { in: ["server", "dm", "gc"] }
 
   belongs_to :user
   belongs_to :server
 
+  has_many :server_members,
+    through: :server,
+    source: :members
+
+  has_one :channel,
+    through: :server,
+    source: :channels
+  
+  has_many :messages,
+    through: :server,
+    source: :messages
+    
   scope :server_memberships, ->(id) { where(description: "server", user_id:id) }
   scope :dm_memberships, ->(id) { where(description: "dm", user_id:id) }
+  scope :gc_memberships, ->(id) { where(description: "gc", user_id:id) }
 end

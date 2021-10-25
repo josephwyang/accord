@@ -13,7 +13,7 @@ const App = () => (
       <Route exact path="/" component={SplashContainer} />
       <AuthRoute path="/signup" component={SignUpFormContainer} />
       <AuthRoute path="/login" component={LogInFormContainer} />
-      <ProtectedRoute path={["/explore", "/channels/:serverId/:channelId?"]} component={ServersIndexContainer} />
+      <ProtectedRoute path={["/@me/:dmId?", "/explore", "/channels/:serverId/:channelId?"]} component={ServersIndexContainer} />
       <Route render={() => <Redirect to="/" />} />
     </Switch>
   </div>

@@ -9,6 +9,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  channel_id         :integer          not null
+#  edited             :boolean          default(FALSE), not null
 #
 require 'test_helper'
 

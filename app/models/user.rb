@@ -33,8 +33,26 @@ class User < ApplicationRecord
     foreign_key: :owner_id,
     class_name: :Server,
     dependent: :destroy
+  
   has_many :memberships, dependent: :destroy
   has_many :messages, foreign_key: :sender_id
+
+  has_many :initiated_friendships,
+    class_name: :Friendship,
+    dependent: :destroy
+
+  has_many :received_friendships,
+    foreign_key: :friend_id,
+    class_name: :Friendship,
+    dependent: :destroy
+
+  has_many :initiated_friends,
+    through: :initiated_friendships,
+    source: :friend
+
+  has_many :received_friends,
+    through: :received_friendships,
+    source: :user
 
   has_one_attached :profile_photo
 

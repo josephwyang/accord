@@ -2,14 +2,15 @@
 #
 # Table name: servers
 #
-#  id          :bigint           not null, primary key
-#  owner_id    :integer          not null
-#  name        :string(100)      not null
-#  genre       :string
-#  public      :boolean          not null
-#  description :string(255)
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :bigint           not null, primary key
+#  owner_id     :integer          not null
+#  name         :string(100)      not null
+#  genre        :string
+#  public       :boolean          not null
+#  description  :string(255)
+#  last_message :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 class Server < ApplicationRecord
   validates :owner_id, presence:true
@@ -22,6 +23,7 @@ class Server < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :members, through: :memberships, source: :user
   has_many :channels, dependent: :destroy
+  has_many :messages, through: :channels, source: :messages
 
   has_one_attached :icon
   has_one_attached :banner

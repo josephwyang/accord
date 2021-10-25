@@ -26,31 +26,20 @@
     left: 50px;
 
     &:first-of-type {
+      width: 142px;
       top: 12px;
       font-size: 14px;
       color: white;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     &:last-child {
       top: 30px;
       font-size: 12px;
       color: $light-grey-2;
-    }
-  }
-
-  > #cog {
-    box-sizing: border-box;
-    height: 32px;
-    width: 32px;
-    padding: 7px;
-    border-radius: 3px;
-    transition: background-color 0.2s;
-
-    &:hover {
-      cursor: pointer;
-      background-color: $grey-4;
-
-      + #user-settings-bubble { display: block; }
     }
   }
 
@@ -88,28 +77,20 @@
   }
 
   > #user-settings-bubble {
-    display: none;
-    position: absolute;
-
-    > p { 
-      position: absolute;
-      top: -50px;
-      left: 153px;
-      padding: 6px 9px;
-      width: 68px;
-
-      font-size: 12px;
-      color: white;
-      background-color: $black;
+    position: relative;
+    > #cog {
+      box-sizing: border-box;
+      height: 32px;
+      width: 32px;
+      padding: 7px;
       border-radius: 3px;
-      box-shadow: 0 2px 5px $dark-grey-2;
+      transition: background-color 0.2s;
 
-      & + .arrow-down {
-        position: absolute;
-        top: -23px;
-        left: 190.5px;
+      &:hover {
+        cursor: pointer;
+        background-color: $grey-4;
 
-        border-top: 5px solid $black;
+        + .bubble { display: flex; }
       }
     }
   }
@@ -120,13 +101,4 @@
   width: 32px;
   background-color: $light-grey-3;
   border-radius: 50%;
-}
-
-div.arrow-down {
-	width: 0; 
-	height: 0; 
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	font-size: 0;
-	line-height: 0;
 }

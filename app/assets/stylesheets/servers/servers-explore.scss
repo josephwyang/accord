@@ -2,6 +2,7 @@
 @import "variables/fonts";
 
 #genre-list {
+  left: 72px;
   padding: 0px 10px;
 
   h1 {
@@ -49,6 +50,7 @@
 }
 
 #servers-explore {
+  box-sizing: border-box;
   position: absolute;
   top: 0; right: 0; bottom: 0;
   left: 312px;
@@ -61,48 +63,94 @@
   &::-webkit-scrollbar { width: 8px; }
     
   &::-webkit-scrollbar-thumb {
-    background-color: $dark-grey-2;
+    background-color: $dark-grey-4;
     border-radius: 4px;
   }
 
-  > img {
+  &::-webkit-scrollbar-track {
+    background-color: $dark-grey-1;
+    border-radius: 4px;
+  }
+
+  > img:first-child {
     padding: 32px 16px 32px 29px;
     box-sizing: border-box;
     width: 100%;
   }
 
-  h1, h2 {
+  h1, h2, input {
     width: 100%;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    font-family: $lato;
     color: white;
     text-align: center;
   }
 
   h1 {
-    top: max(90px, calc(100vw * 0.09));
-    font-size: 20px;
+    top: max(92px, calc(100vw * 0.09) + 2px);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
   }
 
   h2 {
-    top: max(120px, calc((100vw * 0.09) + 30px));
-    font-size: 14px;
+    top: max(130px, calc((100vw * 0.09) + 40px));
+    font-size: 15px;
     font-weight: 400;
+  }
+
+  > input {
+    top: max(164px, calc((100vw * 0.09) + 74px));
+    width: 45%;
+    padding: 10px 40px 10px 12px;
+
+    font-size: 15px;
+    color: black;
+    text-align: left;
+    letter-spacing: 0.2px;
+    background-color: white;
+    border: 1px solid $dark-grey-2;
+    border-radius: 3px;
+    box-shadow: 0px 1px 2px $light-grey-4;
+
+    &:focus { outline: 2px solid $purple; }
+
+    + img {
+      height: 20px;
+      width: 20px;
+
+      position: absolute;
+      top: max(174px, calc((100vw * 0.09) + 84px));
+      right: calc(27.5% - 16px);
+      filter: brightness(0.6);
+    }
   }
 
   #public-servers {
     display: flex;
     flex-wrap: wrap;
     padding-left: 29px;
-
+    
     position: absolute;
     top: calc((100vw - 200px) * 200/641);
-    bottom: 0;
+    left: 0; right: 0;
 
-    @media all and (max-width: 1000px) { & { top: 254.6px }}
+    @media all and (max-width: 1000px) { & { top: 249.61px }}
 
-    li {
+    > h3 {
+      width: 100%;
+      margin-top: 14px;
+      margin-bottom: 16px;
+
+      font-family: $montserrat;
+      font-size: 18px;
+      color: white;
+      font-weight: 700;
+    }
+
+    > li {
       box-sizing: border-box;
       width: calc(50% - 16px);
       margin-right: 16px;
@@ -201,13 +249,6 @@
         }
         box-shadow: 0px 2px 7px $dark-grey-3;
       }
-    }
-
-    &::after {
-      content: "";
-      height: 1px;
-      display: block;
-      width: 100%;
     }
   }
 }

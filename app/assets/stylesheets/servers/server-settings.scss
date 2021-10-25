@@ -83,7 +83,7 @@
     cursor: pointer;
 
     &:active {
-      background-color: $grey-1;
+      background-color: $grey-0;
     }
   }
 
@@ -101,7 +101,7 @@
       margin-top: 15px;
       padding: 0px 10px;
       font-size: 14px;
-      color: $grey-0;
+      color: $light-grey-4;
     }
   }
 
@@ -121,7 +121,7 @@
       width: 100%;
       margin-top: 5px;
       padding-right: 5px;
-      color: $grey-0;
+      color: $light-grey-4;
       text-align: right;
     }
 
@@ -130,7 +130,7 @@
       &::-webkit-scrollbar { width: 3px; }
       
       &::-webkit-scrollbar-thumb {
-        background-color: $grey-0;
+        background-color: $light-grey-4;
         border-radius: 1px;
       }
     }
@@ -151,7 +151,7 @@
     p {
       margin-bottom: 15px;
       font-size: 14px;
-      color: $grey-0;
+      color: $light-grey-4;
     }
 
     > label {
@@ -193,7 +193,7 @@
           cursor: pointer;
         }
         &:active {
-          background-color: $grey-1;
+          background-color: $grey-0;
         }
       }
 
@@ -255,6 +255,10 @@
         color: white;
         letter-spacing: 0.3px;
         
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        
         > span {
           color: $light-grey-2;
           margin-left: 3px;
@@ -283,7 +287,7 @@
           background-color: $grey-3;
           border: 1px solid $red;
 
-          &:hover { background-color: $grey-2;
+          &:hover { background-color: $grey-1;
           color: $light-red;
         border-color: $light-red;}
           
@@ -423,14 +427,14 @@
 .settings-modal {
   width: 440px;
   position: absolute;
-  top: calc(50% - 20.5px); left: 50%;
+  top: calc(50% - 20.5px); left: calc(50%);
   transform: translate(-50%, -50%);
 
   color: $light-grey-2;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   background-color: $dark-grey-2;
-  z-index: 101;
+  z-index: 1000;
 
   > .settings-modal-message {
     padding: 30px 20px;
@@ -441,7 +445,7 @@
       color: $light-grey-1;
     }
     p {
-      margin-top: 15px;
+      margin-top: 13px;
       font-size: 14px;
       line-height: 20px;
       span { font-weight: 700; }

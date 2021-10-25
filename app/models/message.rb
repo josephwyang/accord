@@ -4,14 +4,16 @@
 #
 #  id                 :bigint           not null, primary key
 #  sender_id          :integer          not null
-#  channel_id         :integer          not null
 #  replied_message_id :integer
+#  channel_id         :integer          not null
 #  body               :text             not null
+#  edited             :boolean          default(FALSE), not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
 class Message < ApplicationRecord
   validates :sender_id, :channel_id, :body, presence:true
+  validates :edited, inclusion: { in: [ true, false ] }
 
   belongs_to :sender, class_name: :User
   belongs_to :channel

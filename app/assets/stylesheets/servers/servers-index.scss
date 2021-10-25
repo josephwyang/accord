@@ -1,14 +1,12 @@
 @import "variables/colors";
 @import "variables/keyframes";
 
-#server-index {
+#servers-index {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: center;
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  z-index: 1;
+  height: 100vh;
   width: 72px;
   background-color: $blue-grey-4;
 
@@ -17,10 +15,10 @@
   
   > * { margin-top: 10px; }
 
-  > #server-index-divider {
+  > #servers-index-divider {
     width: 35px;
     border: 0;
-    border-top: 1px solid $grey-2;
+    border-top: 1px solid $grey-1;
     margin: 10px 0px 0px;
   }
 
@@ -42,7 +40,8 @@
       background-color: $light-blue-2;
     }
   }
-  p {
+
+  > #add-server {
     background-color: $grey-4;
     color: $green;
     font-size: 24px;
@@ -50,15 +49,14 @@
     text-align: center;
     line-height: 48px;
 
-    &:hover,  &.selected
-    {
+    &:hover,  &.selected {
       color: white;
       border-radius: 30%;
       background-color: $green;
     }
   }
 
-  > a:first-child, > a:last-child {
+  > #explore, > #dms {
     > img {
       height: 30px;
       width: 30px;
@@ -70,13 +68,20 @@
       background-color: $green;
       border-radius: 30%;
     }
-
-    &.selected > img, > img:hover { filter: brightness(0) invert(1); }
   }
 
-  > a:last-child > img {
-    height: 20px; width: 20px;
-    padding: 14px;
+  > #dms:hover, > #dms.selected { background-color: $light-blue-2; }
+
+  > #explore.selected > img, #explore > img:hover { filter: brightness(0) invert(1); }
+  > #dms.selected > img, #dms > img:hover { filter: brightness(1.5); }
+
+  > #explore {
     margin-bottom: 10px;
+
+    > img {
+      height: 20px; width: 20px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
   }
 }
