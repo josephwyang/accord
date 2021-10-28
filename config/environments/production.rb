@@ -14,6 +14,11 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # config.middleware.use Rack::TwilioWebhookAuthentication,
+  #   Rails.application.credentials.twilio[:account_sid],
+  #   Rails.application.credentials.twilio[:auth_token],
+  #   Rails.application.credentials.twilio[:phone_number]
+
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
@@ -43,8 +48,8 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
-  config.action_cable.url = 'wss://accord-chat.herokuapp.com/cable'
-  config.action_cable.allowed_request_origins = [ 'https://accord-chat.herokuapp.com', /https:\/\/accord-chat.herokuapp.*/ ]
+  config.action_cable.url = 'wss://accord-talk.herokuapp.com/cable'
+  config.action_cable.allowed_request_origins = [ 'https://accord-talk.herokuapp.com', /https:\/\/accord-talk.herokuapp.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true

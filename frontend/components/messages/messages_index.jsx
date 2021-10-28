@@ -3,13 +3,14 @@ import DeleteMessageModal from "./delete_message_modal";
 import Message from "./message";
 
 const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessage, scrollToBottom, ...props }) => {
-  const [loading, setLoading] = useState(props.loading === false ? false : true);
+  // const [loading, setLoading] = useState(props.loading === false ? false : true);
+  const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
  
   useEffect(() => {
     if (!messagesIndex.serverId) {
-      setLoading(true);
+      // setLoading(true);
       props.getServer(messagesIndex.id).then(() => setLoading(false));
     }
   }, [messagesIndex.id]);
@@ -25,7 +26,7 @@ const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessa
     <>
       <ul id="messages-index" style={{ "height": `calc(100% - 40px - ${formHeight}px)` }}>
         <div id="messages-buffer" style={{"flex": "1 1 auto"}}></div>
-        {new Array(Math.floor(Math.random() * 5 + 2)).fill(null).map((x, i) => <BlankMessage key={i} hasMembersIndex={!!messagesIndex.serverId} />)}
+        {/* {new Array(Math.floor(Math.random() * 5 + 2)).fill(null).map((x, i) => <BlankMessage key={i} hasMembersIndex={!!messagesIndex.serverId} />)} */}
         {loading ? null
         : <>
           <div id="welcome-message">
@@ -46,7 +47,7 @@ const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessa
           {messagesList}
         </> }
         <div id="messages-end"></div>
-      </ul>s
+      </ul>
 
       { deleting ? (
         <DeleteMessageModal deleting={deleting} setDeleting={setDeleting} users={users} deleteMessage={() => deleteMessage(deleting.message.id)} />
