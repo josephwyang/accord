@@ -122,7 +122,7 @@
     > p:not(.time-stamp) { padding-left: 52px; }
   }
 
-  &:hover:not(.editing) {
+  &:hover:not(.editing):not(.blank) {
     background-color: $dark-grey-0;
     > .time-stamp { display: block; }
     > #message-settings { display: flex; }
@@ -135,7 +135,7 @@
     background-color: $grey-0;
   }
 
-  > div {
+  > div:not(.profile-photo) {
     width: calc(100% - 50px);
     margin-left: 12px;
     
@@ -190,5 +190,20 @@
     top: 10px;
     left: 22px;
     color: $light-grey-3;
+  }
+
+  &.blank {
+    .username {
+      height: 20px;
+      background-color: $grey-0; 
+      border-radius: 10px;
+    }
+
+    .message-body {
+      margin-top: 3px;
+      height: 17px;
+      background-color: $grey-1;
+      border-radius: 10px;
+    }
   }
 }

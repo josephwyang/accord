@@ -5,7 +5,7 @@ export default class Channel extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { messages: this.props.messages };
+    this.state = { messages: this.props.messages, loading: true };
   }
 
   loadChannel() {
@@ -19,6 +19,7 @@ export default class Channel extends React.Component {
             if (message.channelId === payload.channel.id) this.props.receiveMessage(message);
           }
         }});
+        this.setState({ loading: false });
     });
   }
 
@@ -33,7 +34,7 @@ export default class Channel extends React.Component {
   render() {
     return (
       <div id="channel">
-        <MessageFormContainer />
+        <MessageFormContainer loading={this.state.loading} />
       </div>
     );
   }

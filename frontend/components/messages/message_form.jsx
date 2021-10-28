@@ -58,7 +58,7 @@ export default class MessageForm extends React.Component {
 
     return (
       <>
-        <MessagesIndexContainer formHeight={this.state.height} messagesIndex={this.props.channel || this.props.dm} scrollToBottom={this.scrollToBottom} />
+        <MessagesIndexContainer formHeight={this.state.height} messagesIndex={this.props.channel || this.props.dm} scrollToBottom={this.scrollToBottom} loading={this.props.loading} />
         <form id="message-form">
           <span role="textbox" contentEditable onInput={this.handleInput.bind(this)} autoFocus></span>
           {this.state.empty ? <div className="placeholder">{this.props.channel ? `Message #${this.props.channel.name}` : this.props.dm.user ? `Message @${this.props.dm.user.username}` : `Message ${this.props.dm.name}`}</div> : null}
