@@ -1,4 +1,4 @@
 Twilio.configure do |config|
-  config.account_sid = Rails.application.credentials[Rails.env.to_sym][:twilio][:account_sid]
-  config.auth_token = Rails.application.credentials[Rails.env.to_sym][:twilio][:auth_token]
+  config.account_sid = Rails.env == "development" ? Rails.application.credentials.twilio[:account_sid] : ENV["ACCOUNT_SID"]
+  config.auth_token = Rails.env == "development" ? Rails.application.credentials.twilio[:auth_token] : ENV["AUTH_TOKEN"]
 end
