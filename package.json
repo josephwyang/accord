@@ -16,8 +16,8 @@
     "webpack-cli": "^4.7.2"
   },
   "engines": {
-    "node": "12.5.0",
-    "npm": "6.9.0"
+    "node": "16.4.2",
+    "npm": "7.18.1"
   },
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
   "version": "1.0.0",
