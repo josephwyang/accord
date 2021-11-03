@@ -3,24 +3,23 @@ import DeleteMessageModal from "./delete_message_modal";
 import Message from "./message";
 
 const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessage, scrollToBottom, ...props }) => {
-  // const [loading, setLoading] = useState(props.loading === false ? false : true);
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
  
   useEffect(() => {
-    if (!messagesIndex.serverId) {
-      // setLoading(true);
-      props.getServer(messagesIndex.id).then(() => setLoading(false));
-    }
+    if (!messagesIndex.serverId) props.getServer(messagesIndex.id).then(() => {
+      setLoading(false);
+      scrollToBottom();
+    });
   }, [messagesIndex.id]);
 
   const messagesList = messages.map((message, i) => <Message key={`message-${message.id}`} messages={messages} message={message} i={i} users={users} editing={editing} setEditing={setEditing} setDeleting={setDeleting} />);
 
-  useEffect(() => {
-    if (!messages.length || document.querySelectorAll("#messages-index > *").length - 3 !== messages.length) return;
-    scrollToBottom();
-  }, [messages]);
+  // useEffect(() => {
+  //   if (!messages.length || document.querySelectorAll("#messages-index > *").length - 3 !== messages.length) return;
+  //   editing === false || deleting === false ? (editing === false ? setEditing(null) : setDeleting(null)) : scrollToBottom();
+  // }, [messages]);
 
   return (
     <>
@@ -56,34 +55,34 @@ const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessa
   )
 };
 
-const BlankMessage = ({ hasMembersIndex }) => {
-  console.log(hasMembersIndex);
-  const [blankBodies, setBlankBodies] = useState(new Array(Math.floor(Math.random() * 10 + 5)).fill(null).map((x, i) => <p key={`blank-body-${i}`} className="message-body" style={{ width: `${Math.floor(Math.random() * (document.body.clientWidth - (hasMembersIndex ? 670 : 430)) + 100)}px` }}></p>));
+// const BlankMessage = ({ hasMembersIndex }) => {
+//   console.log(hasMembersIndex);
+//   const [blankBodies, setBlankBodies] = useState(new Array(Math.floor(Math.random() * 10 + 5)).fill(null).map((x, i) => <p key={`blank-body-${i}`} className="message-body" style={{ width: `${Math.floor(Math.random() * (document.body.clientWidth - (hasMembersIndex ? 670 : 430)) + 100)}px` }}></p>));
 
-  useEffect(() =>  {
-    const randomizeLengths = () => {
-      if (document.body.clientWidth <= 800) return;
-      console.log(document.body.clientWidth);
-      setBlankBodies(blankBodies.map(body => <p key={body.key} className={body.props.className} style={{ width: `${Math.floor(Math.random() * (document.body.clientWidth - (hasMembersIndex ? 670 : 430)) + 50)}px` }}></p>));
-    };
+//   useEffect(() =>  {
+//     const randomizeLengths = () => {
+//       if (document.body.clientWidth <= 800) return;
+//       console.log(document.body.clientWidth);
+//       setBlankBodies(blankBodies.map(body => <p key={body.key} className={body.props.className} style={{ width: `${Math.floor(Math.random() * (document.body.clientWidth - (hasMembersIndex ? 670 : 430)) + 50)}px` }}></p>));
+//     };
     
-    window.addEventListener("resize", randomizeLengths);
-    return () => window.removeEventListener("resize", randomizeLengths);
-  });
+//     window.addEventListener("resize", randomizeLengths);
+//     return () => window.removeEventListener("resize", randomizeLengths);
+//   });
 
-  return (
-    <div>
-      <li className="blank message">
-        <div className="profile-photo" />
-        <div>
-          <div className="sender-info">
-            <h4 className="username" style={{ width: `${Math.floor(Math.random() * 40 + 70)}px`}}></h4>
-          </div>
-          {blankBodies}
-        </div>
-      </li>
-    </div>
-  );
-};
+//   return (
+//     <div>
+//       <li className="blank message">
+//         <div className="profile-photo" />
+//         <div>
+//           <div className="sender-info">
+//             <h4 className="username" style={{ width: `${Math.floor(Math.random() * 40 + 70)}px`}}></h4>
+//           </div>
+//           {blankBodies}
+//         </div>
+//       </li>
+//     </div>
+//   );
+// };
 
 export default MessagesIndex;

@@ -1,12 +1,13 @@
 import { connect } from "react-redux";
 import ServersIndex from "./servers_index";
-import { getServers, getServer, previewServer } from "../../actions/servers_actions"
+import { getServers, getServer, previewServer, postServer } from "../../actions/servers_actions"
 import { receiveFriend, receiveFriendRequest, receivePendingFriend, removeFriend } from "../../actions/friends_actions";
 import { getDms } from "../../actions/dms_actions";
 import { receiveMessage, receiveNotification, removeMessage } from "../../actions/messages_actions";
 
 const mSTP = state => ({
   servers: Object.values(state.entities.servers),
+  dms: Object.values(state.entities.dms),
   preview: state.entities.preview,
   currentUser: window.currentUser || state.session.currentUser
 });
@@ -14,6 +15,7 @@ const mSTP = state => ({
 const mDTP = dispatch => ({
   getServers: () => dispatch(getServers()),
   getServer: serverId => dispatch(getServer(serverId)),
+  postServer: data => dispatch(postServer(data)),
   getDms: () => dispatch(getDms()),
   previewServer: serverId => dispatch(previewServer(serverId)),
   receiveFriend: friend => dispatch(receiveFriend(friend)),

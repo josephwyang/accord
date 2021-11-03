@@ -26,7 +26,7 @@ export default class MessageForm extends React.Component {
   componentWillUnmount() { window.removeEventListener("resize", () => this.setState({ height: this.input.clientHeight })); }
 
   handleInput(e) {
-    if (e.target.innerText.includes("\n")) {
+    if (e.target.innerText.endsWith("\n")) {
       e.target.innerText = "";
       this.setState({ empty: true })
       this.handleSubmit(e);
@@ -49,9 +49,7 @@ export default class MessageForm extends React.Component {
     });
   }
 
-  scrollToBottom() {
-    document.getElementById("messages-end").scrollIntoView({ behavior: "instant" });
-  }
+  scrollToBottom() { document.getElementById("messages-end").scrollIntoView({ behavior: "instant" }) }
 
   render() {
     if(!this.props.channel && !this.props.dm) { return null; }

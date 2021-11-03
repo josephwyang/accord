@@ -6,8 +6,7 @@ import Bubble from "../misc/bubble";
 import MembersIndexContainer from "../users/members_index_container";
 import CreateDmForm from "./create_dm_form";
 
-const DmsIndex = ({ dms, friends, currentUser, deleteServer, postServer, postMembership, ...props }) => {
-  const [dm, setDm] = useState(null);
+const DmsIndex = ({ dms, dm, setDm, createDm, friends, currentUser, deleteServer, ...props }) => {
   const [scrolled, setScrolled] = useState(false);
   const [deleting, setDeleting] = useState(null);
   const [creatingDm, setCreatingDm] = useState(false);
@@ -29,28 +28,6 @@ const DmsIndex = ({ dms, friends, currentUser, deleteServer, postServer, postMem
       <img className="delete-dm" src={window.xButton} alt="X" onClick={e => {e.preventDefault(); setDeleting(dm);}} />
     </NavLink>
   ));
-
-  const createDm = friendId => {
-    for (let dm of Object.values(dms)) {
-      if (dm.user && dm.user.id === friendId) {
-        const id = dm.id;
-        props.history.push(`/@me/${id}`);
-        setDm(dm);
-        return;
-      }
-    }
-
-    const formData = new FormData();
-    formData.append('server[name]', "dm");
-    formData.append('server[public]', false);
-    formData.append('server[genre]', "dm");
-    formData.append('server[ownerId]', friendId);
-
-    postServer(formData).then(({payload}) => {
-      props.history.push(`/@me/${payload.server.id}`);
-      setDm(payload.server);
-    });
-  };
 
   const handleDelete = () => {
     deleteServer(deleting.id);
@@ -90,17 +67,17 @@ const DmsIndex = ({ dms, friends, currentUser, deleteServer, postServer, postMem
             <div id="dm-messages" className={dm.name ? "gc" : ""}>
               <MessageFormContainer dm={dm} scrolled={scrolled} setScrolled={setScrolled} />
             </div>
-            {dm.name ? <MembersIndexContainer ownerId={dm.ownerId} /> : null}
+            {dm.name ? <MembersIndexContainer createDm={createDm} ownerId={dm.ownerId} /> : null}
           </>
-          : <FriendsNavContainer setDm={setDm} createDm={createDm} /> }
+          : <FriendsNavContainer createDm={createDm} /> }
       </div>
 
       {deleting ? <div className="delete-server-modal">
         <div className="modal-screen" onClick={() => setDeleting(null)}></div>
         <div className="settings-modal">
           <div className="settings-modal-message">
-            <h1>Delete {dm.name ? <span style={{ fontWeight: 900 }}>{dm.name}</span> : "direct message"}?</h1>
-            <p>Are you sure you want to delete {dm.name ? "" : "your conversation with "}<span>{dm.name || dm.user.username}</span>? This action cannot be undone.</p>
+            <h1>Delete {deleting.name ? <span style={{ fontWeight: 900 }}>{deleting.name}</span> : "direct message"}?</h1>
+            <p>Are you sure you want to delete {deleting.name ? "" : "your conversation with "}<span>{deleting.name || deleting.user.username}</span>? This action cannot be undone.</p>
           </div>
           <div className="form-nav">
             <p onClick={() => setDeleting(null)}>Cancel</p>

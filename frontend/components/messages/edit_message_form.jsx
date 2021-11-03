@@ -5,6 +5,10 @@ const EditMessageForm = ({ message, closeEdit, setDeleting, patchMessage }) => {
   let input;
 
   useEffect(() => {
+    const appRect = document.getElementById("app").getBoundingClientRect();
+    const formRect = document.getElementById("edit-message-form").getBoundingClientRect();
+    if (appRect.height - formRect.y - 62 < formRect.height) document.getElementById("messages-index").scrollBy(0, formRect.height - (appRect.height - formRect.y - 82));
+
     input = document.querySelector("#edit-message-form > span");
     input.innerText = message.body;
     input.focus();
@@ -19,7 +23,7 @@ const EditMessageForm = ({ message, closeEdit, setDeleting, patchMessage }) => {
   }
 
   const handleInput = e => {
-    if (e.target.innerText.includes("\n")) {
+    if (e.target.innerText.endsWith("\n")) {
       saveMessage();
     } else setBody(e.target.textContent);
   }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Bubble from "../misc/bubble";
 import DeleteFriendModal from "./delete_friend_modal";
 
-const FriendsNav = ({ dms, getFriends, createDm, requestFriendship, acceptFriendship, deleteFriend, currentUserId, setDm, ...props }) => {
+const FriendsNav = ({ dms, getFriends, createDm, requestFriendship, acceptFriendship, deleteFriend, currentUserId, ...props }) => {
   const [nav, setNav] = useState("Online");
   const [username, setUsername] = useState("");
   const [tag, setTag] = useState("#0000");
@@ -63,10 +63,13 @@ const FriendsNav = ({ dms, getFriends, createDm, requestFriendship, acceptFriend
 
   const friendsList = (type, options) => {
     return props[type].sort((a, b) => (a.username < b.username ? -1 : 1)).map(friend => (
-      <div key={`friend-${friend.id}`} onClick={options.message ? e => {if (!e.target.classList.contains("remove-friend")) createDm(friend.id)} : null}>
+      <div key={`friend-${friend.id}`} onClick={e => {
+        const classes = e.target.classList
+        if (options.message && !classes.contains("remove-friend")) createDm(friend.id);
+      }} style={{ cursor: options.message ? "pointer" : null }}>
         <hr />
-        <li>
-          <img src={friend.profilePhotoUrl || window.logo} alt="profile" />
+        <li className="friend">
+          <img className="friend-profile" src={friend.profilePhotoUrl || window.logo} alt="profile" />
           <div className="friend-info">
             <p>{friend.username}<span>#{friend.tag}</span></p>
             <p>{options.info}</p>
@@ -74,7 +77,7 @@ const FriendsNav = ({ dms, getFriends, createDm, requestFriendship, acceptFriend
           <div className="friend-options">
             {options.message ?
               <div className="friend-option">
-                <img src={window.message} alt="message" />
+                <img className="open-message" src={window.message} alt="message" />
                 <Bubble text={options.message} top="-38px" />
               </div>
               : null}

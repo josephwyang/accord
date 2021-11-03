@@ -18,28 +18,36 @@ export default class ServersIndex extends React.Component {
       serverModalOpen: false,
       showBubble: false,
       y: 0,
-      bubbleName: null
+      bubbleName: null,
+      dm: null
     };
 
     this.setModal = this.setModal.bind(this);
+    this.createDm = this.createDm.bind(this);
+    this.subscriptions = [];
+  }
+
+  createDmSubscription(dm) {
+    this.subscriptions.push(App.cable.subscriptions.create({ channel: "MessagesChannel", channelId: dm.channelId },
+      { received: data => {
+          if (data.messageId) {
+            this.props.removeMessage(data.messageId)
+          } else {
+            const message = JSON.parse(data);
+            if (message.channelId === dm.channelId) {
+              this.props.receiveMessage(message);
+            } else { this.props.receiveNotification(message); };
+          }
+        }
+      }
+    ));
   }
 
   componentDidMount() {
     this.props.getServers();
 
     this.props.getDms().then(({ dms }) => {
-      this.subscriptions = Object.values(dms).map(dm => App.cable.subscriptions.create({ channel: "MessagesChannel", channelId: dm.channelId },
-        { received: data => {
-            if (data.messageId) {
-              this.props.removeMessage(data.messageId)
-            } else {
-              const message = JSON.parse(data);
-              if (message.channelId === dms[this.props.history.location.pathname.split("/@me/")[1]].channelId) {
-                this.props.receiveMessage(message);
-              } else { this.props.receiveNotification(message); };
-            }
-          }
-        }));
+      this.subscriptions = Object.values(dms).map(dm => this.createDmSubscription(dm));
     });
 
     this.friends = App.cable.subscriptions.create({ channel: "FriendshipsChannel", userId: this.props.currentUser.id, friendId: this.props.currentUser.id },
@@ -67,6 +75,28 @@ export default class ServersIndex extends React.Component {
     if (this.friends) this.friends.unsubscribe();
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
+
+  createDm(friendId) {
+    for (let dm of this.props.dms) {
+      if (dm.user && dm.user.id === friendId) {
+        this.props.history.push(`/@me/${dm.id}`);
+        this.setState({ dm });
+        return;
+      }
+    }
+
+    const formData = new FormData();
+    formData.append('server[name]', "dm");
+    formData.append('server[public]', false);
+    formData.append('server[genre]', "dm");
+    formData.append('server[ownerId]', friendId);
+
+    this.props.postServer(formData).then(({ payload }) => {
+      this.props.history.push(`/@me/${payload.server.id}`);
+      this.createDmSubscription(payload.server);
+      this.setState({ dm:payload.server });
+    });
+  };
 
   setModal(bool) { this.setState({ serverModalOpen:bool }); }
 
@@ -107,8 +137,8 @@ export default class ServersIndex extends React.Component {
         {this.props.location.pathname === "/explore" ?
           <ServersExploreContainer />
           : this.props.location.pathname.slice(0,4) === "/@me" ?
-            <DmsIndexContainer />
-            : <ServerContainer serversLoading={this.state.loading} />}
+            <DmsIndexContainer createDm={this.createDm} dm={this.state.dm} setDm={dm => this.setState({ dm })} subscriptions={this.subscriptions} />
+            : <ServerContainer createDm={this.createDm} serversLoading={this.state.loading} />}
         <Bubble text={this.state.bubbleName} left="74px" y={this.state.y} large={true} show={true}
           opacity={(this.state.showBubble ? 1 : 0)} />
         <ProfileContainer />

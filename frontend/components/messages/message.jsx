@@ -52,22 +52,22 @@ const Message = ({ messages, message, i, users, editing, setEditing, setDeleting
               <p className={dateStamp.slice(0,1) === "Y" ? "date-stamp yesterday" : "date-stamp"}>{dateStamp}</p>
             </div>
             {editing === message.id ?
-                <EditMessageFormContainer message={message} closeEdit={() => setEditing(null)} setDeleting={() => setDeleting({ message: message, dateStamp })} />
+                <EditMessageFormContainer message={message} closeEdit={() => setEditing(null)} setDeleting={() => setDeleting({ message: message, dateStamp })} top={top} />
               : <p className="message-body">{message.body}<span>{message.edited ? "(edited)" : null}</span></p> }
           </div>
         </li>
       </div>
 
-        : <li key={`message-${message.id}`} className={editing === message.id ? "message followup-message editing" : "message followup-message"}>
-          {editing === message.id ?
-            <EditMessageFormContainer message={message} closeEdit={() => setEditing(null)} setDeleting={() => setDeleting({ message: message, dateStamp })} />
-            : <>
-              <MessageSettingsContainer message={message} edit={() => setEditing(message.id)}
-                setDeleting={() => setDeleting({ message: message, dateStamp })} style={{ top: "-23px" }} />
-              <p className="time-stamp">{message.time}</p>
-              <p className="message-body followup-message">{message.body}<span>{message.edited ? "(edited)" : null}</span></p>
-            </>
-            }
+      : <li key={`message-${message.id}`} className={editing === message.id ? "message followup-message editing" : "message followup-message"}>
+        {editing === message.id ?
+          <EditMessageFormContainer message={message} closeEdit={() => setEditing(null)} setDeleting={() => setDeleting({ message: message, dateStamp })} />
+          : <>
+            <MessageSettingsContainer message={message} edit={() => setEditing(message.id)}
+              setDeleting={() => setDeleting({ message: message, dateStamp })} style={{ top: "-23px" }} />
+            <p className="time-stamp">{message.time}</p>
+            <p className="message-body followup-message">{message.body}<span>{message.edited ? "(edited)" : null}</span></p>
+          </>
+          }
       </li>
     )
   } else return null;
