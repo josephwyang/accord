@@ -12,7 +12,6 @@ export default class ServersExplore extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getPublicServers();
     document.querySelector("#servers-explore > input").focus();
   }
 

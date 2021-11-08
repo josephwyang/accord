@@ -5,7 +5,7 @@ when "dm"
   json.server do
     json.extract! @server, :id, :genre
     json.channelId @channel ? @channel.id : @server.channels[0].id
-    json.last_message @server.last_message.to_i
+    json.last_message @server.last_message ? @server.last_message.to_i : DateTime.now.to_i
     json.user do
       other_user = @other_user || (@server.members[0].id == current_user.id ? @server.members[1] : @server.members[0])
       json.extract! other_user, :id, :accord_tag, :username, :tag
@@ -17,7 +17,7 @@ when "gc"
     json.extract! @server, :id, :name, :owner_id, :genre
     json.channelId @channel ? @channel.id : @server.channels[0].id
     json.icon url_for(@server.icon) if @server.icon.attached?
-    json.last_message @server.last_message.to_i
+    json.last_message @server.last_message ? @server.last_message.to_i : DateTime.now.to_i
   end
 else
   json.server do
@@ -50,6 +50,15 @@ if @server.genre == "dm" || @server.genre == "gc"
         json.date message.created_at.strftime("%D")
         json.time message.created_at.strftime("%I:%M%p")
         json.seconds message.created_at.to_i
+
+        json.reactions do
+          message.reactions.each do |reaction|
+            json.set! reaction.id do
+              json.extract! reaction, :id, :reactor_id, :message_id, :emoji
+            end
+          end
+        end
+
       end
     end
   end

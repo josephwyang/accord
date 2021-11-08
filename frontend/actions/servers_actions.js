@@ -7,6 +7,7 @@ export const REMOVE_SERVER = "REMOVE_SERVER";
 
 export const RECEIVE_PUBLIC_SERVERS = "RECEIVE_PUBLIC_SERVERS";
 export const PREVIEW_SERVER = "PREVIEW_SERVER";
+export const REMOVE_PREVIEW = "REMOVE_PREVIEW";
 
 const receiveServers = servers => ({
   type: RECEIVE_SERVERS,
@@ -31,6 +32,10 @@ const receivePublicServers = publicServers => ({
 const receivePreview = payload => ({
   type: PREVIEW_SERVER,
   payload
+});
+
+export const removePreview = () => ({
+  type: REMOVE_PREVIEW
 });
 
 export const getServers = () => dispatch => (

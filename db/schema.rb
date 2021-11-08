@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_20_234914) do
+ActiveRecord::Schema.define(version: 2021_11_07_061122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(version: 2021_10_20_234914) do
     t.integer "message_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "emoji", null: false
+    t.index ["message_id", "reactor_id", "emoji"], name: "index_reactions_on_message_id_and_reactor_id_and_emoji", unique: true
     t.index ["message_id"], name: "index_reactions_on_message_id"
     t.index ["reactor_id"], name: "index_reactions_on_reactor_id"
   end

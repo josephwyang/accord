@@ -5,7 +5,41 @@ export default class MessageForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { body: "", height: 42, empty: true, justEdited: false };
+    this.state = {
+      body: "",
+      height: 42,
+      empty: true,
+      replying: null,
+      keysDown: { "Enter": false, "Shift": false }
+    };
+  }
+
+  handleKeyDown(e) {
+    if (e.key === "Enter" || e.key === "Shift") {
+      const keysDown = this.state.keysDown;
+      keysDown[e.key] = true;
+      this.setState({ keysDown });
+    }
+
+    const input = document.querySelector("#message-form > span");
+    if (e.key === "Enter" && input.textContent !== "" && document.activeElement === input) {
+      this.handleSubmit(this.state.body);
+      input.textContent = "";
+    }
+  }
+
+  handleKeyUp(e) {
+    if (e.key === "Enter" || e.key === "Shift") {
+      const keysDown = this.state.keysDown;
+      keysDown[e.key] = false;
+      this.setState({ keysDown });
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", () => this.setState({ height: this.input.clientHeight }));
+    window.addEventListener("keydown", this.handleKeyDown.bind(this));
+    window.addEventListener("keyup", this.handleKeyUp.bind(this));
   }
 
   componentDidUpdate(prevProps) {
@@ -16,35 +50,40 @@ export default class MessageForm extends React.Component {
       if (prevProps.channelId !== this.props.channelId) {
         this.setState({ body: "", height: 42, empty: true });
         this.input.innerText = "";
+        this.input.focus();
       } else return;
     }
-
-    window.addEventListener("resize", () => this.setState({ height: this.input.clientHeight }));
-    this.input.focus();
   }
 
-  componentWillUnmount() { window.removeEventListener("resize", () => this.setState({ height: this.input.clientHeight })); }
+  componentWillUnmount() {
+    this.input = document.querySelector("#message-form > span");
+    window.removeEventListener("resize", () => this.setState({ height: this.input.clientHeight }));
+    window.removeEventListener("keydown", this.handleKeyDown.bind(this));
+    window.removeEventListener("keyup", this.handleKeyUp.bind(this));
+    this.setState({ body: "", height: 42, empty: true, replying: null });
+  }
 
   handleInput(e) {
-    if (e.target.innerText.endsWith("\n")) {
-      e.target.innerText = "";
-      this.setState({ empty: true })
-      this.handleSubmit(e);
-    } else {
-      this.setState({ body: e.target.textContent, height: e.target.clientHeight, empty: false });
-    };
+    e.target.textContent = e.target.textContent.replace(/(\r\n|\n|\r)/gm, "");
+    this.setState({ body: e.target.textContent, height: e.target.clientHeight });
+    e.target.innerText === "" ? this.setState({ empty: true }) : this.setState({ empty: false });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit() {
     const { channelId, currentUserId, postMessage } = this.props;
-
-    postMessage({
+    const message = this.state.replying ? {
+      channelId,
+      senderId: currentUserId,
+      body: this.state.body,
+      repliedMessageId: this.state.replying.messageId
+    } : {
       channelId,
       senderId: currentUserId,
       body: this.state.body
-    }).then(() => {
-      this.setState({ body: "" });
+    };
+
+    postMessage(message).then(() => {
+      this.setState({ body: "", height: 42, empty: true, replying: null, keysDown: { "Enter": false, "Shift": false } });
       this.scrollToBottom();
     });
   }
@@ -56,9 +95,14 @@ export default class MessageForm extends React.Component {
 
     return (
       <>
-        <MessagesIndexContainer formHeight={this.state.height} messagesIndex={this.props.channel || this.props.dm} scrollToBottom={this.scrollToBottom} loading={this.props.loading} />
+        <MessagesIndexContainer formHeight={this.state.height} messagesIndex={this.props.channel || this.props.dm} scrollToBottom={this.scrollToBottom}
+          replying={this.state.replying} setReplying={replying => this.setState({ replying })} />
         <form id="message-form">
-          <span role="textbox" contentEditable onInput={this.handleInput.bind(this)} autoFocus></span>
+          {this.state.replying ? <div id="replying" style={{ "top": `calc(100% - 54px - ${this.state.height}px)` }}>
+          <p>Replying to <span>{this.state.replying.username}</span></p>
+          <div onClick={() => this.setState({ replying: null })}><img src={window.xButton} alt="x" /></div>
+        </div> : null}
+          <span role="textbox" contentEditable onInput={this.handleInput.bind(this)}></span>
           {this.state.empty ? <div className="placeholder">{this.props.channel ? `Message #${this.props.channel.name}` : this.props.dm.user ? `Message @${this.props.dm.user.username}` : `Message ${this.props.dm.name}`}</div> : null}
         </form>
       </>

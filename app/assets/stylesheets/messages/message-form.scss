@@ -31,4 +31,51 @@
     color: grey;
     pointer-events: none;
   }
+
+  > #replying {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 69px);
+  padding: 9px 15px;
+  
+  position: absolute;
+  left: 20px;
+
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background-color: $dark-grey-3;
+
+  & + span {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+
+  > p {
+    color: $light-grey-3;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+
+    > span { font-weight: 900; }
+  }
+
+  > div {
+    height: 16px;
+    width: 16px;
+    
+    background-color: $light-grey-3;
+    border-radius: 50%;
+
+    cursor: pointer;
+    transition: background-color 0.1s;
+    &:hover { background-color: $light-grey-2; }
+
+    > img {
+      height: 8px;
+      width: 8px;
+      margin: 4px;
+      filter: brightness(0.2);
+    }
+  }
+}
 }

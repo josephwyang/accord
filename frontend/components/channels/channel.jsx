@@ -12,13 +12,20 @@ export default class Channel extends React.Component {
     this.props.getChannel().then(({ payload }) => {
       this.channel = App.cable.subscriptions.create({ channel: "MessagesChannel", channelId: payload.channel.id },
         { received: data => {
-          if (data.messageId) {
-            this.props.removeMessage(data.messageId);
-          } else {
-            const message = JSON.parse(data);
-            if (message.channelId === payload.channel.id) this.props.receiveMessage(message);
+            if (data.reactionId) {
+              this.props.removeReaction(data)
+            } else if (data.messageId) {
+              this.props.removeMessage(data.messageId)
+            } else {
+              const parsedData = JSON.parse(data);
+              if (parsedData.reactorId) {
+                this.props.receiveReaction(parsedData);
+              } else if (parsedData.channelId === payload.channel.id) {
+                this.props.receiveMessage(parsedData);
+              } else { this.props.receiveNotification(parsedData); };
+            }
           }
-        }});
+        });
         this.setState({ loading: false });
     });
   }

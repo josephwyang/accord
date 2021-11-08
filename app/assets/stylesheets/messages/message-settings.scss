@@ -2,7 +2,7 @@
 @import "variables/fonts";
 @import "variables/keyframes";
 
-#message-settings {
+.message-settings {
   display: none;
 
   position: absolute;
@@ -19,7 +19,7 @@
 
   > div {
     position: relative;
-    &:hover { background-color: $grey-1; }
+    &:hover { background-color: $grey-2; }
 
     > img {
       height: 16px;

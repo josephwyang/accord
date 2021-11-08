@@ -4,24 +4,26 @@ import { receiveErrors } from "./errors_actions";
 export const RECEIVE_MEMBERSHIP = "RECEIVE_MEMBERSHIP";
 export const REMOVE_MEMBERSHIP = "REMOVE_MEMBERSHIP";
 
-export const receiveMembership = membership => ({
+export const receiveMembership = member => ({
   type: RECEIVE_MEMBERSHIP,
-  membership
+  member
 });
 
-export const removeMembership = membershipId => ({
+export const removeMembership = payload => ({
   type: REMOVE_MEMBERSHIP,
-  membershipId
+  payload
 });
 
 export const postMembership = membership => dispatch => (
   MembershipsUtil.postMembership(membership)
-    .then(membership => dispatch(receiveMembership(membership)),
+    .then(member => dispatch(receiveMembership(member)),
       errors => dispatch(receiveErrors(errors)))
 );
 
-export const deleteMembership = membershipId => dispatch => (
+export const deleteMembership = membershipId => (dispatch, getState) => (
   MembershipsUtil.deleteMembership(membershipId)
-    .then (membership => dispatch(removeMembership(membership)),
-      errors => dispatch(receiveErrors(errors)))
+    .then (payload => {
+      const state = getState();
+      return dispatch(removeMembership(Object.assign({}, payload, { currentUserId: state.session.currentUser.id })))
+    }, errors => dispatch(receiveErrors(errors)))
 );

@@ -79,7 +79,7 @@
     }
   }
 
-  > div {
+  > div:not(#reactions) {
     position: relative;
 
     > .date-break {
@@ -104,11 +104,19 @@
       }
     }
   }
-}
 
+  &.reacting .message:hover:not(.editing) {
+    background-color: transparent;
+    &:not(.reacting) {
+      > .time-stamp { display: none; }
+      > .message-settings:not(.reacting) { display: none; }
+    }
+  }
+}
 .message {
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   padding: 5px 22px;
   margin-top: 10px;
   margin-right: 5px;
@@ -122,10 +130,58 @@
     > p:not(.time-stamp) { padding-left: 52px; }
   }
 
-  &:hover:not(.editing):not(.blank) {
+  &:hover:not(.editing) {
     background-color: $dark-grey-0;
     > .time-stamp { display: block; }
-    > #message-settings { display: flex; }
+    > .message-settings { display: flex; }
+  }
+
+  &.reacting > .message-settings {
+    display: flex;
+    box-shadow: -1px 3px 2px $dark-grey-2;
+
+    > div:first-child {
+      background-color: $grey-1;
+      transition: background-color 0.2s;
+
+      > img {
+        filter: brightness(0) invert(1);
+        + .bubble { display: none; }
+      }
+    }
+  }
+
+  > .replied-message {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    margin-left: 19px;
+    margin-bottom: 5px;
+    color: $light-grey-1;
+    
+    > img:first-of-type {
+      height: 30px;
+      width: 30px;
+      margin-bottom: -11px;
+    }
+
+    > img:last-of-type {
+      height: 15px;
+      width: 15px;
+      margin-left: 3px;
+      border-radius: 50%;
+      background-color: $grey-0;
+    }
+    
+    > p { font-size: 13px; }
+    > p:first-of-type {
+      margin-left: 3px;
+    }
+
+    > p:last-child {
+      margin-left: 4px;
+    }
   }
 
   > .profile-photo {
@@ -135,8 +191,8 @@
     background-color: $grey-0;
   }
 
-  > div:not(.profile-photo) {
-    width: calc(100% - 50px);
+  > div:not(.profile-photo):not(.message-settings):not(.replied-message) {
+    width: calc(100% - 52px);
     margin-left: 12px;
     
     > .sender-info {
@@ -204,6 +260,59 @@
       height: 17px;
       background-color: $grey-1;
       border-radius: 10px;
+    }
+  }
+
+  > .message-reactions {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-top: 5px;
+    margin-left: 52px;
+
+    > li {
+      display: flex;
+      align-items: center;
+
+      &:not(:first-child) { margin-left: 5px; }
+      height: 17px;
+      padding: 4px;
+      border: 1px solid $dark-grey-3;
+      border-radius: 5px;
+
+      &.reacted {
+        border-color: $light-blue-2;
+        background-color: $blue-grey-2;
+      }
+      
+      > img {
+        height: 17px;
+        width: 17px;
+      }
+
+      > p {
+        margin-left: 5px;
+        margin-right: 3px;
+        color: $light-grey-1;
+        font-size: 15px;
+      }
+
+      cursor: pointer;
+    }
+
+    > img {
+      display: none;
+      margin-left: 1px;
+      height: 13px;
+      width: 13px;
+      padding: 7px;
+
+      cursor: pointer;
+      &:hover { filter: brightness(1.5); }
+    }
+
+    &:hover {
+      > img { display: block; }
     }
   }
 }

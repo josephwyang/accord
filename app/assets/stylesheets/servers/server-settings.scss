@@ -227,6 +227,8 @@
 
 #members-settings {
   > ul {
+    display: flex;
+    flex-direction: column;
     width: 460px;
 
     > li {
@@ -438,7 +440,7 @@
 
   > .settings-modal-message {
     padding: 30px 20px;
-    h1 {
+    h1, h3 {
       font-family: $lato;
       font-weight: 700;
       font-size: 20px;

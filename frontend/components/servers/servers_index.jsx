@@ -28,18 +28,22 @@ export default class ServersIndex extends React.Component {
   }
 
   createDmSubscription(dm) {
+    this.subscriptions = [];
     this.subscriptions.push(App.cable.subscriptions.create({ channel: "MessagesChannel", channelId: dm.channelId },
       { received: data => {
-          if (data.messageId) {
-            this.props.removeMessage(data.messageId)
-          } else {
-            const message = JSON.parse(data);
-            if (message.channelId === dm.channelId) {
-              this.props.receiveMessage(message);
-            } else { this.props.receiveNotification(message); };
-          }
+        if (data.reactionId) {
+          this.props.removeReaction(data)
+        } else if (data.messageId) {
+          this.props.removeMessage(data.messageId)
+        } else {
+          const parsedData = JSON.parse(data);
+          if (parsedData.reactorId) {
+            this.props.receiveReaction(parsedData);
+          } else if (parsedData.channelId === dm.channelId) {
+            this.props.receiveMessage(parsedData);
+          } else { this.props.receiveNotification(parsedData); };
         }
-      }
+      }}
     ));
   }
 
@@ -47,7 +51,7 @@ export default class ServersIndex extends React.Component {
     this.props.getServers();
 
     this.props.getDms().then(({ dms }) => {
-      this.subscriptions = Object.values(dms).map(dm => this.createDmSubscription(dm));
+      Object.values(dms).map(dm => this.createDmSubscription(dm));
     });
 
     this.friends = App.cable.subscriptions.create({ channel: "FriendshipsChannel", userId: this.props.currentUser.id, friendId: this.props.currentUser.id },
@@ -68,7 +72,7 @@ export default class ServersIndex extends React.Component {
       }}
     );
 
-    setTimeout(() => {this.setState({ loading: false })}, 1500)
+    this.props.getPublicServers().then(() => {this.setState({ loading: false })});
   }
 
   componentWillUnmount() {
@@ -76,25 +80,35 @@ export default class ServersIndex extends React.Component {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  createDm(friendId) {
-    for (let dm of this.props.dms) {
-      if (dm.user && dm.user.id === friendId) {
-        this.props.history.push(`/@me/${dm.id}`);
-        this.setState({ dm });
-        return;
+  createDm(friendId, friends) {
+    if (friendId) {
+      for (let dm of this.props.dms) {
+        if (dm.user && dm.user.id === friendId) {
+          this.props.history.push(`/@me/${dm.id}`);
+          this.setState({ dm });
+          return dm.channelId;
+        }
       }
     }
 
     const formData = new FormData();
-    formData.append('server[name]', "dm");
+    formData.append('server[name]', (friendId ? "dm" : friends.map(friend => friend.username).concat(this.props.currentUser.username).sort().join(", ")));
     formData.append('server[public]', false);
-    formData.append('server[genre]', "dm");
-    formData.append('server[ownerId]', friendId);
+    formData.append('server[genre]', (friendId ? "dm" : "gc"));
+    formData.append('server[ownerId]', (friendId ? friendId : this.props.currentUser.id));
 
-    this.props.postServer(formData).then(({ payload }) => {
+    return this.props.postServer(formData).then(({ payload }) => {
+      if (friends) {
+        friends.forEach(friend => {
+          this.props.postMembership({ server_id: payload.server.id, user_id: friend.id, description: "gc" });
+        });
+      };
+
       this.props.history.push(`/@me/${payload.server.id}`);
       this.createDmSubscription(payload.server);
-      this.setState({ dm:payload.server });
+      this.setState({ dm: payload.server });
+
+      return payload.server.channelId
     });
   };
 
@@ -112,7 +126,7 @@ export default class ServersIndex extends React.Component {
       <>
         <LoadingScreen loading={this.state.loading} />
         <ul id="servers-index" onScroll={() => this.setState({ showBubble: false })}>
-          <NavLink to="/@me" id="dms" activeClassName="selected"
+          <NavLink to="/@me" id="dms" activeClassName="selected" onClick={() => this.props.removePreview()}
             onMouseEnter={e => this.setState({ showBubble: true, y: e.target.y + 24, bubbleName: "Home" })}
             onMouseLeave={() => this.setState({ showBubble: false })}>
             <img src={window.logo} alt="dms" />
@@ -127,7 +141,7 @@ export default class ServersIndex extends React.Component {
           <p id="add-server" className={this.state.serverModalOpen ? "selected" : ""} onClick={() => this.setModal(true)}
             onMouseEnter={e => this.setState({ showBubble: true, y: e.target.getBoundingClientRect().y + 24, bubbleName: "Create a Server" })}
             onMouseLeave={() => this.setState({ showBubble: false })} >+</p>
-          <NavLink to="/explore" id="explore" activeClassName="selected"
+          <NavLink to="/explore" id="explore" activeClassName="selected" onClick={() => this.props.removePreview()}
             onMouseEnter={e => this.setState({ showBubble: true, y: e.target.y + 24, bubbleName: "Explore" })}
             onMouseLeave={() => this.setState({ showBubble: false })}>
             <img src={window.compass} alt="compass" />

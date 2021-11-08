@@ -12,10 +12,6 @@ const CreateDmForm = ({ friends, createDm, closeForm }) => {
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [containerRef]);
 
-  useEffect(() => {
-    console.log(checked);
-  }, [checked])
-
   const handleCheck = (e, friend) => {
     if (e.target.checked) {
       setCheckCount(checkCount + 1);
@@ -29,8 +25,7 @@ const CreateDmForm = ({ friends, createDm, closeForm }) => {
     setChecked(checkedFriends);
   };
 
-  const friendsList = friends.concat([{ id: 11, username: "test", accordTag: "" }, { id: 12, username: "test", accordTag: "" }, { id: 13, username:"test", accordTag: "" }, { id: 14, username:"test", accordTag: "" }, { id: 15, username:"test", accordTag: "" }, { id: 16, username:"test", accordTag: "" }, { id: 17, username:"test", accordTag: "" }])
-  .filter(friend => friend.accordTag.startsWith(search)).map(friend => (
+  const friendsList = friends.filter(friend => friend.accordTag.startsWith(search)).map(friend => (
     <label id={`dm-friend-${friend.id}`} key={`dm-friend-${friend.id}`}>
       <div className="friend-info">
         <img src={friend.profilePhotoUrl || window.logo} alt="profile" />
@@ -50,7 +45,10 @@ const CreateDmForm = ({ friends, createDm, closeForm }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    debugger
+    const checkedFriends = Object.values(checked);
+    if(!checkedFriends.length) return;
+    checkedFriends.length > 1 ? createDm(null, checkedFriends) : createDm(checkedFriends[0]);
+    closeForm();
   };
 
   return (

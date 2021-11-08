@@ -10,9 +10,9 @@
       padding: 12px 10px;
       background-color: $dark-grey-2;
 
-      > input {
+      > #dm-search {
         width: calc(100% - 16px);
-        color: white;
+        color: $light-grey-4;
         font-family: $mukta;
         font-size: 14px;
         line-height: 16px;
@@ -21,6 +21,7 @@
         letter-spacing: 0.2px;
         background-color: $dark-grey-4;
         border-radius: 3px;
+        cursor: pointer;
       }
     }
 

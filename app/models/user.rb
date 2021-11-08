@@ -45,7 +45,11 @@ class User < ApplicationRecord
     foreign_key: :friend_id,
     class_name: :Friendship,
     dependent: :destroy
-
+    
+  has_many :reactions,
+    foreign_key: :reactor_id,
+    dependent: :destroy
+      
   has_many :initiated_friends,
     through: :initiated_friendships,
     source: :friend

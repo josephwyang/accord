@@ -4,6 +4,7 @@ import ChannelsIndex from "../channels/channels_index";
 import ChannelFormContainer from "../channels/channel_form_container";
 import ChannelContainer from "../channels/channel_container";
 import MembersIndexContainer from "../users/members_index_container";
+import LeaveServerModal from "./leave_server_modal";
 
 export default class Server extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class Server extends React.Component {
       channelHeaderOpen: true,
       serverSettingsOpen: false,
       channelFormOpen: false,
+      leaveServerModalOpen: false,
       loading: true
     };
   }
@@ -28,7 +30,7 @@ export default class Server extends React.Component {
     this.setState({ loading: false });
   }
 
-  componentDidUpdate() { if (this.state.loading && !this.props.serversLoading) { this.loadServer();} }
+  componentDidUpdate() { if (this.state.loading && !this.props.serversLoading) this.loadServer(); }
 
   toggleOpen(field) {
     this.setState({ [`${field}Open`]: !this.state[`${field}Open`] })
@@ -50,12 +52,24 @@ export default class Server extends React.Component {
             <>
               <div className="transparent-modal-screen" onClick={() => this.setState({ serverHeaderOpen: false })}></div>
               <ul id="server-header-modal">
-                <li>Invite People</li>
+                <li>
+                  Invite People
+                  <img src={window.invite} alt="invite" />
+                </li>
                 {this.props.server.ownerId === this.props.currentUser.id ? (
-                <li onClick={() => {this.setState({ serverSettingsOpen:true, serverHeaderOpen:false })}}>Server Settings</li>
+                <li onClick={() => {this.setState({ serverSettingsOpen:true, serverHeaderOpen:false })}}>
+                  Server Settings
+                  <img src={window.cog} alt="cog" />
+                </li>
                 ) : null}
-                <li onClick={() => {this.setState({ channelFormOpen:true, serverHeaderOpen:false })}}>Create Channel</li>
-                <li>Change Nickname</li>
+                <li onClick={() => {this.setState({ channelFormOpen:true, serverHeaderOpen:false })}}>
+                  Create Channel
+                  <img src={window.create} alt="create" />
+                </li>
+                <li onClick={() => {this.setState({ leaveServerModalOpen:true, serverHeaderOpen:false })}}>
+                  Leave Server
+                  <img src={window.leave} alt="leave" />
+                </li>
               </ul>
             </>
           ) : null }
@@ -63,11 +77,15 @@ export default class Server extends React.Component {
             <ChannelFormContainer closeForm={() => this.setState({ channelFormOpen: false })}/>
           ) : null}
           {this.state.serverSettingsOpen ? (
-            <ServerSettingsContainer closeSettings={() => this.setState({ serverSettingsOpen: false })} />
+            <ServerSettingsContainer currentUserId={this.props.currentUser.id} deleteMembership={this.props.deleteMembership} closeSettings={() => this.setState({ serverSettingsOpen: false })} />
           ) : null}
           <ChannelContainer />
         </div>
-        <MembersIndexContainer ownerId={this.props.server.ownerId} />
+        {this.state.leaveServerModalOpen ?
+          <LeaveServerModal server={this.props.server} currentUserId={this.props.currentUser.id} isOwner={this.props.server.ownerId === this.props.currentUser.id}
+            deleteMembership={this.props.deleteMembership} closeModal={() => this.setState({ leaveServerModalOpen: false })} history={this.props.history}
+          /> : null}
+        <MembersIndexContainer createDm={this.props.createDm} ownerId={this.props.server.ownerId} />
       </>
     )
   }

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const DeleteMessageModal = ({ deleting, setDeleting, deleteMessage, users }) => {
+const DeleteMessageModal = ({ deleting, setDeleting, deleteMessage, replying, closeReply, users }) => {
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     return (() => window.removeEventListener("keydown", handleKeyDown));
@@ -11,6 +11,7 @@ const DeleteMessageModal = ({ deleting, setDeleting, deleteMessage, users }) => 
     else if (e.key === "Enter") {
       deleteMessage();
       setDeleting(null);
+      if(deleting.message.id === replying.messageId) closeReply();
     }
   }
 
@@ -34,7 +35,11 @@ const DeleteMessageModal = ({ deleting, setDeleting, deleteMessage, users }) => 
         </div>
         <div className="form-nav">
           <p onClick={() => setDeleting(null)}>Cancel</p>
-          <button onClick={() => { deleteMessage(); setDeleting(null); }}>Delete</button>
+          <button onClick={() => {
+            deleteMessage();
+            setDeleting(null);
+            if (replying && deleting.message.id === replying.messageId) closeReply();
+          }}>Delete</button>
         </div>
       </div>
     </div>

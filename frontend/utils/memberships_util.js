@@ -9,7 +9,7 @@ export const postMembership = data => (
 export const deleteMembership = data => (
   $.ajax({
     method: "DELETE",
-    url: "/api/membership",
+    url: "/api/memberships",
     data
   })
 );

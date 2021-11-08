@@ -57,6 +57,10 @@
     window.xButton = "<%= image_url('/assets/server/x-button') %>";
     window.communityBackground = "<%= image_url('/assets/server/community-background') %>";
     window.communityHome = "<%= image_url('/assets/server/community-home') %>";
+    window.transfer = "<%= image_url('/assets/server/transfer') %>";
+    window.invite = "<%= image_url('/assets/server/invite') %>";
+    window.create = "<%= image_url('/assets/server/create') %>";
+    window.leave = "<%= image_url('/assets/server/leave') %>";
     window.cog = "<%= image_url('/assets/profile/cog') %>";
     window.defaultProfile = "<%= image_url('/assets/profile/default-profile') %>";
     window.phone = "<%= image_url('/assets/profile/phone') %>"
@@ -66,6 +70,7 @@
     window.edit = "<%= image_url('/assets/message/edit') %>"
     window.reply = "<%= image_url('/assets/message/reply') %>"
     window.trash = "<%= image_url('/assets/message/trash') %>"
+    window.replied = "<%= image_url('/assets/message/replied') %>"
     window.friend = "<%= image_url('/assets/home/friend') %>"
     window.unchecked = "<%= image_url('/assets/home/unchecked') %>"
     window.checked = "<%= image_url('/assets/home/checked') %>"
@@ -76,6 +81,16 @@
     window.allWumpus = "<%= image_url('/assets/home/all-wumpus') %>"
     window.pendingFriendsWumpus = "<%= image_url('/assets/home/pending-friends-wumpus') %>"
     window.friendRequestsWumpus = "<%= image_url('/assets/home/friend-requests-wumpus') %>"
+    window.failedSearch = "<%= image_url('/assets/home/failed-search') %>"
+
+    "<% reactions = ["smile", "happy", "joy", "wink", "oops", "frown", "cry", "sob", "sweat", "ouch", "smirk", "unamused", "annoyed", "confused", "dizzy", "angry", "poisoned", "angel", "devil", "rainbow", "kissing", "kiss-heart", "in-love", "blushing", "mute", "cool", "starstruck", "tongue", "rolling-eyes", "scared", "sleeping", "simp", "sakura", "pink-heart", "red-heart", "brown-heart", "yellow-heart", "mint-heart", "lavender-heart", "purple-heart"] %>"
+    "<% reactionUrls = reactions.map { |reaction| image_url("/assets/reactions/#{reaction}") } %>"
+    const reactions = ["smile", "happy", "joy", "wink", "oops", "frown", "cry", "sob", "sweat", "ouch", "smirk", "unamused", "annoyed", "confused", "dizzy", "angry", "poisoned", "angel", "devil", "rainbow", "kissing", "kissHeart", "inLove", "blushing", "mute", "cool", "starstruck", "tongue", "rollingEyes", "scared", "sleeping", "simp", "sakura", "pinkHeart", "redHeart", "brownHeart", "yellowHeart", "mintHeart", "lavenderHeart", "purpleHeart"];
+    let reactionUrls = "<%= reactionUrls %>";
+    reactionUrls = reactionUrls.slice(1, -1).split(', ').map(url => url.replaceAll("&quot;", ""));
+    reactions.forEach((reaction, i) => window[reaction] = reactionUrls[i]);
+
+    window.noReactionMatch = "<%= image_url('/assets/reactions/no-match') %>"
   </script>
 
   <%= stylesheet_link_tag 'application', media: 'all' %>

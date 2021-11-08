@@ -150,15 +150,30 @@
   animation: drop-down 0.2s;
 
   li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     padding: 10px 5px;
     font-size: 14px;
     color: $light-grey-2;
+    border-radius: 3px;
     &:first-of-type { color: $light-blue-1; }
+    &:last-of-type { color: $red; }
+
+    > img {
+      margin-right: 3px;
+      height: 13px;
+      width: 13px;
+    }
 
     &:hover {
       cursor: pointer;
       color: white;
       background-color: $light-blue-2;
+      > img { filter: brightness(0) invert(1); }
+
+      &:last-of-type { background-color: $red; }
     }
   }
 }

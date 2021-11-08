@@ -3,6 +3,7 @@ import { getServer, getServers, previewServer } from "../../actions/servers_acti
 import Server from "./server";
 import { firstChannelId } from "../../reducers/channels_selector";
 import { withRouter } from "react-router";
+import { deleteMembership } from "../../actions/memberships_actions";
 
 const mSTP = (state, ownProps) => ({
   servers: state.entities.servers,
@@ -16,7 +17,8 @@ const mSTP = (state, ownProps) => ({
 const mDTP = (dispatch, ownProps) => ({
   getServers: () => dispatch(getServers()),
   getServer: () => dispatch(getServer(ownProps.match.params.serverId)),
-  previewServer: () => dispatch(previewServer(ownProps.match.params.serverId))
+  previewServer: () => dispatch(previewServer(ownProps.match.params.serverId)),
+  deleteMembership: data => dispatch(deleteMembership(data))
 });
 
 const ServerContainer = withRouter(connect(mSTP, mDTP)(Server));

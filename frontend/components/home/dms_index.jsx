@@ -5,11 +5,13 @@ import MessageFormContainer from "../messages/message_form_container";
 import Bubble from "../misc/bubble";
 import MembersIndexContainer from "../users/members_index_container";
 import CreateDmForm from "./create_dm_form";
+import SearchDm from "./search_dm";
 
 const DmsIndex = ({ dms, dm, setDm, createDm, friends, currentUser, deleteServer, ...props }) => {
   const [scrolled, setScrolled] = useState(false);
   const [deleting, setDeleting] = useState(null);
   const [creatingDm, setCreatingDm] = useState(false);
+  const [searchingDm, setSearchingDm] = useState(false);
 
   useEffect(() => {
     setDm(dms[props.match.params.dmId]);
@@ -20,7 +22,7 @@ const DmsIndex = ({ dms, dm, setDm, createDm, friends, currentUser, deleteServer
   }, [props.location.pathname])
 
   const dmsList = Object.values(dms).sort((a, b) => (a.lastMessage > b.lastMessage ? -1 : 1)).map(dm => (
-    <NavLink key={dm.id} to={`/@me/${dm.id}`} activeClassName="selected" onClick={e => {if(e.target.classList[0] != "delete-dm") setDm(dm)}}>
+    <NavLink key={dm.id} to={`/@me/${dm.id}`} activeClassName="selected" onClick={e => { if(e.target.classList[0] != "delete-dm") setDm(dm) }}>
       {dm.user ?
         <img src={dm.user.profilePhotoUrl || window.logo} alt="profile" /> :
         <div><img src={dm.icon || window.group} alt="profile" /></div> }
@@ -40,22 +42,22 @@ const DmsIndex = ({ dms, dm, setDm, createDm, friends, currentUser, deleteServer
       <div id="dm">
         <div id="dms-index" className="nav">
           <div className="header">
-            <input type="text" placeholder="Find or start a conversation" />
+            <div id="dm-search" onClick={() => setSearchingDm(true)}>Find or start a conversation</div>
           </div>
-            <ul>
-              <Link to="/@me" className={props.location.pathname === "/@me" ? "dm-nav selected" : "dm-nav"}>
-                <img src={window.friend} alt="friends" />
-                <p>Friends</p>
-              </Link>
-              <div>
-                <h3>DIRECT MESSAGES</h3>
-                <div onClick={() => setCreatingDm(true)}>
-                  +
-                  <Bubble text="Create DM" top="-38px" />
-                </div>
+          <ul>
+            <Link to="/@me" className={props.location.pathname === "/@me" ? "dm-nav selected" : "dm-nav"}>
+              <img src={window.friend} alt="friends" />
+              <p>Friends</p>
+            </Link>
+            <div>
+              <h3>DIRECT MESSAGES</h3>
+              <div onClick={() => setCreatingDm(true)}>
+                +
+                <Bubble text="Create DM" top="-38px" />
               </div>
-              {dmsList}
-            </ul>
+            </div>
+            {dmsList}
+          </ul>
         </div>
         
         { dm ?
@@ -67,7 +69,7 @@ const DmsIndex = ({ dms, dm, setDm, createDm, friends, currentUser, deleteServer
             <div id="dm-messages" className={dm.name ? "gc" : ""}>
               <MessageFormContainer dm={dm} scrolled={scrolled} setScrolled={setScrolled} />
             </div>
-            {dm.name ? <MembersIndexContainer createDm={createDm} ownerId={dm.ownerId} /> : null}
+            {dm.name ? <MembersIndexContainer createDm={createDm} ownerId={dm.ownerId} gc={true} /> : null}
           </>
           : <FriendsNavContainer createDm={createDm} /> }
       </div>
@@ -87,6 +89,7 @@ const DmsIndex = ({ dms, dm, setDm, createDm, friends, currentUser, deleteServer
       </div> : null}
 
       {creatingDm ? <CreateDmForm friends={friends} createDm={createDm} closeForm={() => setCreatingDm(false)} /> : null}
+      {searchingDm ? <SearchDm dms={dms} friends={friends} createDm={createDm} closeForm={() => setSearchingDm(false)} /> : null}
     </>
   );
 };

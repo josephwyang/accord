@@ -25,7 +25,7 @@ class Api::MessagesController < ApplicationController
     @message = Message.find_by(id: params[:id])
     channel = Channel.find_by(id: @message.channel_id)
     @message.destroy
-    MessagesChannel.broadcast_to channel, { messageId: @message.id }
+    MessagesChannel.broadcast_to channel, { message_id: @message.id }.transform_keys { |key| key.to_s.camelize(:lower) }
   end
 
   def message_params

@@ -1,6 +1,6 @@
 class Api::ChannelsController < ApplicationController
   def show
-    @channel = Channel.includes(:messages).order("created_at DESC").find_by(id: params[:id])
+    @channel = Channel.includes(:messages, :reactions).order("messages.created_at DESC").find_by(id: params[:id])
     if @channel
       render :show
     else
@@ -26,6 +26,6 @@ class Api::ChannelsController < ApplicationController
   end
 
   def channel_params
-    params.require(:channel).permit(:name, :serverId).transform_keys { |key| key.to_s.underscore }
+    params.require(:channel).transform_keys { |key| key.to_s.underscore }.permit(:name, :server_id)
   end
 end

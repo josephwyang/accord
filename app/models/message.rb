@@ -19,4 +19,5 @@ class Message < ApplicationRecord
   belongs_to :channel
   belongs_to :replied_message, class_name: :Message, optional: true
   has_many :replies, foreign_key: :replied_message_id, class_name: :Message
+  has_many :reactions
 end

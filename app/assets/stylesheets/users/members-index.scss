@@ -14,7 +14,8 @@
   overflow-y: scroll;
 
   @media all and (max-width: 800px) {
-    & { left: 560px; }
+    &.server-members { left: 560px; }
+    &.gc-members { left: 488px; }
   }
 
   > h3 {

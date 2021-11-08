@@ -1,4 +1,6 @@
 import React from "react";
+import KickMemberModal from "./kick_member_modal";
+import PassOwnerModal from "./pass_owner_modal";
 
 export default class ServerSettings extends React.Component {
   constructor(props) {
@@ -9,6 +11,8 @@ export default class ServerSettings extends React.Component {
     this.state = {
       selectedNav: "Overview",
       deleteServerModalOpen: false,
+      kickMember: null,
+      passOwner: null,
       changed: false,
       iconUrl,
       bannerUrl,
@@ -22,9 +26,15 @@ export default class ServerSettings extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
-  handleEsc(e) { if (e.keyCode === 27) { this.props.closeSettings(); } }
-  componentDidMount() { document.addEventListener("keydown", this.handleEsc); }
-  componentWillUnmount() { document.removeEventListener("keydown", this.handleEsc); }
+  handleEsc(e) {
+    if (e.keyCode === 27) {
+      if (!this.state.kickMember && !this.state.passOwner && !this.state.deleteServerModalOpen) {
+        this.props.closeSettings();
+      } else if (this.state.deleteServerModalOpen) this.setState({ deleteServerModalOpen: false });
+    }
+  }
+  componentDidMount() { window.addEventListener("keydown", this.handleEsc); }
+  componentWillUnmount() { window.removeEventListener("keydown", this.handleEsc); }
 
   openModal(modal) {
     if (this.state.changed && this.state.selectedNav !== modal) {
@@ -146,14 +156,14 @@ export default class ServerSettings extends React.Component {
       )
     );
     const icon = this.state.iconUrl ? <img src={this.state.iconUrl} alt="icon" /> : <p>{this.state.name.split(" ").map(word => word[0]).slice(0, 2)}</p>;
-    const members = this.props.members.map(member => <li key={`member-${member.id}`} >
+    const members = this.props.members.map(member => <li key={`member-${member.id}`} style={{ order: this.props.server.ownerId === member.id ? 1 : 2 }} >
       <img src={member.profilePhotoUrl || window.logo} alt="profile-photo" />
       <p>{member.username}<span>#{member.tag}</span></p>
       {this.props.server.ownerId === member.id ?
         <img src={window.owner} alt="owner" />
         : <>
-            <div>PASS OWNERSHIP</div>
-            <div>KICK</div>
+            <div onClick={() => this.setState({ passOwner: member })}>PASS OWNERSHIP</div>
+            <div onClick={() => this.setState({ kickMember: member })} >KICK</div>
         </> }
     </li>)
 
@@ -169,6 +179,7 @@ export default class ServerSettings extends React.Component {
             <li className="red" onClick={() => this.setState({ deleteServerModalOpen: true })}>Delete Server</li>
           </ul>
         </div>
+
         {this.state.selectedNav === "Overview" ? (
           <form id="overview-settings" className="settings-content" onSubmit={this.handleSubmit.bind(this)}>
             <div className="esc" onClick={this.handleExit.bind(this)}>
@@ -219,6 +230,7 @@ export default class ServerSettings extends React.Component {
               </div>
             ) : null}
           </form>) : null}
+
         {this.state.selectedNav === "Community" ? (
           <div id="community-settings" className="settings-content">
             <div className="esc" onClick={this.handleExit.bind(this)}>
@@ -246,6 +258,7 @@ export default class ServerSettings extends React.Component {
               </div>
             ) : null}
           </div>) : null}
+
         {this.state.selectedNav === "Members" ? (
           <div id="members-settings" className="settings-content">
             <div className="esc" onClick={this.handleExit.bind(this)}>
@@ -257,6 +270,7 @@ export default class ServerSettings extends React.Component {
               {members}
             </ul>
           </div>) : null}
+
         {this.state.deleteServerModalOpen ? (
           <div id="delete-server-modal">
             <div className="modal-screen" onClick={this.closeModal}></div>
@@ -272,6 +286,21 @@ export default class ServerSettings extends React.Component {
             </div>
           </div>
         ) : null}
+
+        {this.state.passOwner ?
+          <PassOwnerModal member={this.state.passOwner} owner={this.props.currentUser} server={this.props.server} closeModal={() => this.setState({ passOwner: null })}
+            passOwner={() => {
+              const formData = new FormData();
+              formData.append('server[id]', this.props.server.id);
+              formData.append('server[ownerId]', this.state.passOwner.id);
+              this.props.patchServer(formData);
+              this.props.closeSettings();
+            }} /> : null}
+
+        {this.state.kickMember ?
+          <KickMemberModal member={this.state.kickMember} serverId={this.props.server.id}
+            deleteMembership={this.props.deleteMembership} closeModal={() => this.setState({ kickMember:null })}
+          /> : null}
       </div>
     )
   }

@@ -10,6 +10,15 @@ json.messages do
       json.date message.created_at.strftime("%D")
       json.time message.created_at.strftime("%I:%M%p")
       json.seconds message.created_at.to_i
+
+      json.reactions do
+        message.reactions.each do |reaction|
+          json.set! reaction.id do
+            json.extract! reaction, :id, :reactor_id, :message_id, :emoji
+          end
+        end
+      end
+
     end
   end
 end

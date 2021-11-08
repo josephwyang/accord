@@ -7,6 +7,9 @@ export default class ChannelForm extends React.Component {
     this.state = { name: "" };
   }
 
+  componentDidMount() { window.addEventListener("keydown", e => { if (e.key === "Escape") this.props.closeForm(); }) }
+  componentWillUnmount() { window.addEventListener("keydown", e => { if (e.key === "Escape") this.props.closeForm(); }) }
+
   handleChange(e) {
     const filteredName = e.target.value.replace(/[^\w\-\~\s]/g, '').replace(/[\~\s]/g, "-");
     if ((filteredName[0] !== "-" && filteredName[0] !== "_")
@@ -33,7 +36,7 @@ export default class ChannelForm extends React.Component {
           <h2>Post images, GIFs, stickers, opinions and puns.</h2>
           <label htmlFor="channel-name">CHANNEL NAME</label>
           <input id="channel-name" type="text" placeholder="new-channel"
-            value={this.state.name} onChange={this.handleChange.bind(this)} />
+            value={this.state.name} onChange={this.handleChange.bind(this)} autoFocus />
           <p>#</p>
           <div>
             <p onClick={this.props.closeForm}>Cancel</p>
