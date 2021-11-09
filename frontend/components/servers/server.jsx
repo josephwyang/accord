@@ -1,9 +1,11 @@
 import React from "react";
-import ServerSettingsContainer from "./server_settings_container"
 import ChannelsIndex from "../channels/channels_index";
-import ChannelFormContainer from "../channels/channel_form_container";
 import ChannelContainer from "../channels/channel_container";
 import MembersIndexContainer from "../users/members_index_container";
+
+import ServerInviteModalContainer from "./server_invite_modal_container";
+import ServerSettingsContainer from "./server_settings_container"
+import ChannelFormContainer from "../channels/channel_form_container";
 import LeaveServerModal from "./leave_server_modal";
 
 export default class Server extends React.Component {
@@ -13,6 +15,7 @@ export default class Server extends React.Component {
     this.state = {
       serverHeaderOpen: false,
       channelHeaderOpen: true,
+      serverInviteOpen: false,
       serverSettingsOpen: false,
       channelFormOpen: false,
       leaveServerModalOpen: false,
@@ -52,7 +55,7 @@ export default class Server extends React.Component {
             <>
               <div className="transparent-modal-screen" onClick={() => this.setState({ serverHeaderOpen: false })}></div>
               <ul id="server-header-modal">
-                <li>
+                <li onClick={() => {this.setState({ serverInviteOpen:true, serverHeaderOpen:false })}}>
                   Invite People
                   <img src={window.invite} alt="invite" />
                 </li>
@@ -73,14 +76,19 @@ export default class Server extends React.Component {
               </ul>
             </>
           ) : null }
-          {this.state.channelFormOpen ? (
-            <ChannelFormContainer closeForm={() => this.setState({ channelFormOpen: false })}/>
-          ) : null}
+
           {this.state.serverSettingsOpen ? (
             <ServerSettingsContainer currentUserId={this.props.currentUser.id} deleteMembership={this.props.deleteMembership} closeSettings={() => this.setState({ serverSettingsOpen: false })} />
           ) : null}
+          {this.state.channelFormOpen ? (
+            <ChannelFormContainer closeForm={() => this.setState({ channelFormOpen: false })}/>
+          ) : null}
           <ChannelContainer />
         </div>
+
+        {this.state.serverInviteOpen ? (
+          <ServerInviteModalContainer servers={this.props.servers} server={this.props.server} closeModal={() => this.setState({ serverInviteOpen: false })} />
+        ) : null}
         {this.state.leaveServerModalOpen ?
           <LeaveServerModal server={this.props.server} currentUserId={this.props.currentUser.id} isOwner={this.props.server.ownerId === this.props.currentUser.id}
             deleteMembership={this.props.deleteMembership} closeModal={() => this.setState({ leaveServerModalOpen: false })} history={this.props.history}

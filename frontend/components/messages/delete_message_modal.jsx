@@ -16,7 +16,7 @@ const DeleteMessageModal = ({ deleting, setDeleting, deleteMessage, replying, cl
   }
 
   return (
-    <div id="delete-message-modal" onKeyDown={e => { debugger }}>
+    <div id="delete-message-modal">
       <div className="modal-screen" onClick={() => setDeleting(null)}></div>
       <div className="settings-modal">
         <div className="settings-modal-message">

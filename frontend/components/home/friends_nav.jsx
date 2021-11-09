@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Bubble from "../misc/bubble";
 import DeleteFriendModal from "./delete_friend_modal";
 
-const FriendsNav = ({ dms, getFriends, createDm, requestFriendship, acceptFriendship, deleteFriend, currentUserId, ...props }) => {
+const FriendsNav = ({ dms, createDm, requestFriendship, acceptFriendship, deleteFriend, currentUserId, ...props }) => {
   const [nav, setNav] = useState("Online");
   const [username, setUsername] = useState("");
   const [tag, setTag] = useState("#0000");
@@ -10,8 +10,7 @@ const FriendsNav = ({ dms, getFriends, createDm, requestFriendship, acceptFriend
   const [deleteFriendModal, setDeleteFriendModal] = useState(null);
   const [addedUser, setAddedUser] = useState(null);
 
-  useEffect(() => { if (!Object.values(props.friends).length) getFriends() }, []);
-  useEffect(() => { setAddedUser(null) }, [nav])
+  useEffect(() => { setAddedUser(null) }, [nav]);
 
   const handleInput = e => {
     let value = e.target.value.replace(/^\s+/g, ''); // remove leading spaces

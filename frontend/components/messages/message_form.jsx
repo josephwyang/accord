@@ -15,13 +15,13 @@ export default class MessageForm extends React.Component {
   }
 
   handleKeyDown(e) {
+    const input = document.querySelector("#message-form > span");
     if (e.key === "Enter" || e.key === "Shift") {
       const keysDown = this.state.keysDown;
       keysDown[e.key] = true;
       this.setState({ keysDown });
-    }
-
-    const input = document.querySelector("#message-form > span");
+    } else if (e.key === "Escape" && document.activeElement === input) this.setState({ replying: null });
+    
     if (e.key === "Enter" && input.textContent !== "" && document.activeElement === input) {
       this.handleSubmit(this.state.body);
       input.textContent = "";

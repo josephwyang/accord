@@ -49,6 +49,7 @@ export default class ServersIndex extends React.Component {
 
   componentDidMount() {
     this.props.getServers();
+    this.props.getFriends();
 
     this.props.getDms().then(({ dms }) => {
       Object.values(dms).map(dm => this.createDmSubscription(dm));

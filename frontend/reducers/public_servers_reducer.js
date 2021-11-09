@@ -10,7 +10,6 @@ const publicServersReducer = (state = {}, action) => {
       if (action.payload.server.public) return Object.assign({}, state, { [action.payload.server.id]: action.payload.server });
       return state;
     case REMOVE_SERVER:
-      debugger
       const {[action.serverId]: removedServerId, ...newState} = state;
       return newState;
     default:

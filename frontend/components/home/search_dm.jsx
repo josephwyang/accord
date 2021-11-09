@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const SearchDm = ({ dms, friends, createDm, closeForm }) => {
   const [search, setSearch] = useState("");
+  const handleEsc = e => { if (e.key === "Escape") closeForm(); };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
 
   let searchable = Object.values(dms);
   const onlyDms = searchable.filter(chat => chat.user);
@@ -15,17 +21,18 @@ const SearchDm = ({ dms, friends, createDm, closeForm }) => {
     if (chat.user) return chat.user.username;
     if (chat.username) return chat.username;
     return chat.name;
-  }
+  };
 
   const searchedList = searchable.filter(chat => getName(chat).includes(search)).sort((a, b) => (getName(a) < getName(b) ? -1 : 1)).map(chat => (
     chat.username ? 
-    <li key={`friend-${chat.id}`} onClick={e => {
+    <li key={`friend-${chat.id}`} onClick={() => {
       closeForm();
       createDm(chat.id);
     }}>
       <img src={chat.profilePhotoUrl || window.logo} alt="profile" />
       <p>{chat.username}<span>{`#${chat.tag}`}</span></p>
-    </li> : <NavLink key={chat.id} to={`/@me/${chat.id}`} activeClassName="selected" onClick={() => closeForm()}>
+    </li> :
+    <NavLink key={chat.id} to={`/@me/${chat.id}`} activeClassName="selected" onClick={() => closeForm()}>
       {chat.user ?
         <img src={chat.user.profilePhotoUrl || window.logo} alt="profile" /> :
         <div><img src={chat.icon || window.group} alt="profile" /></div>}

@@ -70,6 +70,8 @@
       left: 52.5px;
       
       border-top: 5px solid $green;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
       animation: fade-in 0.1s;
     }
 

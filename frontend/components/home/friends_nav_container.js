@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { acceptFriendship, getFriends, deleteFriend, requestFriendship } from "../../actions/friends_actions";
+import { acceptFriendship, deleteFriend, requestFriendship } from "../../actions/friends_actions";
 import FriendsNav from "./friends_nav";
 
 const mSTP = state => ({
@@ -12,7 +12,6 @@ const mSTP = state => ({
 })
 
 const mDTP = dispatch => ({
-  getFriends: () => dispatch(getFriends()),
   requestFriendship: tag => dispatch(requestFriendship(tag)),
   acceptFriendship: friendshipId => dispatch(acceptFriendship(friendshipId)),
   deleteFriend: friendshipId => dispatch(deleteFriend(friendshipId))
