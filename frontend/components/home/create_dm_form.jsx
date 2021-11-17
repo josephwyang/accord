@@ -47,7 +47,7 @@ const CreateDmForm = ({ friends, createDm, closeForm }) => {
     e.preventDefault();
     const checkedFriends = Object.values(checked);
     if(!checkedFriends.length) return;
-    checkedFriends.length > 1 ? createDm(null, checkedFriends) : createDm(checkedFriends[0]);
+    checkedFriends.length > 1 ? createDm(null, checkedFriends) : createDm(checkedFriends[0].id);
     closeForm();
   };
 

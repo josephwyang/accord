@@ -1,6 +1,5 @@
 import React from "react";
 import KickMemberModal from "./kick_member_modal";
-import PassOwnerModal from "./pass_owner_modal";
 
 export default class ServerSettings extends React.Component {
   constructor(props) {
@@ -12,7 +11,6 @@ export default class ServerSettings extends React.Component {
       selectedNav: "Overview",
       deleteServerModalOpen: false,
       kickMember: null,
-      passOwner: null,
       changed: false,
       iconUrl,
       bannerUrl,
@@ -28,7 +26,7 @@ export default class ServerSettings extends React.Component {
 
   handleEsc(e) {
     if (e.keyCode === 27) {
-      if (!this.state.kickMember && !this.state.passOwner && !this.state.deleteServerModalOpen) {
+      if (!this.state.kickMember && !this.props.passOwner && !this.state.deleteServerModalOpen) {
         this.props.closeSettings();
       } else if (this.state.deleteServerModalOpen) this.setState({ deleteServerModalOpen: false });
     }
@@ -162,7 +160,7 @@ export default class ServerSettings extends React.Component {
       {this.props.server.ownerId === member.id ?
         <img src={window.owner} alt="owner" />
         : <>
-            <div onClick={() => this.setState({ passOwner: member })}>PASS OWNERSHIP</div>
+            <div onClick={() => this.props.setPassOwner(member)}>PASS OWNERSHIP</div>
             <div onClick={() => this.setState({ kickMember: member })} >KICK</div>
         </> }
     </li>)
@@ -190,12 +188,12 @@ export default class ServerSettings extends React.Component {
             <div id="update-server-icon">
               {icon}
               <label htmlFor="old-server-icon"><p>CHANGE ICON</p></label>
-              <input id="old-server-icon" type="file" onChange={this.handleIconFile} />
+              <input id="old-server-icon" accept="image/*" type="file" onChange={this.handleIconFile} />
               <div><img id="camera-icon" src={window.camera} alt="camera" /></div>
             </div>
             <div id="update-server-icon-button">
               <label htmlFor="replace-server-icon">Upload Image</label>
-              <input id="replace-server-icon" type="file" onChange={this.handleIconFile} />
+              <input id="replace-server-icon" accept="image/*" type="file" onChange={this.handleIconFile} />
             </div>
             <div id="update-server-name">
               <label htmlFor="updated-server-name">SERVER NAME</label>
@@ -213,10 +211,10 @@ export default class ServerSettings extends React.Component {
               <label htmlFor="updated-server-banner-1">
                 <img src={this.state.bannerUrl || window.defaultBanner} alt="server-banner" />
               </label>
-              <input id="updated-server-banner-1" type="file" onChange={this.handleBannerFile} />
+              <input id="updated-server-banner-1" accept="image/*" type="file" onChange={this.handleBannerFile} />
               <div id="banner-options">
                 <label htmlFor="updated-server-banner-2">Upload Background</label>
-                <input id="updated-server-banner-2" type="file" onChange={this.handleBannerFile} />
+                <input id="updated-server-banner-2" accept="image/*" type="file" onChange={this.handleBannerFile} />
                 <p id="remove-banner" onClick={this.handleRemoveBanner.bind(this)}>Remove</p>
               </div>
             </div>
@@ -286,16 +284,6 @@ export default class ServerSettings extends React.Component {
             </div>
           </div>
         ) : null}
-
-        {this.state.passOwner ?
-          <PassOwnerModal member={this.state.passOwner} owner={this.props.currentUser} server={this.props.server} closeModal={() => this.setState({ passOwner: null })}
-            passOwner={() => {
-              const formData = new FormData();
-              formData.append('server[id]', this.props.server.id);
-              formData.append('server[ownerId]', this.state.passOwner.id);
-              this.props.patchServer(formData);
-              this.props.closeSettings();
-            }} /> : null}
 
         {this.state.kickMember ?
           <KickMemberModal member={this.state.kickMember} serverId={this.props.server.id}

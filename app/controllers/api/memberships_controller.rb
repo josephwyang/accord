@@ -3,6 +3,7 @@ class Api::MembershipsController < ApplicationController
     membership = Membership.new(membership_params)
     if membership.save
       @member = membership.user
+      @server = membership.server
       render :show
     else
       render json: membership.errors.full_messages, status:400

@@ -28,13 +28,12 @@
     text-align: center;
     line-height: 48px;
     font-size: 14px;
-    text-align: center;
     color: white;
     transition: all 0.3s;
     background-color: $grey-4;
     border-radius: 50%;
 
-    &:hover, &.selected, &.selected > img {
+    &:hover, &.selected, &.selected > img, &.selected > div {
       cursor: pointer;
       border-radius: 30%;
       background-color: $light-blue-2;

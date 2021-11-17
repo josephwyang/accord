@@ -3,15 +3,19 @@ import ServersIndex from "./servers_index";
 import { getServers, getServer, previewServer, postServer, getPublicServers, removePreview } from "../../actions/servers_actions"
 import { getFriends, receiveFriend, receiveFriendRequest, receivePendingFriend, removeFriend } from "../../actions/friends_actions";
 import { getDms } from "../../actions/dms_actions";
-import { receiveMessage, receiveNotification, removeMessage } from "../../actions/messages_actions";
+import { receiveMessage, receiveNotification, removeMessage, removeNotification } from "../../actions/messages_actions";
 import { postMembership } from "../../actions/memberships_actions";
 import { receiveReaction, removeReaction } from "../../actions/reactions_actions";
+import { firstChannelId } from "../../reducers/channels_selector";
 
 const mSTP = state => ({
   servers: Object.values(state.entities.servers),
   dms: Object.values(state.entities.dms),
   preview: state.entities.preview,
-  currentUser: window.currentUser || state.session.currentUser
+  currentUser: window.currentUser || state.session.currentUser,
+  currentChannel: state.session.currentChannel,
+  notification: state.entities.notification,
+  firstChannelId: firstChannelId
 });
 
 const mDTP = dispatch => ({
@@ -30,6 +34,7 @@ const mDTP = dispatch => ({
   removeFriend: friendshipId => dispatch(removeFriend(friendshipId)),
   receiveMessage: message => dispatch(receiveMessage(message)),
   receiveNotification: message => dispatch(receiveNotification(message)),
+  removeNotification: () => dispatch(removeNotification()),
   removeMessage: messageId => dispatch(removeMessage(messageId)),
   receiveReaction: reaction => dispatch(receiveReaction(reaction)),
   removeReaction: reaction => dispatch(removeReaction(reaction))

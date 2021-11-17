@@ -1,4 +1,4 @@
-import { RECEIVE_FRIENDS, RECEIVE_PENDING_FRIEND, REMOVE_FRIEND } from "../actions/friends_actions";
+import { RECEIVE_FRIEND, RECEIVE_FRIENDS, RECEIVE_PENDING_FRIEND, REMOVE_FRIEND } from "../actions/friends_actions";
 
 const pendingFriendsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -8,9 +8,12 @@ const pendingFriendsReducer = (state = {}, action) => {
       return Object.assign({}, action.payload.pendingFriends);
     case RECEIVE_PENDING_FRIEND:
       return Object.assign({}, state, { [action.friend.friendshipId]: action.friend });
+    case RECEIVE_FRIEND:
+      const { [action.friend.friendshipId]: addedFriend, ...stillPending } = state;
+      return stillPending;
     case REMOVE_FRIEND:
       const { [action.friendshipId]: removedFriend, ...friends } = state;
-      return Object.assign({}, friends);
+      return friends;
     default:
       return state;
   }

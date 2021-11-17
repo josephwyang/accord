@@ -61,14 +61,13 @@
     &:focus { border-color: $light-blue-0; }
   }
 
-  > p {
+  > img {
     position: absolute;
-    top: 132px;
+    top: 136px;
     left: 25px;
-
-    font-family: $montserrat;
-    font-style: italic;
-    font-size: 18px;
+    height: 15px;
+    width: 15px;
+    opacity: 0.7;
   }
 
   > div:last-child {

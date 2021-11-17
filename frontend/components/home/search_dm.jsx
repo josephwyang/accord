@@ -35,7 +35,9 @@ const SearchDm = ({ dms, friends, createDm, closeForm }) => {
     <NavLink key={chat.id} to={`/@me/${chat.id}`} activeClassName="selected" onClick={() => closeForm()}>
       {chat.user ?
         <img src={chat.user.profilePhotoUrl || window.logo} alt="profile" /> :
-        <div><img src={chat.icon || window.group} alt="profile" /></div>}
+        chat.icon ?
+        <img src={chat.icon} alt="profile" /> :
+        <div><img src={window.group} alt="profile" /></div>}
       <p>{chat.name || chat.user.username}<span>{chat.user ? `#${chat.user.tag}` : null}</span></p>
     </NavLink>
   ));

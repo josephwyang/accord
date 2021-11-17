@@ -8,7 +8,7 @@ import { Redirect } from "react-router-dom";
 import ServersIndexContainer from "./servers/servers_index_container";
 
 const App = () => (
-  <div id="app">
+  <div id="app" onContextMenu={e => e.preventDefault()}>
     <Switch>
       <Route exact path="/" component={SplashContainer} />
       <AuthRoute path="/signup" component={SignUpFormContainer} />

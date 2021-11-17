@@ -1,8 +1,7 @@
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
 import { getServer } from "../../actions/servers_actions";
 import { deleteMessage } from "../../actions/messages_actions";
-import { postReaction, deleteReaction } from "../../actions/reactions_actions";
+import { postReaction } from "../../actions/reactions_actions";
 import MessagesIndex from "./messages_index";
 
 const mSTP = state => ({
@@ -14,9 +13,8 @@ const mSTP = state => ({
 const mDTP = dispatch => ({
   getServer: dmId => dispatch(getServer(dmId)),
   deleteMessage: messageId => dispatch(deleteMessage(messageId)),
-  postReaction: reaction => dispatch(postReaction(reaction)),
-  deleteReaction: reactionId => dispatch(deleteReaction(reactionId))
+  postReaction: reaction => dispatch(postReaction(reaction))
 });
 
-const MessagesIndexContainer = withRouter(connect(mSTP, mDTP)(MessagesIndex));
+const MessagesIndexContainer = connect(mSTP, mDTP)(MessagesIndex);
 export default MessagesIndexContainer;

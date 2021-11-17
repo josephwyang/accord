@@ -25,7 +25,7 @@ export default class Splash extends React.Component {
 
   render() {
     const splashButton = this.props.loggedIn ? (
-      <Link id="splash-button" to="/explore">Open Discord</Link>
+      <Link id="splash-button" to="/explore">Open Accord</Link>
     ) : (
       <Link id="splash-button" to="/login">Log In</Link>
     );

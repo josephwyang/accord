@@ -1,5 +1,6 @@
 @import "variables/colors";
 @import "variables/fonts";
+@import "variables/keyframes";
 
 #server {
   position: absolute;
@@ -43,4 +44,159 @@
   cursor: not-allowed;
   background-color: $dark-red;
   opacity: 0.7;
+}
+
+#send-invitation {
+  > .settings-modal {
+    padding: 26px 20px;
+
+    > h3 {
+      margin-bottom: 10px;
+      color: $light-grey-0;
+      font-size: 23px;
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: 0.2px;
+    }
+
+    > div:not(.form-nav) {
+      display: flex;
+      align-items: center;
+      width: 200px;
+      margin: 0px auto;
+      padding: 10px;
+
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px $dark-grey-4;
+
+      > img, div {
+        height: 40px;
+        width: 40px;
+
+        font-size: 14px;
+        text-align: center;
+        line-height: 40px;
+        background-color: $grey-2;
+        border-radius: 13px;
+      }
+
+      > h3 {
+        margin-left: 8px;
+        color: $light-grey-0;
+        font-size: 18px;
+        letter-spacing: 0.3px;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+
+    > ul {
+      margin: 10px -4px 0px 0px;
+      max-height: 300px;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar { width: 4px; }
+      &::-webkit-scrollbar-thumb { border-radius: 4px; }
+      &:hover::-webkit-scrollbar-thumb { background-color: $dark-grey-4; }
+
+      > li {
+        display: flex;
+        align-items: center;
+        padding: 9px;
+        border-radius: 3px;
+
+        font-size: 17px;
+        letter-spacing: 0.2px;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        > img {
+          height: 12px;
+          width: 12px;
+          margin-right: 5px;
+          filter: brightness(0.7);
+          transition: filter 0.2s;
+        }
+        
+        cursor: pointer;
+        transition: all 0.2s;
+        &:hover:not(.selected) { background-color: $grey-4; }
+        &.selected {
+          color: $light-grey-0;
+          background-color: $grey-2;
+          > img { filter: none; }
+        }
+      }
+    }
+
+    > .form-nav {
+      justify-content: flex-end;
+      margin-left: -20px;
+
+      > button {
+        margin-left: 15px;
+        padding: 8px 14px;
+        color: white;
+        font-size: 14px;
+        border: 1px solid $green;
+        background-color: $green;
+        border-radius: 3px;
+
+        cursor: pointer;
+        transition: all 0.2s;
+        &:hover:not(:disabled) {
+          border-color: $dark-green;
+          background-color: $dark-green;
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+          color: $dark-green;
+          border-color: $dark-green;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+#join-preview {
+  display: flex;
+  align-items: center;
+
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  height: 24px;
+  padding: 6px 10px 6px 14px;
+
+  background-color: $blue-2;
+  border-radius: 3px;
+  animation: drop-in 0.5s ease-in-out;
+
+  > p, button {
+    color: white;
+    font-size: 14px;
+    letter-spacing: 0.2px; 
+  }
+
+  > button {
+    max-width: 300px;
+    margin-left: 5px;
+    padding: 3px 6px;
+    border: 1px solid white;
+    border-radius: 3px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    cursor: pointer;
+    transition: background-color 0.2s;
+    &:hover { background-color: $blue-0; }
+  }
 }

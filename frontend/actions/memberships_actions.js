@@ -4,9 +4,9 @@ import { receiveErrors } from "./errors_actions";
 export const RECEIVE_MEMBERSHIP = "RECEIVE_MEMBERSHIP";
 export const REMOVE_MEMBERSHIP = "REMOVE_MEMBERSHIP";
 
-export const receiveMembership = member => ({
+export const receiveMembership = payload => ({
   type: RECEIVE_MEMBERSHIP,
-  member
+  payload
 });
 
 export const removeMembership = payload => ({
@@ -16,7 +16,7 @@ export const removeMembership = payload => ({
 
 export const postMembership = membership => dispatch => (
   MembershipsUtil.postMembership(membership)
-    .then(member => dispatch(receiveMembership(member)),
+    .then(payload => dispatch(receiveMembership(payload)),
       errors => dispatch(receiveErrors(errors)))
 );
 

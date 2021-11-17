@@ -10,6 +10,7 @@
 #  updated_at         :datetime         not null
 #  channel_id         :integer          not null
 #  edited             :boolean          default(FALSE), not null
+#  invitation         :integer
 #
 require 'test_helper'
 

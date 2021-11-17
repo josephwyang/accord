@@ -13,7 +13,7 @@ const usersReducer = (state = {}, action) => {
       if (state[action.currentUser.id]) return Object.assign({}, state, { [action.currentUser.id]: action.currentUser });
       return state;
     case RECEIVE_MEMBERSHIP:
-      return Object.assign({}, state, { [action.member.id]: action.member });
+      return Object.assign({}, state, { [action.payload.member.id]: action.payload.member });
     case RECEIVE_SERVER:
     case PREVIEW_SERVER:
       return Object.assign({}, action.payload.members);

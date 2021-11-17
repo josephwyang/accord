@@ -86,17 +86,19 @@
     }
 
     p {
-      margin-top: 10px;
+      margin-top: 10px; 
       margin-right: 5px;
       padding: 5px;
       font-size: 14px;
       line-height: 16px;
       order: 2;
 
-      &:hover, &:hover + div {
+      &:hover:not(.locked-by-preview), &:hover:not(.locked-by-preview) + div {
         cursor: pointer;
         color: $light-grey-2;
       }
+
+      &.locked-by-preview { cursor: not-allowed; }
     }
   }
 

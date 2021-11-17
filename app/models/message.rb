@@ -8,6 +8,7 @@
 #  channel_id         :integer          not null
 #  body               :text             not null
 #  edited             :boolean          default(FALSE), not null
+#  invitation         :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
@@ -18,6 +19,7 @@ class Message < ApplicationRecord
   belongs_to :sender, class_name: :User
   belongs_to :channel
   belongs_to :replied_message, class_name: :Message, optional: true
+  belongs_to :invited_server, foreign_key: :invitation, class_name: :Server, optional: true
   has_many :replies, foreign_key: :replied_message_id, class_name: :Message
   has_many :reactions
 end

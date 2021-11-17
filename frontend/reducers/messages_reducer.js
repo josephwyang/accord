@@ -14,8 +14,9 @@ const messagesReducer = (state = {}, action) => {
     case RECEIVE_CHANNEL:
       return Object.assign({}, action.payload.messages);
     case RECEIVE_MESSAGE:
-      const { server, ...message } = action.message
-      return Object.assign({}, state, { [message.id]: message });
+      const { server, username, profilePhotoUrl, ...message } = action.message;
+      const { name, icon } = server;
+      return Object.assign({}, state, { [message.id]: message.invitation ? Object.assign({}, message, {server: {name, icon}}) : message });
     case REMOVE_MESSAGE:
       const { [action.messageId]: removedMessageId, ...newState } = state;
       return newState;

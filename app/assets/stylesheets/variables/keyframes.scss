@@ -1,3 +1,5 @@
+@import "./colors";
+
 @keyframes spin {
   50% { transform: translate(-50%, -50%) rotate(180deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
@@ -35,6 +37,11 @@
 @keyframes drop-down {
   0% { top: -125px; }
   100% { top: 60px; }
+}
+
+@keyframes drop-in {
+  0% { top: -40px; }
+  100% { top: 8px; }
 }
 
 @keyframes pop-up {
@@ -88,4 +95,8 @@
   100% {
     opacity: 1;
   }
+}
+
+@keyframes pulse-background {
+  50% { background-color: $grey-2; }
 }

@@ -8,11 +8,13 @@ const mSTP = (state, ownProps) => {
   const dm = state.entities.dms[ownProps.match.params.dmId];
   
   return ({
-  currentUserId: state.session.currentUser.id,
-  channel,
-  dm,
-  channelId: channel || dm ? channel ? channel.id : dm.channelId : undefined
-})};
+    servers: state.entities.servers,
+    currentUserId: state.session.currentUser.id,
+    channel,
+    dm,
+    channelId: channel || dm ? channel ? channel.id : dm.channelId : undefined
+  })
+};
 
 const mDTP = dispatch => ({
   postMessage: message => dispatch(postMessage(message))

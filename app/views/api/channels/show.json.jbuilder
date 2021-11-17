@@ -10,6 +10,13 @@ json.messages do
       json.date message.created_at.strftime("%D")
       json.time message.created_at.strftime("%I:%M%p")
       json.seconds message.created_at.to_i
+      json.invitation message.invitation
+      if message.invitation
+        json.server do
+          json.name message.invited_server.name
+          json.icon url_for(message.invited_server.icon) if message.invited_server.icon.attached?
+        end
+      end
 
       json.reactions do
         message.reactions.each do |reaction|

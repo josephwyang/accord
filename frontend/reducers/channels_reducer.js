@@ -1,4 +1,4 @@
-import { RECEIVE_CHANNELS, RECEIVE_CHANNEL } from "../actions/channels_actions";
+import { RECEIVE_CHANNELS, RECEIVE_CHANNEL, RECEIVE_UPDATED_CHANNEL, REMOVE_CHANNEL } from "../actions/channels_actions";
 import { RECEIVE_SERVER, PREVIEW_SERVER, REMOVE_SERVER } from "../actions/servers_actions";
 
 const channelsReducer = (state = {}, action) => {
@@ -9,6 +9,11 @@ const channelsReducer = (state = {}, action) => {
       return Object.assign({}, action.channels);
     case RECEIVE_CHANNEL:
       return Object.assign({}, state, { [action.payload.channel.id]: action.payload.channel });
+    case RECEIVE_UPDATED_CHANNEL:
+      return Object.assign({}, state, { [action.channel.id]: action.channel });
+    case REMOVE_CHANNEL:
+      const { [action.channelId]: removedChannelId, ...channels } = state;
+      return Object.assign({}, channels);
     case RECEIVE_SERVER:
     case PREVIEW_SERVER:
       return Object.assign({}, action.payload.channels);

@@ -1,15 +1,20 @@
 import { connect } from "react-redux";
-import { postMembership } from "../../actions/memberships_actions";
+import { withRouter } from "react-router";
+import { getServer } from "../../actions/servers_actions";
+import { postMessage } from "../../actions/messages_actions";
 import ServerInviteModal from "./server_invite_modal";
+import { firstChannelId } from "../../reducers/channels_selector";
 
 const mSTP = state => ({
   friends: state.entities.friends,
-  dms: state.entities.dms
+  dms: state.entities.dms,
+  firstChannelId
 });
 
 const mDTP = dispatch => ({
-  postMembership: membership => dispatch(postMembership(membership))
+  getServer: serverId => dispatch(getServer(serverId)),
+  postMessage: message => dispatch(postMessage(message))
 });
 
-const ServerInviteModalContainer = connect(mSTP, mDTP)(ServerInviteModal);
+const ServerInviteModalContainer = withRouter(connect(mSTP, mDTP)(ServerInviteModal));
 export default ServerInviteModalContainer;

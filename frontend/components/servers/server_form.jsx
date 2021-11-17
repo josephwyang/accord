@@ -163,7 +163,7 @@ export default class ServerForm extends React.Component {
           <h1>Customize your server</h1>
           <h2>Give your server a name and an icon. You can always change it later.</h2>
           <label htmlFor="file-button" id="upload-button">{uploadIcon}</label>
-          <input id="file-button" type="file" onChange={this.handleFile.bind(this)} />
+          <input id="file-button"  accept="image/*" type="file" onChange={this.handleFile.bind(this)} />
 
           <label id="server-name" htmlFor="server-name-input">SERVER NAME</label>
             <input id="server-name-input" type="text" value={this.state.name} onChange={e => this.setState({ name: e.target.value })} />

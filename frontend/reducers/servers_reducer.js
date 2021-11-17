@@ -1,5 +1,5 @@
-import { RECEIVE_SERVERS, RECEIVE_SERVER, REMOVE_SERVER } from "../actions/servers_actions";
-import { REMOVE_MEMBERSHIP } from "../actions/memberships_actions";
+import { RECEIVE_SERVERS, RECEIVE_SERVER, RECEIVE_UPDATED_SERVER, REMOVE_SERVER } from "../actions/servers_actions";
+import { RECEIVE_MEMBERSHIP, REMOVE_MEMBERSHIP } from "../actions/memberships_actions";
 
 const serversReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -10,9 +10,15 @@ const serversReducer = (state = {}, action) => {
     case RECEIVE_SERVER:
       if (action.payload.server.genre === "dm" || action.payload.server.genre === "gc") return state;
       return Object.assign({}, state, { [action.payload.server.id]: action.payload.server });
+    case RECEIVE_UPDATED_SERVER:
+      if (action.server.genre === "dm" || action.server.genre === "gc") return state;
+      return Object.assign({}, state, { [action.server.id]: action.server });
     case REMOVE_SERVER:
       const {[action.serverId]: removedServerId, ...newState} = state;
       return newState;
+    case RECEIVE_MEMBERSHIP:
+      if (action.payload.server.genre === "dm" || action.payload.server.genre === "gc") return state;
+      return Object.assign({}, state, { [action.payload.server.id]: action.payload.server });
     case REMOVE_MEMBERSHIP:
       if (action.payload.userId === action.payload.currentUserId) {
         const {[action.payload.serverId]: removedServerId, ...newState} = state;

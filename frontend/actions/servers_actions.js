@@ -3,6 +3,7 @@ import { receiveErrors } from "./errors_actions";
 
 export const RECEIVE_SERVERS = "RECEIVE_SERVERS";
 export const RECEIVE_SERVER = "RECEIVE_SERVER";
+export const RECEIVE_UPDATED_SERVER = "RECEIVE_UPDATED_SERVER";
 export const REMOVE_SERVER = "REMOVE_SERVER";
 
 export const RECEIVE_PUBLIC_SERVERS = "RECEIVE_PUBLIC_SERVERS";
@@ -17,6 +18,11 @@ const receiveServers = servers => ({
 const receiveServer = payload => ({
   type: RECEIVE_SERVER,
   payload
+});
+
+const receiveUpdatedServer = server => ({
+  type: RECEIVE_UPDATED_SERVER,
+  server
 });
 
 const removeServer = serverId => ({
@@ -70,7 +76,7 @@ export const postServer = server => dispatch => (
 
 export const patchServer = server => dispatch => (
   ServersUtil.patchServer(server)
-    .then(server => dispatch(receiveServer(server)),
+    .then(server => dispatch(receiveUpdatedServer(server)),
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 

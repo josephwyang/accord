@@ -4,6 +4,7 @@ import { receiveErrors } from "./errors_actions";
 export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
 export const RECEIVE_NOTIFICATION = "RECEIVE_NOTIFICATION";
 export const REMOVE_MESSAGE = "REMOVE_MESSAGE";
+export const REMOVE_NOTIFICATION = "REMOVE_NOTIFICATION";
 
 export const receiveMessage = message => ({
   type: RECEIVE_MESSAGE,
@@ -18,6 +19,10 @@ export const receiveNotification = message => ({
 export const removeMessage = messageId => ({
   type: REMOVE_MESSAGE,
   messageId
+});
+
+export const removeNotification = () => ({
+  type: REMOVE_NOTIFICATION
 });
 
 export const postMessage = message => dispatch => (

@@ -26,7 +26,15 @@
     }
 
     > ul {
+      height: calc(100% - 122px);
+      margin-right: 6px;
       padding: 8px;
+      padding-right: 2px;
+
+      overflow-y: scroll;
+      &::-webkit-scrollbar { width: 4px; }
+      &::-webkit-scrollbar-thumb { border-radius: 4px; }
+      &:hover::-webkit-scrollbar-thumb { background-color: $dark-grey-4; }
 
       > div {
         display: flex;

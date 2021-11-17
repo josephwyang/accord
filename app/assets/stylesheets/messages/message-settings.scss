@@ -45,6 +45,7 @@
     }
   }
 
+  &.invitation-message-settings { width: 90px; }
   &.other-sender {
     width: 60px;
     > div:last-child:hover { background-color: $grey-1; }

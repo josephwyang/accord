@@ -233,7 +233,7 @@ export default class UserSettings extends React.Component {
             </div>
             <h1>User Profile</h1>
             <label htmlFor="change-profile-photo"><img className="profile-photo" src={profilePhotoUrl || window.logo} alt="profile-photo" /></label>
-            <input id="change-profile-photo" type="file" />
+            <input id="change-profile-photo" type="file" accept="image/*" />
             <div><img src={window.camera} alt="+" /></div>
             <p>{username}<span id="settings-tag">#{tag}</span></p>
 

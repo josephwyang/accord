@@ -3,12 +3,12 @@
 @import "variables/keyframes";
 
 .bubble {
-  &,  &:hover { display: none; }
+  &, &:hover { display: none; }
   align-items: center;
   white-space: nowrap;
 
   position: absolute;
-  z-index: 999;
+  z-index: 9999;
   transition: opacity 0.2s;
   pointer-events: none;
   

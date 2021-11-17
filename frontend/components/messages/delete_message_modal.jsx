@@ -11,7 +11,7 @@ const DeleteMessageModal = ({ deleting, setDeleting, deleteMessage, replying, cl
     else if (e.key === "Enter") {
       deleteMessage();
       setDeleting(null);
-      if(deleting.message.id === replying.messageId) closeReply();
+      if(replying && deleting.message.id === replying.messageId) closeReply();
     }
   }
 

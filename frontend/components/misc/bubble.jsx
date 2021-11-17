@@ -4,7 +4,7 @@ const Bubble = props => {
   const directionStyle = (props.top ? {
     flexDirection: "column",
     top: props.top,
-    left: "50%",
+    left: props.forceX || "50%",
     transform: "translateX(-50%)"
   } : {
     left: props.left,

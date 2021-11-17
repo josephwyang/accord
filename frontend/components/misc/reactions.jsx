@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const Reactions = ({ messageId, top, closeForm, currentUserId, postReaction }) => {
+const Reactions = ({ messageId, top, right, closeForm, currentUserId, postReaction }) => {
   const [search, setSearch] = useState("");
   const [hoveredReaction, setHoveredReaction] = useState("smile");
 
@@ -29,7 +29,7 @@ const Reactions = ({ messageId, top, closeForm, currentUserId, postReaction }) =
   ));
 
   return (
-    <div id="reactions" ref={containerRef} style={{ top: `min(${document.getElementById("app").getBoundingClientRect().height - 483}px, ${top}px)` }} >
+    <div id="reactions" ref={containerRef} style={{ top: `min(${document.getElementById("app").getBoundingClientRect().height - 483}px, ${top}px)`, right }} >
       <div className="header">
         <input placeholder="Add a Reaction" value={search} onChange={e => {
           setSearch(e.target.value);

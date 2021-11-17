@@ -1,34 +1,38 @@
 @import "variables/colors";
 
-#transfer-ownership-diagram {
-  position: relative;
-  margin: 20px 0px 10px;
+#pass-owner-modal {
+  > .modal-screen { z-index: 1000; }
 
-  > img {
+  #transfer-ownership-diagram {
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 25px;
-    width: 95px;
-  }
-
-  > div {
-    margin: 0px auto;
-    width: 185px;
+    margin: 20px 0px 10px;
 
     > img {
-      height: 100px;
-      width: 100px;
-      background-color: $grey-0;
-      border-radius: 50%;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 25px;
+      width: 95px;
+    }
 
-      &:first-child { opacity: 0.5; }
-      &:last-child {
-        position: relative;
-        margin-left: -20px;
-        margin-bottom: -5px;
-        border: 5px solid $dark-grey-2;
-        border-right: none;
+    > div {
+      margin: 0px auto;
+      width: 185px;
+
+      > img {
+        height: 100px;
+        width: 100px;
+        background-color: $grey-0;
+        border-radius: 50%;
+
+        &:first-child { opacity: 0.5; }
+        &:last-child {
+          position: relative;
+          margin-left: -20px;
+          margin-bottom: -5px;
+          border: 5px solid $dark-grey-2;
+          border-right: none;
+        }
       }
     }
   }

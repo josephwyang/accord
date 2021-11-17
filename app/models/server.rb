@@ -24,6 +24,8 @@ class Server < ApplicationRecord
   has_many :members, through: :memberships, source: :user
   has_many :channels, dependent: :destroy
   has_many :messages, through: :channels, source: :messages
+  has_many :reactions, through: :messages
+  has_many :invitations, foreign_key: :invitation, class_name: :Message
 
   has_one_attached :icon
   has_one_attached :banner

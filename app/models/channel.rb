@@ -15,4 +15,5 @@ class Channel < ApplicationRecord
   belongs_to :server
   has_many :messages, dependent: :destroy
   has_many :reactions, through: :messages, source: :reactions
+  has_many :invited_servers, through: :messages, source: :invited_server
 end

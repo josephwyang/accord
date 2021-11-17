@@ -45,8 +45,8 @@ export default class ServersExplore extends React.Component {
         if (server.name.includes(this.state.search)) {
           return (
             <li key={`server-${server.id}`} onClick={e => this.handleClick(e, server)}>
-              <div id="server-banner"><img src={server.banner || window.defaultBanner} alt="server-banner" /></div>
-              {server.icon ? <img id="server-icon" src={server.icon} alt="server-icon" /> : <p id="server-icon" style={{ backgroundColor: "#393C43"}}>{server.name.split(" ").map(word => word[0]).slice(0, 2)}</p>}
+              <div className="server-banner"><img src={server.banner || window.defaultBanner} alt="server-banner" /></div>
+              {server.icon ? <img className="server-icon" src={server.icon} alt="server-icon" /> : <p className="server-icon" style={{ backgroundColor: "#393C43"}}>{server.name.split(" ").map(word => word[0]).slice(0, 2)}</p>}
               <h3>{server.name}</h3>
               <p id="server-description">{server.description}</p>
             </li>

@@ -9,6 +9,7 @@ import channelsReducer from "./channels_reducer";
 import messagesReducer from "./messages_reducer";
 import previewReducer from "./preview_reducer";
 import dmsReducer from "./dms_reducer";
+import notificationsReducer from "./notifications_reducer";
 
 const entitiesReducer = combineReducers({
   users: usersReducer,
@@ -20,7 +21,8 @@ const entitiesReducer = combineReducers({
   preview: previewReducer,
   channels: channelsReducer,
   messages: messagesReducer,
-  dms: dmsReducer
+  dms: dmsReducer,
+  notification: notificationsReducer
 });
 
 export default entitiesReducer;

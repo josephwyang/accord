@@ -6,6 +6,7 @@ export const LOG_IN_USER = "LOG_IN_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const LOG_OUT_USER = "LOG_OUT_USER";
 export const RECEIVE_VERIFICATION_CODE = "RECEIVE_VERIFICATION_CODE";
+export const REMOVE_CURRENT_CHANNEL = "REMOVE_CURRENT_CHANNEL";
 
 const receiveSession = currentUser => ({
   type: LOG_IN_USER,
@@ -24,6 +25,10 @@ const receiveVerificationCode = code => ({
 const updateUser = currentUser => ({
   type: UPDATE_USER,
   currentUser
+});
+
+export const removeCurrentChannel = () => ({
+  type: REMOVE_CURRENT_CHANNEL
 });
 
 export const logInUser = currentUser => dispatch => (

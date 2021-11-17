@@ -4,7 +4,7 @@ export default class ChannelForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { name: "" };
+    this.state = { name: props.editing ? props.editing.name : "" };
   }
 
   componentDidMount() { window.addEventListener("keydown", e => { if (e.key === "Escape") this.props.closeForm(); }) }
@@ -21,9 +21,12 @@ export default class ChannelForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.closeForm();
     const name = ( this.state.name.slice(-1) === "-" || this.state.name.slice(-1) === "_" ) ? this.state.name.slice(0, -1) : this.state.name;
-    this.props.postChannel({ name, serverId: this.props.match.params.serverId });
+    if(name === "") return;
+    this.props.closeForm();
+    if (this.props.editing) {
+      this.props.patchChannel({ id: this.props.editing.id, name });
+    } else this.props.postChannel({ name, serverId: this.props.match.params.serverId });
   }
 
   render() {
@@ -32,15 +35,15 @@ export default class ChannelForm extends React.Component {
         <div className="modal-screen" onClick={this.props.closeForm}></div>
         <form id="channel-form" onSubmit={this.handleSubmit.bind(this)}>
           <div className="exit" onClick={this.props.closeForm}>✕</div>
-          <h1>Create Text Channel</h1>
+          <h1>{this.props.editing ? `Rename '${this.props.editing.name}'` : "Create Text Channel"}</h1>
           <h2>Post images, GIFs, stickers, opinions and puns.</h2>
           <label htmlFor="channel-name">CHANNEL NAME</label>
           <input id="channel-name" type="text" placeholder="new-channel"
             value={this.state.name} onChange={this.handleChange.bind(this)} autoFocus />
-          <p>#</p>
+          <img src={window.hashtag} alt="#" />
           <div>
             <p onClick={this.props.closeForm}>Cancel</p>
-            <button onClick={this.handleSubmit.bind(this)}>Create Channel</button>
+            <button onClick={this.handleSubmit.bind(this)}>{this.props.editing ? "Rename" : "Create"} Channel</button>
           </div>
         </form>
       </div>

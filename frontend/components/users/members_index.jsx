@@ -34,8 +34,34 @@ export default class MembersIndex extends React.Component {
   }
 
   render() {
+    const friendInfo = member => {
+      const { friends, friendRequests, pendingFriends } = this.props;
+      let friend;
+      friends.forEach(checkedFriend => checkedFriend.id == member.id ? friend = checkedFriend : null);
+      if (friend) return { text: "Remove Friend", color: "red", function: () => this.props.setDeleteFriend(friend)};
+
+      pendingFriends.forEach(checkedFriend => checkedFriend.id == member.id ? friend = checkedFriend : null);
+      if (friend) return { text: "Cancel Friend Request", color: "red", function: () => this.props.deleteFriendFunc(friend.friendshipId)};
+
+      friendRequests.forEach(checkedFriend => checkedFriend.id == member.id ? friend = checkedFriend : null);
+      if (friend) return { text: "Accept Friend Request", color: "blue", function: () => this.props.acceptFriendship(friend.friendshipId)};
+
+      return { text: "Add Friend", color: "blue", function: () => this.props.requestFriendship({ username: member.username, tag: member.tag })};
+    };
+
+    const contextOptions = member => [
+      { text: "Pass Ownership", function: () => this.props.setPassOwner(member) },
+      { text: "BREAK" },
+      friendInfo(member),
+      { text: "Message", function: () => this.props.createDm(member.id) }
+    ];
+
     const members = this.props.members.map(member => <li key={`member-${member.id}`} style={{ order: this.props.ownerId === member.id ? 1 : 2 }}
-      onClick={e => this.handleClick(e, member)}>
+      onClick={e => this.handleClick(e, member)} onContextMenu={e => {
+        if (this.props.currentUserId !== member.id) {
+          this.props.setContext(e, !this.props.gc && this.props.ownerId === this.props.currentUserId ? contextOptions(member) : contextOptions(member).slice(2))
+        };
+      }} >
       <img src={member.profilePhotoUrl || window.logo} alt="profile-photo" />
       <p>{member.username}</p>
       {this.props.ownerId === member.id ? <img src={window.owner} alt="owner" /> : null}
@@ -43,10 +69,11 @@ export default class MembersIndex extends React.Component {
 
     return (
       <>
-        <ul id="members-index" className={this.props.gc ? "gc-members" : "server-members"}>
+        <ul id="members-index" className={this.props.gc ? "gc-members" : "server-members"} >
           <h3>MEMBERS</h3>
           {members}
         </ul>
+
         {this.state.selected ? <MemberPreview member={this.state.selected} top={this.state.top} createDm={this.props.createDm} postMessage={this.props.postMessage} currentUserId={this.props.currentUserId} /> : null}
       </>
     );

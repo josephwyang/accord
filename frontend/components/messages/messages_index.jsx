@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import DeleteMessageModal from "./delete_message_modal";
-import Message from "./message";
+import MessageContainer from "./message_container";
 import Reactions from "../misc/reactions";
+import DeleteMessageModal from "./delete_message_modal";
 
 const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessage, scrollToBottom, currentUserId, replying, setReplying, ...props }) => {
   const [loading, setLoading] = useState(false);
@@ -19,8 +19,8 @@ const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessa
     setReplying(null);
   }, [messagesIndex.id]);
 
-  const messagesList = Object.values(messages).map((message, i) => <Message key={`message-${message.id}`} messages={messages} message={message} i={i} users={users} currentUserId={currentUserId}
-    editing={editing} setEditing={setEditing} setDeleting={setDeleting} reacting={reacting} setReacting={setReacting} postReaction={props.postReaction} deleteReaction={props.deleteReaction}
+  const messagesList = Object.values(messages).map((message, i) => <MessageContainer key={`message-${message.id}`} messages={messages} message={message} i={i} users={users} currentUserId={currentUserId}
+    editing={editing} setEditing={setEditing} setDeleting={setDeleting} reacting={reacting} setReacting={setReacting} postReaction={props.postReaction}
     reply={() => setReplying({ messageId: message.id, username: users[message.senderId].username })} formHeight={formHeight} />);
 
   return (
@@ -53,7 +53,7 @@ const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessa
         <DeleteMessageModal deleting={deleting} setDeleting={setDeleting} replying={replying} closeReply={() => setReplying(null)} users={users} deleteMessage={() => deleteMessage(deleting.message.id)} />
       ) : null }
 
-      {reacting.messageId ? <Reactions messageId={reacting.messageId} top={reacting.top} closeForm={() => setReacting({ messageId: null, top: null })}
+      {reacting.messageId ? <Reactions messageId={reacting.messageId} top={reacting.top} right={messages[reacting.messageId].senderId === currentUserId ? "173px" : "113px" } closeForm={() => setReacting({ messageId: null, top: null })}
         currentUserId={currentUserId} postReaction={props.postReaction} /> : null}
     </>
   )

@@ -163,7 +163,7 @@
       background-color: $dark-grey-3;
       transition: all 0.2s;
 
-      #server-banner {
+      .server-banner {
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         overflow: hidden;
@@ -176,7 +176,7 @@
         }
       }
 
-      #server-icon {
+      .server-icon {
         position: absolute;
         height: 40px;
         width: 40px;
@@ -242,8 +242,8 @@
       &:hover {
         cursor: pointer;
         background-color: $dark-grey-4;
-        #server-banner img { transform: scale(1.02) }
-        #server-icon {
+        .server-banner img { transform: scale(1.02) }
+        .server-icon {
           background-color: $dark-grey-4;
           border-color: $dark-grey-4;
         }

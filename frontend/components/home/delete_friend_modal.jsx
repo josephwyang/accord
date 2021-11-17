@@ -7,7 +7,7 @@ const DeleteFriendModal = ({ friend, deleteFriend, closeModal }) => {
   }
 
   return (
-    <>
+    <div id="delete-friend-modal">
       <div className="modal-screen" onClick={closeModal}></div>
       <form className="settings-modal" onSubmit={handleClick}>
         <div className="settings-modal-message">
@@ -19,7 +19,7 @@ const DeleteFriendModal = ({ friend, deleteFriend, closeModal }) => {
           <button>Remove Friend</button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 

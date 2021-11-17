@@ -8,8 +8,6 @@ class Api::ServersController < ApplicationController
   def dms_index
     @dms = Membership.includes(:server, :server_members, :channel).dm_memberships(current_user.id)
     @gcs = Membership.includes(:server, :server_members, :channel).gc_memberships(current_user.id)
-    # @dms = dm_memberships.map { |membership| membership.server }
-    # @gcs = gc_memberships.map { |membership| membership.server }
     render :dms_index
   end
 
@@ -19,7 +17,7 @@ class Api::ServersController < ApplicationController
   end
 
   def show
-    @server = Server.includes(:channels, :members).find_by(id: params[:id])
+    @server = Server.includes(:channels, :members, :invitations, :messages, :reactions).find_by(id: params[:id])
     if @server
       render :show
     else
@@ -62,10 +60,10 @@ class Api::ServersController < ApplicationController
 
   def update
     @server = Server.find_by(id:params[:id])
-    if @server.owner != current_user
+    if @server.owner != current_user && @server.genre != "gc"
       render json: ["only the owner can modify a server"], status: 401
     elsif @server.update_attributes(server_params)
-      render :show
+      render :updated_show
     else
       render json: @server.errors.full_messages, status: 400
     end
