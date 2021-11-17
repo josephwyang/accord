@@ -37,6 +37,7 @@ gem 'twilio-ruby'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
+gem 'pry-rails'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
@@ -52,7 +53,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  gem 'pry-rails'
   gem 'annotate'
 end
 
