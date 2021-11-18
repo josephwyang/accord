@@ -1,5 +1,6 @@
-import { connect } from "react-redux";
 import ServersIndex from "./servers_index";
+import { connect } from "react-redux";
+import { patchUser } from "../../actions/session_actions";
 import { getServers, getServer, previewServer, postServer, getPublicServers, removePreview } from "../../actions/servers_actions"
 import { getFriends, receiveFriend, receiveFriendRequest, receivePendingFriend, removeFriend } from "../../actions/friends_actions";
 import { getDms } from "../../actions/dms_actions";
@@ -12,13 +13,14 @@ const mSTP = state => ({
   servers: Object.values(state.entities.servers),
   dms: Object.values(state.entities.dms),
   preview: state.entities.preview,
-  currentUser: window.currentUser || state.session.currentUser,
+  currentUser: state.session.currentUser,
   currentChannel: state.session.currentChannel,
   notification: state.entities.notification,
   firstChannelId: firstChannelId
 });
 
 const mDTP = dispatch => ({
+  patchUser: user => dispatch(patchUser(user)),
   getServers: () => dispatch(getServers()),
   getServer: serverId => dispatch(getServer(serverId)),
   getPublicServers: () => dispatch(getPublicServers()),

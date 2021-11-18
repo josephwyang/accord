@@ -23,6 +23,7 @@ export default class ServersIndex extends React.Component {
       y: 0,
       bubbleName: null,
       dm: null,
+      lastPath: props.currentUser.lastPathVisited,
 
       context: null,
       contextOptions: [],
@@ -90,7 +91,17 @@ export default class ServersIndex extends React.Component {
       }}
     );
 
-    this.props.getPublicServers().then(() => {this.setState({ loading: false })});
+    this.props.getPublicServers().then(() => this.setState({ loading: false }));
+  }
+
+  componentDidUpdate() { 
+    if (this.state.lastPath !== this.props.history.location.pathname) {
+      const formData = new FormData();
+      formData.append("user[id]", this.props.currentUser.id);
+      formData.append("user[lastPathVisited]", this.props.history.location.pathname);
+      this.props.patchUser(formData);
+      this.setState({ lastPath: this.props.history.location.pathname});
+    }
   }
 
   componentWillUnmount() {
