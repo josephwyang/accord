@@ -18,8 +18,9 @@ class Api::MessagesController < ApplicationController
     if @message.invitation
       render json: ["you cannot edit invitations"]
     elsif @message.update_attributes(message_params)
+      user = @message.sender
       channel = Channel.find_by(id: @message.channel_id)
-      MessagesChannel.broadcast_to channel, Api::MessagesController.render(:show, locals: { message: @message, server: channel.server })
+      MessagesChannel.broadcast_to channel, Api::MessagesController.render(:show, locals: { message: @message, server: channel.server, user: user })
     else
       render json: @message.errors.full_messages, status: 400
     end

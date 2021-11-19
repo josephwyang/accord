@@ -31,7 +31,10 @@ export default class Channel extends React.Component {
           }
         }
       });
-    }).then(() => document.getElementById("messages-end").scrollIntoView({ behavior: "instant" }));
+    }).then(() => {
+      this.props.setShowBlanks(false);
+      document.getElementById("messages-end").scrollIntoView({ behavior: "instant" })
+    });
   }
 
   componentDidMount() { this.loadChannel(); }
@@ -43,7 +46,7 @@ export default class Channel extends React.Component {
   render() {
     return (
       <div id="channel">
-        <MessageFormContainer />
+        <MessageFormContainer showBlanks={this.props.showBlanks} setShowBlanks={this.props.setShowBlanks} />
       </div>
     );
   }

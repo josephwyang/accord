@@ -5,7 +5,8 @@ import { patchUser, verifyPhoneNumber,logOutUser } from "../../actions/session_a
 
 const mSTP = state => ({
   currentUser: state.session.currentUser,
-  verificationCode: state.session.verificationCode
+  verificationCode: state.session.verificationCode,
+  errors: state.errors
 });
 
 const mDTP = dispatch => ({

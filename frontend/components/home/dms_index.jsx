@@ -7,6 +7,7 @@ import MembersIndexContainer from "../users/members_index_container";
 import CreateDmForm from "./create_dm_form";
 import SearchDm from "./search_dm";
 import ChangeGcIcon from "./change_gc_icon";
+import EditingGcName from "./editing_gc_name";
 
 const DmsIndex = ({ dms, servers, dm, setDm, createDm, friends, pendingFriends, friendRequests, currentUser, deleteServer, postMessage, setContext, deleteFriend, setDeleteFriend, ...props }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -15,6 +16,7 @@ const DmsIndex = ({ dms, servers, dm, setDm, createDm, friends, pendingFriends, 
   const [searchingDm, setSearchingDm] = useState(false);
   const [changingIcon, setChangingIcon] = useState(null);
   const [hoveredCreateDm, setHoveredCreateDm] = useState(false);
+  const [editingGc, setEditingGc] = useState(null);
 
   useEffect(() => {
     setDm(dms[props.match.params.dmId]);
@@ -96,12 +98,14 @@ const DmsIndex = ({ dms, servers, dm, setDm, createDm, friends, pendingFriends, 
         
         { dm ?
           <>
-            <div id="channel-header">
+            <div id="channel-header" className={dm.user ? "" : "gc"}>
               <img src={window.group} alt="@" />
-              <h3 style={{ marginLeft:"3px" }}>{dm.name || dm.user.username}</h3>
+              {editingGc ?
+              <EditingGcName gc={dm} patchServer={props.patchServer} closeForm={() => setEditingGc(null)} />
+              : <h3 onClick={() => {dm.name ? setEditingGc(dm) : null}}>{dm.name || dm.user.username}</h3>}
             </div>
             <div id="dm-messages" className={dm.name ? "gc" : ""}>
-              <MessageFormContainer dm={dm} scrolled={scrolled} setScrolled={setScrolled} />
+              <MessageFormContainer dm={dm} scrolled={scrolled} setScrolled={setScrolled} showBlanks={props.showBlanks} setShowBlanks={props.setShowBlanks} />
             </div>
             {dm.name ? <MembersIndexContainer createDm={createDm} ownerId={dm.ownerId} gc={true} setContext={setContext} deleteFriend={deleteFriend} setDeleteFriend={setDeleteFriend} /> : null}
           </>

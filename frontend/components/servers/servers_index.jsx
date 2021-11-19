@@ -24,6 +24,7 @@ export default class ServersIndex extends React.Component {
       bubbleName: null,
       dm: null,
       lastPath: props.currentUser.lastPathVisited,
+      showBlanks: true,
 
       context: null,
       contextOptions: [],
@@ -209,11 +210,11 @@ export default class ServersIndex extends React.Component {
           <ServersExploreContainer />
           : this.props.location.pathname.slice(0,4) === "/@me" ?
             <DmsIndexContainer createDm={this.createDm} dm={this.state.dm} setDm={dm => this.setState({ dm })} subscriptions={this.subscriptions} setContext={(e, options) => this.setState({ context: e, contextOptions: options })}
-              deleteFriend={this.state.deleteFriend} setDeleteFriend={friend => this.setState({ deleteFriend: friend })} />
+              deleteFriend={this.state.deleteFriend} setDeleteFriend={friend => this.setState({ deleteFriend: friend })} showBlanks={this.state.showBlanks} setShowBlanks={bool => this.setState({ showBlanks: bool })} />
             : <ServerContainer createDm={this.createDm} serversLoading={this.state.loading} removePreview={this.props.removePreview} setContext={(e, options) => this.setState({ context: e, contextOptions: options })}
               serverInviteOpen={this.state.serverInviteOpen} setServerInviteOpen={bool => this.setState({ serverInviteOpen: bool })} serverSettingsOpen={this.state.serverSettingsOpen} setServerSettingsOpen={ bool => this.setState({serverSettingsOpen:bool })}
               channelFormOpen={this.state.channelFormOpen} setChannelFormOpen={bool => this.setState({ channelFormOpen:bool })} leaveServerModalOpen={this.state.leaveServerModalOpen} setLeaveServerModalOpen={bool => this.setState({ leaveServerModalOpen:bool })}
-              deleteFriend={this.state.deleteFriend} setDeleteFriend={friend => this.setState({ deleteFriend: friend })} />}
+              deleteFriend={this.state.deleteFriend} setDeleteFriend={friend => this.setState({ deleteFriend: friend })} showBlanks={this.state.showBlanks} setShowBlanks={bool => this.setState({ showBlanks: bool })} />}
         <Bubble text={this.state.bubbleName} left="74px" y={this.state.y} large={true} show={true}
           opacity={(this.state.showBubble ? 1 : 0)} />
         <ProfileContainer />

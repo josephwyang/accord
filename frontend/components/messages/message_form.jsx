@@ -113,7 +113,7 @@ export default class MessageForm extends React.Component {
     return (
       <>
         <MessagesIndexContainer formHeight={this.state.height} messagesIndex={this.props.channel || this.props.dm} scrollToBottom={this.scrollToBottom}
-          replying={this.state.replying} setReplying={replying => this.setState({ replying })} />
+          replying={this.state.replying} setReplying={replying => this.setState({ replying })} showBlanks={this.props.showBlanks} setShowBlanks={this.props.setShowBlanks} />
         <form id="message-form">
           {this.state.replying ? <div id="replying" style={{ "top": `calc(100% - 54px - ${this.state.height}px)` }}>
           <p>Replying to <span>{this.state.replying.username}</span></p>

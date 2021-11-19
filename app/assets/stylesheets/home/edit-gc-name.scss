@@ -1,0 +1,40 @@
+@import "variables/colors";
+@import "variables/fonts";
+
+#channel-header.gc > h3 {
+  cursor: text;
+  &:hover {
+    margin-left: 3px;
+    padding: 3px;
+    background-color: $dark-grey-1;
+    border: 1px solid $dark-grey-3;
+    border-radius: 3px;
+  }
+}
+
+#editing-gc-name {
+  width: auto;
+  > input, + p {
+    margin-left: 3px;
+    padding: 3px;
+
+    font-family: $sans;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+  }
+  
+  > input {
+    background-color: $dark-grey-1;
+    border: 1px solid $dark-grey-3;
+    border-radius: 3px;
+  }
+}
+
+#editing-gc-placeholder {
+  position: absolute;
+  left: 37px;
+  opacity: 0;
+}

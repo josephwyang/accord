@@ -116,7 +116,7 @@ const Server = ({ servers, publicServers, server, getServer, previewServer, chan
       {channelFormOpen ? (
         <ChannelFormContainer closeForm={() => setChannelFormOpen(false)} editing={typeof channelFormOpen === "boolean" ? false : channelFormOpen}/>
       ) : null}
-      <ChannelContainer />
+      <ChannelContainer showBlanks={props.showBlanks} setShowBlanks={props.setShowBlanks}/>
     </div>
 
     {serverInviteOpen ? (

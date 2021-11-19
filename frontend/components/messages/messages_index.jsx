@@ -3,7 +3,7 @@ import MessageContainer from "./message_container";
 import Reactions from "../misc/reactions";
 import DeleteMessageModal from "./delete_message_modal";
 
-const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessage, scrollToBottom, currentUserId, replying, setReplying, ...props }) => {
+const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessage, scrollToBottom, currentUserId, replying, setReplying, showBlanks, setShowBlanks, ...props }) => {
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
@@ -12,9 +12,14 @@ const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessa
   useEffect(() => { document.querySelector("#message-form > span").focus() }, []);
 
   useEffect(() => {
+    setShowBlanks(true);
+  }, [props.history.location.pathname]);
+
+  useEffect(() => {
     if (!messagesIndex.serverId) props.getServer(messagesIndex.id).then(() => {
       setLoading(false);
       scrollToBottom();
+      setShowBlanks(false);
     });
     setReplying(null);
   }, [messagesIndex.id]);
@@ -27,6 +32,9 @@ const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessa
     <>
       <ul id="messages-index" className = {reacting.messageId ? "reacting" : ""} style={{ "height": `calc(100% - 40px - ${formHeight}px${replying ? " - 34px" : ""})` }}>
         <div id="messages-buffer" style={{"flex": "1 1 auto"}}></div>
+        {showBlanks ? <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 1, backgroundColor: "#36393F",
+        backgroundImage: `url(${window.blanks})`, backgroundSize: "700px 450px", backgroundRepeat: "repeat-y" }}></div> : null}
+
         {loading ? null
         : <>
           <div id="welcome-message">

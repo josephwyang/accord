@@ -14,12 +14,13 @@ export default class UserSettings extends React.Component {
       revealEmail: false,
       revealPhoneNumber: false,
       verificationInput: "",
-      confirmPassword: "",
+      errors: "",
       user: {
         ...props.currentUser,
         phoneNumber: "",
         password: "",
-        currentPassword: ""
+        currentPassword: "",
+        confirmPassword: ""
       }
     };
     this.handleEsc = this.handleEsc.bind(this);
@@ -30,7 +31,7 @@ export default class UserSettings extends React.Component {
     this.handleSave = this.handleSave.bind(this);
   }
 
-  handleEsc(e) { if (e.keyCode === 27) { this.props.closeSettings(); } }
+  handleEsc(e) { if (e.keyCode === 27 && !this.state.editModal) { this.state.phoneNumberModal ? this.setState({ phoneNumberModal: null }) : this.props.closeSettings(); } }
   componentDidMount() { document.addEventListener("keydown", this.handleEsc); }
   componentWillUnmount() { document.removeEventListener("keydown", this.handleEsc); }
 
@@ -46,7 +47,8 @@ export default class UserSettings extends React.Component {
         ...this.props.currentUser,
         phoneNumber: "",
         password: "",
-        currentPassword: ""
+        currentPassword: "",
+        confirmPassword: ""
       }
     });
   }
@@ -125,21 +127,30 @@ export default class UserSettings extends React.Component {
 
   handleSave(e) {
     if (e) e.preventDefault();
+    if(this.state.user.confirmPassword.length && this.state.user.confirmPassword !== this.state.password) {
+      this.setState({ errors: "Passwords do not match" });
+      return;
+    }
+
     const formData = new FormData();
     for (let type of ["id", "username", "email", "password", "currentPassword"]) {
       formData.append(`user[${type}]`, this.state.user[type]);
     }
     if (this.state.user.phoneNumber.length === 10) formData.append("user[phoneNumber]", `+1${this.state.user.phoneNumber}`);
     if (this.state.user.profilePhotoUrl) { formData.append('server[profilePhoto]', this.state.user.profilePhotoUrl); }
-    this.props.patchUser(formData);
-
-    this.setState({ editModal: null, phoneNumberModal: null,
-      user: {
-        ...this.props.currentUser,
-        phoneNumber: "",
-        password: "",
-        currentPassword: ""
-      } });
+    this.props.patchUser(formData).then(() => {
+      if (!this.state.errors.length && !this.props.errors.length) {
+        this.setState({
+          editModal: null, phoneNumberModal: null, errors: "",
+          user: {
+            ...this.props.currentUser,
+            phoneNumber: "",
+            password: "",
+            currentPassword: ""
+          }
+        });
+      }
+    });
   }
 
   handleLogOut(e) {
@@ -150,12 +161,13 @@ export default class UserSettings extends React.Component {
 
   handleDeleteAccount(e) {
     e.preventDefault();
-    this.props.logOut();
-    this.props.history.push("/");
+    // this.props.logOut();
+    // this.props.history.push("/");
     // delete account
   }
 
   render() {
+    console.log(this.state.errors, this.props.errors);
     const { username, tag, profilePhotoUrl, email, phoneNumber } = this.props.currentUser;
 
     const navOptions = ["My Account", "User Profile", "Appearance"].map(
@@ -252,9 +264,8 @@ export default class UserSettings extends React.Component {
           : null}
 
         {this.state.editModal ?
-          <UserSettingsModal type={this.state.editModal} state={this.state.user}
+          <UserSettingsModal type={this.state.editModal} state={this.state.user} errors={this.props.errors} passwordMatchError={this.state.errors}
           handleInput={(e, type) => this.setState({ user: {...this.state.user, [type]: e.target.value}})}
-          handleCurrentPassword={e => this.setState({ user: {...this.state.user, currentPassword: e.target.value} })}
           closeModal={this.closeEditModal} handleSave={this.handleSave}/>
           : null}
 
@@ -316,29 +327,47 @@ export default class UserSettings extends React.Component {
   }
 }
 
+// email, password, username, currentPassword
 const UserSettingsModal = props => {
+  const handleEsc = e => { if (e.key === "Escape") props.closeModal(); };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+  
+  const capitalize = word => word.slice(0,1).toUpperCase() + word.slice(1);
+  const error = type => {
+    for(let error of props.errors) {
+      if (error.includes(capitalize(type))) return error;
+    }
+  }
+
   return (
     <div className="user-settings-modal">
       <div className="modal-screen" onClick={props.closeModal}></div>
-      <form className="settings-modal">
+      <form className="settings-modal" onSubmit={props.handleSave}>
         <img src={window.xButton} alt="X" className="modal-exit" onClick={props.closeModal}/>
         <div className="settings-modal-message">
           <h1>{props.type === "email" ? "Enter an email address" : `Change your ${props.type}`}</h1>
           <p>Enter a new {props.type === "email" ? "email address" : props.type} and your existing password.</p>
         </div>
+        <p>{error(props.type)}</p>
         <label className={props.type === "username" ? "username-input" : ""} htmlFor={`${props.type}`}>{props.type.toUpperCase()}</label>
         <input id={`${props.type}`} type={props.type === "password" ? "password" : "text"} value={props.state[`${props.type}`]} onChange={e => props.handleInput(e, props.type)} autoFocus />
         { props.type === "password" ?
           <>
+            <p>{props.passwordMatchError}</p>
             <label htmlFor="confirm-password">CONFIRM PASSWORD</label>
-            <input id="confirm-password" type="password" value={props.state[`${props.type}`]} onChange={e => props.handleInput(e, "confirmPassword")}/>
+            <input id="confirm-password" type="password" value={props.state.confirmPassword} onChange={e => props.handleInput(e, "confirmPassword")}/>
           </>
           : null}
+        <p>{error("password")}</p>
         <label htmlFor="current-password">CURRENT PASSWORD</label>
-        <input id="current-password" type="password" onChange={props.handleCurrentPassword}/>
+        <input id="current-password" type="password" value={props.state.currentPassword} onChange={e => props.handleInput(e, "currentPassword")}/>
         <div className="form-nav">
           <p onClick={props.closeModal}>Cancel</p>
-          <button onClick={props.handleSave}>Done</button>
+          <button>Done</button>
         </div>
       </form>
     </div>

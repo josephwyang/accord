@@ -3,6 +3,7 @@ import { getServer } from "../../actions/servers_actions";
 import { deleteMessage } from "../../actions/messages_actions";
 import { postReaction } from "../../actions/reactions_actions";
 import MessagesIndex from "./messages_index";
+import { withRouter } from "react-router";
 
 const mSTP = state => ({
   users: state.entities.users,
@@ -16,5 +17,5 @@ const mDTP = dispatch => ({
   postReaction: reaction => dispatch(postReaction(reaction))
 });
 
-const MessagesIndexContainer = connect(mSTP, mDTP)(MessagesIndex);
+const MessagesIndexContainer = withRouter(connect(mSTP, mDTP)(MessagesIndex));
 export default MessagesIndexContainer;
