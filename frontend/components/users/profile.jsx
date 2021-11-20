@@ -7,7 +7,7 @@ export default class Profile extends React.Component {
     super(props);
 
     this.state = ({
-      settingsOpen: false,
+      settingsOpen: true,
       usernameModalOpen: false,
       emailModalOpen: false,
       phoneNumberModalOpen: false,

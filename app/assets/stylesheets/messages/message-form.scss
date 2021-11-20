@@ -23,6 +23,7 @@
   }
   
   > .placeholder {
+    width: calc(100% - 70px);
     position: absolute;
     top: -51px;
     left: 36px;

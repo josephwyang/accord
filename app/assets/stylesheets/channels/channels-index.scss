@@ -11,6 +11,7 @@
     z-index: 99;
 
     h1 {
+      margin-right: 23px;
       padding: 15px 16px;
       color: white;
       font-family: $mukta;
@@ -106,7 +107,6 @@
     padding: 0px 6px;
 
     a {
-      display: flex;;
       padding: 10px;
 
       font-size: 16px;
@@ -193,7 +193,19 @@
   left: 240px;
   min-width: 248px;
 
-  &.gc { right: 240px; }
+  &.gc {
+    right: 240px;
+
+    @media all and (max-width: 819px) {
+      .invitation > .content {
+        flex-direction: column;
+        align-items: flex-start;
+        > p { margin: 4px 0px; }
+        > button { margin: 0px; }
+      }
+    }
+  }
+  
   &:not(.gc) {
     @media all and (max-width: 800px) {
       & {

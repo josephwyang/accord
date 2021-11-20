@@ -57,3 +57,6 @@
     border-top: 1px solid $dark-grey-1;
   }
 }
+
+#context-dropdown { max-width: 240px; }
+#context-dropdown > li { display: block; }

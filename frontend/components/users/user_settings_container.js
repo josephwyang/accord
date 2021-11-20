@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import UserSettings from "./user_settings";
 import { patchUser, verifyPhoneNumber,logOutUser } from "../../actions/session_actions";
+import { clearErrors } from "../../actions/errors_actions";
 
 const mSTP = state => ({
   currentUser: state.session.currentUser,
@@ -12,7 +13,8 @@ const mSTP = state => ({
 const mDTP = dispatch => ({
   patchUser: data => dispatch(patchUser(data)),
   verifyPhoneNumber: phoneNumber => dispatch(verifyPhoneNumber(phoneNumber)),
-  logOut: () => dispatch(logOutUser())
+  logOut: () => dispatch(logOutUser()),
+  clearErrors: () => dispatch(clearErrors())
 });
 
 const UserSettingsContainer = withRouter(connect(mSTP, mDTP)(UserSettings));

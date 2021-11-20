@@ -27,7 +27,7 @@ const Bubble = props => {
   
   return (
     <div className="bubble" style={{ ...directionStyle, opacity: props.opacity }}>
-      <p style={{ ...sizeStyle, order: (props.left ? 2 : null), boxShadow: (props.top ? "0px 2px 5px #292B2F" : null) }}>{props.text}</p>
+      <p className="ellipsis" style={{ ...sizeStyle, order: (props.left ? 2 : null), boxShadow: (props.top ? "0px 2px 5px #292B2F" : null) }}>{props.text}</p>
       <div className={props.left ? "arrow arrow-left" : "arrow arrow-down"}
         style={{ order: (props.left ? 1 : null) }}></div>
     </div>

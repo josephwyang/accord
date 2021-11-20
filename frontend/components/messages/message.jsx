@@ -102,7 +102,7 @@ const Message = ({ messages, message, i, users, currentUserId, servers, firstCha
           <img className="profile-photo" src={users[message.senderId].profilePhotoUrl || window.logo} alt="profile-photo" />
           <div>
             <div className="sender-info">
-              <h4 className="username">{users[message.senderId].username}</h4>
+              <h4 className="ellipsis username">{users[message.senderId].username}</h4>
               <p className={dateStamp.slice(0,1) === "Y" ? "date-stamp yesterday" : "date-stamp"}>{dateStamp}</p>
             </div>
             {message.invitation ? <div className="invitation">

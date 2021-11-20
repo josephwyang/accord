@@ -102,7 +102,7 @@ const DmsIndex = ({ dms, servers, dm, setDm, createDm, friends, pendingFriends, 
               <img src={window.group} alt="@" />
               {editingGc ?
               <EditingGcName gc={dm} patchServer={props.patchServer} closeForm={() => setEditingGc(null)} />
-              : <h3 onClick={() => {dm.name ? setEditingGc(dm) : null}}>{dm.name || dm.user.username}</h3>}
+              : <h3 className="ellipsis" onClick={() => {dm.name ? setEditingGc(dm) : null}}>{dm.name || dm.user.username}</h3>}
             </div>
             <div id="dm-messages" className={dm.name ? "gc" : ""}>
               <MessageFormContainer dm={dm} scrolled={scrolled} setScrolled={setScrolled} showBlanks={props.showBlanks} setShowBlanks={props.setShowBlanks} />

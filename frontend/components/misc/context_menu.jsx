@@ -6,6 +6,7 @@ const ContextMenu = ({ options, top, left, closeMenu }) => {
   const [dropdown, setDropdown] = useState(null);
   const [dropdownFn, setDropdownFn] = useState(null);
   const [dropdownYOffset, setDropdownYOffset] = useState(0);
+  const [dropdownOpacity, setDropdownOpacity] = useState(0);
   const containerRef = useRef(null);
   const dropdownRef = useRef(null);
 
@@ -27,6 +28,18 @@ const ContextMenu = ({ options, top, left, closeMenu }) => {
       window.removeEventListener("resize", resize);
     };
   }, []);
+
+  useEffect(() => {
+    const dropdown = document.getElementById("context-dropdown");
+    if(!dropdown) {
+      setDropdownOpacity(0);
+      return
+    };
+
+    const offsetY = window.innerHeight - (dropdown.getBoundingClientRect().y + dropdown.getBoundingClientRect().height) - 10;
+    if (offsetY < 0) setDropdownYOffset(offsetY);
+    setDropdownOpacity(1);
+  }, [dropdown]);
 
   const menu = options.map((option, i) => (
     option.text === "BREAK" ? <hr key={`option-${i}`} />
@@ -60,9 +73,9 @@ const ContextMenu = ({ options, top, left, closeMenu }) => {
       </ul>
 
       {dropdown ?
-        <ul id="context-dropdown" ref={dropdownRef} style={{ top: `${y - dropdownYOffset}px`, left: `${x + 180}px` }}>
+        <ul id="context-dropdown" ref={dropdownRef} style={{ top: `${y + dropdownYOffset}px`, left: `${x + 180}px`, opacity: dropdownOpacity }}>
           {dropdown.map(dropdownItem => (
-            <li key={`dropdown-${dropdownItem.id}`} onClick={() => {
+            <li key={`dropdown-${dropdownItem.id}`} className="ellipsis" onClick={() => {
               dropdownFn.fn(dropdownItem.id);
               closeMenu();
             }}>

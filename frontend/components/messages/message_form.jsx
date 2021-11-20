@@ -120,7 +120,7 @@ export default class MessageForm extends React.Component {
           <div onClick={() => this.setState({ replying: null })}><img src={window.xButton} alt="x" /></div>
         </div> : null}
           <span role="textbox" contentEditable={!isPreview} style={isPreview ? { height: "20px", cursor: "not-allowed" } : null} onInput={this.handleInput.bind(this)}></span>
-          {this.state.empty ? <div className="placeholder">{this.props.channel ? `Message #${this.props.channel.name}` : this.props.dm.user ? `Message @${this.props.dm.user.username}` : `Message ${this.props.dm.name}`}</div> : null}
+          {this.state.empty ? <div className="placeholder ellipsis">{this.props.channel ? `Message #${this.props.channel.name}` : this.props.dm.user ? `Message @${this.props.dm.user.username}` : `Message ${this.props.dm.name}`}</div> : null}
         </form>
       </>
     );

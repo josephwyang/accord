@@ -69,6 +69,7 @@
       color: $light-grey-0;
       font-weight: 900;
       letter-spacing: 0.2px;
+      word-break: break-word;
     }
 
     > p {
@@ -77,6 +78,7 @@
       font-size: 14px;
       color: $light-grey-2;
       letter-spacing: 0.3px;
+      word-break: break-word;
     }
   }
 
@@ -204,8 +206,6 @@
     > .sender-info {
       display: flex;
       margin-top: 2px;
-      overflow: hidden;
-      white-space: nowrap;
       > { line-height: 16px; }
   
       > .username {
@@ -219,6 +219,7 @@
         font-size: 12px;
         color: $light-grey-4;
         line-height: 20px;
+        white-space: nowrap;
       }
     }
   }
@@ -383,15 +384,6 @@
         background-color: $blue-0;
         &:hover { background-color: $blue-2; }
       }
-    }
-  }
-
-  @media all and (max-width: 819px) {
-    > .content {
-      flex-direction: column;
-      align-items: flex-start;
-      > p { margin: 4px 0px; }
-      > button { margin: 0px; }
     }
   }
 }

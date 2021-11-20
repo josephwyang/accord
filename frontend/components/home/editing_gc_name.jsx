@@ -33,7 +33,7 @@ const EditingGcName = ({ gc, patchServer, closeForm }) => {
       <form id="editing-gc-name" onSubmit={handleSubmit} ref={containerRef} >
         <input type="text" value={name} style={{ width }} onChange={e => setName(e.target.value)} autoFocus/>
       </form>
-      <p id="editing-gc-placeholder">{name}</p>
+      <p id="editing-gc-placeholder" className="ellipsis" style={{ maxWidth: "calc(100% - 61px)" }}>{name}</p>
     </>
   );
 };

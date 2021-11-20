@@ -1,13 +1,13 @@
 // modals: theme, delete account
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default class UserSettings extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedNav: "My Account",
+      selectedNav: "User Profile",
       editModal: null,
       deleteModal: null,
       phoneNumberModal: null,
@@ -52,7 +52,12 @@ export default class UserSettings extends React.Component {
       }
     });
   }
-  closeEditModal() { this.setState({ editModal: null }); }
+
+  closeEditModal() {
+    this.setState({ editModal: null });
+    if (this.props.errors.length) this.props.clearErrors();
+  }
+
   closeDeleteModal() { this.setState({ deleteModal: null }); }
 
   displayPhoneNumber(number) {
@@ -127,10 +132,10 @@ export default class UserSettings extends React.Component {
 
   handleSave(e) {
     if (e) e.preventDefault();
-    if(this.state.user.confirmPassword.length && this.state.user.confirmPassword !== this.state.password) {
+    if(this.state.user.confirmPassword.length && this.state.user.confirmPassword !== this.state.user.password) {
       this.setState({ errors: "Passwords do not match" });
       return;
-    }
+    } else this.setState({ errors: "" });
 
     const formData = new FormData();
     for (let type of ["id", "username", "email", "password", "currentPassword"]) {
@@ -167,7 +172,6 @@ export default class UserSettings extends React.Component {
   }
 
   render() {
-    console.log(this.state.errors, this.props.errors);
     const { username, tag, profilePhotoUrl, email, phoneNumber } = this.props.currentUser;
 
     const navOptions = ["My Account", "User Profile", "Appearance"].map(
@@ -265,7 +269,7 @@ export default class UserSettings extends React.Component {
 
         {this.state.editModal ?
           <UserSettingsModal type={this.state.editModal} state={this.state.user} errors={this.props.errors} passwordMatchError={this.state.errors}
-          handleInput={(e, type) => this.setState({ user: {...this.state.user, [type]: e.target.value}})}
+          handleInput={(e, type) => this.setState({ user: {...this.state.user, [type]: e.target.value}})} user={this.props.currentUser}
           closeModal={this.closeEditModal} handleSave={this.handleSave}/>
           : null}
 
@@ -286,7 +290,7 @@ export default class UserSettings extends React.Component {
               <>
                 <p id="area-code">+1</p>
                 <input id="phone-number" type="text" autoFocus onChange={this.handlePhoneNumber.bind(this)} value={this.displayPhoneNumber(this.state.user.phoneNumber)}/>
-                <button className="input-btn" onClick={this.verifyPhoneNumber.bind(this)}>Next</button>
+                <button className="input-btn" onClick={this.verifyPhoneNumber.bind(this)} disabled={this.state.user.phoneNumber.length < 10}>Next</button>
               </> : <>
                 <div className="verification-input" onClick={this.focusVerificationInput}>
                   <input id="verification-input-1" autoFocus type="text" maxLength="1" onChange={this.handleVerificationInput} onKeyDown={this.handleInputKey} tabIndex="0" value={this.state.verificationInput.slice(0, 1)}/>
@@ -328,46 +332,69 @@ export default class UserSettings extends React.Component {
 }
 
 // email, password, username, currentPassword
-const UserSettingsModal = props => {
-  const handleEsc = e => { if (e.key === "Escape") props.closeModal(); };
+const UserSettingsModal = ({ state, user, type, handleInput, handleSave, errors, passwordMatchError, closeModal}) => {
+  const [typeError, setTypeError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+  const handleEsc = e => { if (e.key === "Escape") closeModal(); };
 
   useEffect(() => {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
-  
-  const capitalize = word => word.slice(0,1).toUpperCase() + word.slice(1);
-  const error = type => {
-    for(let error of props.errors) {
-      if (error.includes(capitalize(type))) return error;
+
+  useEffect(() => {
+    for (let error of errors) {
+      if (error.includes(type.slice(0,1).toUpperCase() + type.slice(1))) {
+        setTypeError(error); 
+        return;
+      }
     }
-  }
+    setTypeError(null);
+  }, [errors]);
+
+  useEffect(() => {
+    for (let error of errors) {
+      if (error.includes("password")) {
+        setPasswordError("Incorrect password");
+        return;
+      }
+    }
+    setPasswordError(null);
+  }, [errors])
 
   return (
     <div className="user-settings-modal">
-      <div className="modal-screen" onClick={props.closeModal}></div>
-      <form className="settings-modal" onSubmit={props.handleSave}>
-        <img src={window.xButton} alt="X" className="modal-exit" onClick={props.closeModal}/>
+      <div className="modal-screen" onClick={closeModal}></div>
+      <form className="settings-modal" onSubmit={handleSave}>
+        <img src={window.xButton} alt="X" className="modal-exit" onClick={closeModal}/>
         <div className="settings-modal-message">
-          <h1>{props.type === "email" ? "Enter an email address" : `Change your ${props.type}`}</h1>
-          <p>Enter a new {props.type === "email" ? "email address" : props.type} and your existing password.</p>
+          <h1>{type === "email" ? "Enter an email address" : `Change your ${type}`}</h1>
+          <p>Enter a new {type === "email" ? "email address" : type} and your existing password.</p>
         </div>
-        <p>{error(props.type)}</p>
-        <label className={props.type === "username" ? "username-input" : ""} htmlFor={`${props.type}`}>{props.type.toUpperCase()}</label>
-        <input id={`${props.type}`} type={props.type === "password" ? "password" : "text"} value={props.state[`${props.type}`]} onChange={e => props.handleInput(e, props.type)} autoFocus />
-        { props.type === "password" ?
+        <label className={(type === "username" ? "username-input" : "") + (typeError ? " error" : "") + (type === "password" && passwordMatchError ? " error" : "")} htmlFor={`${type}`}>
+          {type.toUpperCase()}
+          { type === "password" ?
+            passwordMatchError.length || typeError ? <span> - {passwordMatchError.length ? passwordMatchError : typeError}.</span> : null
+          : typeError ? <span> - {typeError}.</span> : null}
+        </label>
+        <input id={`${type}`} type={type === "password" ? "password" : "text"} value={state[`${type}`]} onChange={e => handleInput(e, type)} autoFocus />
+        { type === "password" ?
           <>
-            <p>{props.passwordMatchError}</p>
-            <label htmlFor="confirm-password">CONFIRM PASSWORD</label>
-            <input id="confirm-password" type="password" value={props.state.confirmPassword} onChange={e => props.handleInput(e, "confirmPassword")}/>
+            <label htmlFor="confirm-password" className={passwordMatchError ? "error" : ""}>
+              CONFIRM PASSWORD{passwordMatchError ? <span> - {passwordMatchError}.</span> : null}
+            </label>
+            <input id="confirm-password" type="password" value={state.confirmPassword} onChange={e => handleInput(e, "confirmPassword")}/>
           </>
           : null}
-        <p>{error("password")}</p>
-        <label htmlFor="current-password">CURRENT PASSWORD</label>
-        <input id="current-password" type="password" value={props.state.currentPassword} onChange={e => props.handleInput(e, "currentPassword")}/>
+        <label htmlFor="current-password" className={passwordError ? " error" : ""}>
+            CURRENT PASSWORD
+            {passwordError ? <span> - {passwordError}.</span> : null}
+          </label>
+        <input id="current-password" type="password" value={state.currentPassword} onChange={e => handleInput(e, "currentPassword")}/>
         <div className="form-nav">
-          <p onClick={props.closeModal}>Cancel</p>
-          <button>Done</button>
+          <p onClick={closeModal}>Cancel</p>
+          <button disabled={user[type] === state[type] || state[type] === "" || state.currentPassword === ""
+            || (type === "password" && state.confirmPassword === "")}>Done</button>
         </div>
       </form>
     </div>

@@ -13,7 +13,7 @@ function ChannelsIndex(props) {
   ];
 
   const channels = (shownChannels.map(channel => (
-    <NavLink key={`channel-${channel.id}`} to={`/channels/${props.server.id}/${channel.id}`} activeClassName="selected"
+    <NavLink key={`channel-${channel.id}`} to={`/channels/${props.server.id}/${channel.id}`} className="ellipsis" activeClassName="selected"
       onContextMenu={e => props.setContext(e, contextOptions(channel))}>
       <span>#</span>{channel.name}
     </NavLink>
@@ -24,7 +24,7 @@ function ChannelsIndex(props) {
       <nav id="channels-index" className="nav">
         <div id="server-header" onClick={() => {props.isPreview ? null : props.toggleOpen("serverHeader")}} style={{ cursor: props.isPreview ? "not-allowed" : null }}
           className={props.serverHeaderOpen ? "selected" : ""}>
-          <h1>{props.server.name}</h1>
+          <h1 className="ellipsis">{props.server.name}</h1>
           <img src={window.downArrow} alt="down-arrow" />
           <img src={window.xButton} alt="x-button" />
         </div>

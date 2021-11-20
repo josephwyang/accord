@@ -27,7 +27,7 @@ const DeleteMessageModal = ({ deleting, setDeleting, deleteMessage, replying, cl
           <img className="profile-photo" src={users[deleting.message.senderId].profilePhotoUrl || window.logo} alt="profile-photo" />
           <div>
             <div className="sender-info">
-              <h4 className="username">{users[deleting.message.senderId].username}</h4>
+              <h4 className="username ellipsis">{users[deleting.message.senderId].username}</h4>
               <p className={deleting.dateStamp.slice(0, 1) === "Y" ? "date-stamp yesterday" : "date-stamp"}>{deleting.dateStamp}</p>
             </div>
             <p className="message-body">{deleting.message.body}</p>

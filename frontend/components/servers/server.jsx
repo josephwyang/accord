@@ -69,7 +69,7 @@ const Server = ({ servers, publicServers, server, getServer, previewServer, chan
     <div id="server">
       <div id="channel-header">
         <img src={window.hashtag} alt="#" />
-        <h3>{currentChannel ? currentChannel.name : null}</h3>
+        <h3 className="ellipsis">{currentChannel ? currentChannel.name : null}</h3>
       </div>
       <ChannelsIndex toggleOpen={toggleOpen} openChannelForm={editing => setChannelFormOpen(editing || true)} setContext={setContext}
         serverHeaderOpen={headerOpen.serverHeader} channelHeaderOpen={headerOpen.channelHeader} isPreview={!Object.keys(servers).includes(props.match.params.serverId)}

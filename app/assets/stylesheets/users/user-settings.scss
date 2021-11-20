@@ -288,6 +288,16 @@
         font-size: 13px;
         color: $light-grey-2;
         letter-spacing: 0.3;
+        > span {
+          line-height: 12px;
+          font-style: italic;
+        }
+
+        &.error {
+          color: $red;
+          > span { font-size: 12px; }
+          + input { border-color: $red; }
+        }
       }
 
       > input {
@@ -340,7 +350,11 @@
 
         cursor: pointer;
         transition: background-color 0.2s;
-        &:hover { background-color: $blue-2; }
+        &:hover:not(:disabled) { background-color: $blue-2; }
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
       }
     }
   }
@@ -365,6 +379,11 @@
   font-size: 13px;
   color: white;
   border-radius: 3px;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 }
 
 .verification-input {

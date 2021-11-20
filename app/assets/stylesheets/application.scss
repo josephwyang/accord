@@ -208,3 +208,10 @@ input[type='text']:focus {
   animation: shake 0.2s;
   animation-iteration-count: 2;
 }
+
+.ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
