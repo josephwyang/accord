@@ -54,7 +54,9 @@ const DmsIndex = ({ dms, servers, dm, setDm, createDm, friends, pendingFriends, 
   ];
 
   useEffect(() => {
-    if(props.location.pathname === "/@me") setDm(null);
+    if(props.location.pathname === "/@me") {
+      setDm(null);
+    } else setDm(dms[props.match.params.dmId]);
   }, [props.location.pathname])
 
   const dmsList = Object.values(dms).sort((a, b) => (a.lastMessage > b.lastMessage ? -1 : 1)).map(dm => (
