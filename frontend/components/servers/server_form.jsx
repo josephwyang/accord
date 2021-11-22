@@ -138,8 +138,12 @@ export default class ServerForm extends React.Component {
           </ul>
 
           <div className="form-nav">
-            <h3>Have an invite already?</h3>
-            <button id="join-server">Join a Server</button>
+            <h3>Or check out exisiting servers</h3>
+            <button id="join-server" onClick={e => {
+              e.preventDefault();
+              if (this.props.location.pathname !== "/explore") this.props.history.push("/explore");
+              this.closeModal();
+            }}>Search Public Servers</button>
           </div>
         </div>) : null}
 
@@ -170,7 +174,7 @@ export default class ServerForm extends React.Component {
 
           <div className="form-nav">
             <p className="back-button" onClick={() => this.openModal(2)}>Back</p>
-            <button className="form-button" onClick={this.handleSubmit.bind(this)}>Create</button>
+            <button className="form-button" onClick={this.handleSubmit.bind(this)} disabled={!this.state.name.length}>Create</button>
           </div>
         </form>) : null}
       </div>

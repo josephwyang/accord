@@ -217,7 +217,11 @@
   .form-button {
     margin-right: 16px;
     background-color: $blue-0;
-    &:hover { background-color: $blue-2; }
+    &:hover:not(:disabled) { background-color: $blue-2; }
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
   }
 
   h3 {
