@@ -28,10 +28,10 @@ export default class Splash extends React.Component {
   componentWillUnmount() { document.removeEventListener("scroll", () => window.requestAnimationFrame(() => this.handleScroll(window.scrollY))); }
 
   render() {
-    const splashButton = this.props.loggedIn ? (
+    const splashButton = (header) => this.props.loggedIn ? (
       <Link id="splash-button" to="/explore">Open Accord</Link>
     ) : (
-      <Link id="splash-button" to="/login">Log In</Link>
+        header ? <Link id="splash-button" to="/login">Log In</Link> : <Link id="splash-button" to="/signup">Sign Up</Link>
     );
 
     return (
@@ -53,7 +53,7 @@ export default class Splash extends React.Component {
                 <img id="linkedin" src={window.linkedin} alt="linkedin" />
               </a>
             </nav>
-            {splashButton}
+            {splashButton(true)}
           </div>
           <h1>EXPLORE ACCORD</h1>
           <p>where you belong to a community</p>
@@ -110,7 +110,7 @@ export default class Splash extends React.Component {
               <img src={window.logo} alt="logo" />
               <img src={window.accord} alt="accord" />
             </div>
-            {splashButton}
+            {splashButton()}
           </div>
         </div>
       </div>
