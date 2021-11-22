@@ -5,11 +5,15 @@ import { Link } from "react-router-dom";
 export default class Splash extends React.Component {
 
   handleScroll(scrollY) {
-    if (scrollY > 450) {
+    if (scrollY > 900 - window.innerHeight) {
+      $("#splash-info-1").addClass("show-content");
+    }
+
+    if (scrollY > 1600 - window.innerHeight) {
       $("#splash-info-2").addClass("show-content");
     }
 
-    if (scrollY > 1150) { $("#splash-info-3").addClass("show-content"); }
+    if (scrollY > 2300 - window.innerHeight) { $("#splash-info-3").addClass("show-content"); }
     
     if (scrollY > 626) {
       $("#splash").addClass("scrolled-down");
@@ -56,7 +60,7 @@ export default class Splash extends React.Component {
         </div>
         <div id="splash-content">
           <div id="splash-background-1">
-            <div id="splash-info-1" className="show-content">
+            <div id="splash-info-1">
               <img id="splash-image-1" src={window.splashImage1} alt="splash-image-1" />
               <div>
                 <h2>Join Accord today</h2>
@@ -100,6 +104,14 @@ export default class Splash extends React.Component {
             </a>
           </nav>
           <p>Disclaimer: For the purposes of creating an accurate clone, some images used in the making of Accord were taken directly from the official Discord website. All credits belong to Discord.</p>
+          <hr />
+          <div>
+            <div>
+              <img src={window.logo} alt="logo" />
+              <img src={window.accord} alt="accord" />
+            </div>
+            {splashButton}
+          </div>
         </div>
       </div>
     )
