@@ -3,7 +3,7 @@ import Bubble from "../misc/bubble";
 import DeleteFriendModal from "./delete_friend_modal";
 
 const FriendsNav = ({ dms, createDm, requestFriendship, acceptFriendship, deleteFriend, currentUserId, ...props }) => {
-  const [nav, setNav] = useState("Online");
+  const [nav, setNav] = useState("All");
   const [username, setUsername] = useState("");
   const [tag, setTag] = useState("#0000");
   const [disabled, setDisabled] = useState(true);
@@ -54,7 +54,9 @@ const FriendsNav = ({ dms, createDm, requestFriendship, acceptFriendship, delete
     };
   };
 
-  const navItems = ["Online", "All", "Pending", "Add Friend"].map(navType => (
+  const navItems = [
+    // "Online", 
+    "All", "Pending", "Add Friend"].map(navType => (
     <button key={navType} onClick={() => setNav(navType)} className={nav === navType ? "selected" : ""}>
       {navType}
     </button>
@@ -99,22 +101,22 @@ const FriendsNav = ({ dms, createDm, requestFriendship, acceptFriendship, delete
 
   const renderList = () => {
     switch(nav) {
-      case "Online":
-        return ( props.friends.length ?
-          <>
-            <h3>{`ONLINE FRIENDS — ${props.friends.length}`}</h3>
-            {friendsList("friends", { info: "Online", message: "Message", x: "Unfriend" })}
-          </> :
-          <div id="wumpus">
-            <img src={window.onlineWumpus} alt="wumpus" />
-            <p>No one's around to play with Wumpus.</p>
-          </div>
-        );
+      // case "Online":
+      //   return ( props.friends.length ?
+      //     <>
+      //       <h3>{`ONLINE FRIENDS — ${props.friends.length}`}</h3>
+      //       {friendsList("friends", { info: "Online", message: "Message", x: "Unfriend" })}
+      //     </> :
+      //     <div id="wumpus">
+      //       <img src={window.onlineWumpus} alt="wumpus" />
+      //       <p>No one's around to play with Wumpus.</p>
+      //     </div>
+      //   );
       case "All":
         return (props.friends.length ?
           <>
             <h3>{`ALL FRIENDS — ${props.friends.length}`}</h3>
-            {friendsList("friends", { info: "Online", message: "Message", x: "Unfriend" })}
+            {friendsList("friends", { info: "Friend", message: "Message", x: "Unfriend" })}
           </> :
           <div id="wumpus">
             <img src={window.allWumpus} alt="wumpus" />
