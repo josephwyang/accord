@@ -40,7 +40,7 @@ chase_friend = Friendship.create!(user_id: 1, friend_id: 9)
 banana = Server.create!(name:"banana", owner_id:1, public:false, genre:"createMyOwn", description: "Join banana to meet real life App Academy students!")
 maplestory = Server.create!(name:"Maplestory", owner_id:8, public:true, genre:"gaming", description: "Discover your story! Maplestory delivers legendary MMORPG adventures with boldly original icon 2D charm.")
 study_together = Server.create!(name:"study together", owner_id:6, public:true, genre:"education", description: "come study with us!")
-react = Server.create!(name:"React", owner_id:2, public:true, genre:"scienceAndTech", description: "Stay up to do date on everything React.js!")
+react = Server.create!(name:"React", owner_id:2, public:true, genre:"scienceAndTech", description: "Stay up to date on everything React.js! The #1 server meet other React users and join developing React projects.")
 
 # education servers
 aa = Server.create!(name:"App Academy (aA)", owner_id:2, public:true, genre:"education", description: "Welcome to App Academy, a leading institution in the massive boom of intensive bootcamps.")

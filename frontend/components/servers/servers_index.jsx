@@ -17,8 +17,8 @@ export default class ServersIndex extends React.Component {
     super(props);
 
     this.state = {
-      loadedServers: false,
-      loading: true,
+      loadingServers: true,
+      loadingPublicServers: true,
       serverModalOpen: false,
       showBubble: false,
       y: 0,
@@ -68,7 +68,7 @@ export default class ServersIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getServers().then(() => this.setState({ loadedServers: true }));
+    this.props.getServers().then(() => this.setState({ loadingServers: false }));
     this.props.getFriends();
 
     this.props.getDms().then(({ dms }) => {
@@ -93,7 +93,7 @@ export default class ServersIndex extends React.Component {
       }}
     );
 
-    this.props.getPublicServers().then(() => this.setState({ loading: false }));
+    this.props.getPublicServers().then(() => this.setState({ loadingPublicServers: false }));
   }
 
   componentDidUpdate() { 
@@ -180,10 +180,9 @@ export default class ServersIndex extends React.Component {
       function: () => this.props.postMembership({ userId: this.props.currentUser.id, serverId: this.props.preview.id, description: "server" })}
     ];
 
-    if (!this.state.loadedServers) { return null; }
+    if (this.state.loadingServers || this.state.loadingPublicServers) return <LoadingScreen loading={this.state.loadingPublicServers && this.state.loadingServers} />;
     return (
       <>
-        <LoadingScreen loading={this.state.loading} />
         <ul id="servers-index" onScroll={() => this.setState({ showBubble: false })}>
           <NavLink to="/@me" id="dms" activeClassName="selected" onClick={() => {if (this.props.preview.id) this.props.removePreview()}}
             onMouseEnter={e => this.setState({ showBubble: true, y: e.target.y + 24, bubbleName: "Home" })}
@@ -212,7 +211,7 @@ export default class ServersIndex extends React.Component {
           : this.props.location.pathname.slice(0,4) === "/@me" ?
             <DmsIndexContainer createDm={this.createDm} dm={this.state.dm} setDm={dm => this.setState({ dm })} subscriptions={this.subscriptions} setContext={(e, options) => this.setState({ context: e, contextOptions: options })}
               deleteFriend={this.state.deleteFriend} setDeleteFriend={friend => this.setState({ deleteFriend: friend })} showBlanks={this.state.showBlanks} setShowBlanks={bool => this.setState({ showBlanks: bool })} />
-            : <ServerContainer createDm={this.createDm} serversLoading={this.state.loading} removePreview={this.props.removePreview} setContext={(e, options) => this.setState({ context: e, contextOptions: options })}
+            : <ServerContainer createDm={this.createDm} serversLoading={this.state.loadingPublicServers && this.state.loadingServers} removePreview={this.props.removePreview} setContext={(e, options) => this.setState({ context: e, contextOptions: options })}
               serverInviteOpen={this.state.serverInviteOpen} setServerInviteOpen={bool => this.setState({ serverInviteOpen: bool })} serverSettingsOpen={this.state.serverSettingsOpen} setServerSettingsOpen={ bool => this.setState({serverSettingsOpen:bool })}
               channelFormOpen={this.state.channelFormOpen} setChannelFormOpen={bool => this.setState({ channelFormOpen:bool })} leaveServerModalOpen={this.state.leaveServerModalOpen} setLeaveServerModalOpen={bool => this.setState({ leaveServerModalOpen:bool })}
               deleteFriend={this.state.deleteFriend} setDeleteFriend={friend => this.setState({ deleteFriend: friend })} showBlanks={this.state.showBlanks} setShowBlanks={bool => this.setState({ showBlanks: bool })} />}
