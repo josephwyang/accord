@@ -71,7 +71,7 @@ class Api::ServersController < ApplicationController
 
   def destroy
     @server = Server.find_by(id:params[:id])
-    if @server.owner != current_user && @server.genre != "dm" && @server.genre != "gc"
+    if @server.owner.id != current_user.id && @server.genre != "dm" && @server.genre != "gc"
       render json: ["only the owner can delete a server"], status: 401
     elsif current_user.memberships.to_a.none? { |membership| membership.server_id == @server.id }
       render json: ["only a member can delete a direct message"], status: 401
