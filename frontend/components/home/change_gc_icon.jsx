@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const ChangeGcIcon = ({ gc, patchServer, closeModal }) => {
   const [icon, setIcon] = useState(null);
   const [iconUrl, setIconUrl] = useState(gc.icon || "");
+
+  const handleEsc = e => { if (e.key === "Escape") closeModal(); };
+  useEffect(() => {
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
 
   const handleIconFile = e => {
     const file = e.target.files[0];

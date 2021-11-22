@@ -6,6 +6,12 @@ const CreateDmForm = ({ friends, createDm, closeForm }) => {
   const [checkCount, setCheckCount] = useState(0);
   const containerRef = useRef(null);
 
+  const handleEsc = e => { if (e.key === "Escape") closeForm(); };
+  useEffect(() => {
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
   useEffect(() => {
     const handleOutsideClick = e => { if (containerRef.current && !containerRef.current.contains(e.target)) closeForm(); }
     document.addEventListener("mousedown", handleOutsideClick);

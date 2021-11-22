@@ -26,7 +26,10 @@ export default class ChannelForm extends React.Component {
     this.props.closeForm();
     if (this.props.editing) {
       this.props.patchChannel({ id: this.props.editing.id, name });
-    } else this.props.postChannel({ name, serverId: this.props.match.params.serverId });
+    } else {
+      this.props.postChannel({ name, serverId: this.props.match.params.serverId })
+        .then(({ payload }) => {this.props.history.push(`/channels/${payload.channel.serverId}/${payload.channel.id}`)})
+    };
   }
 
   render() {
@@ -43,7 +46,7 @@ export default class ChannelForm extends React.Component {
           <img src={window.hashtag} alt="#" />
           <div>
             <p onClick={this.props.closeForm}>Cancel</p>
-            <button onClick={this.handleSubmit.bind(this)}>{this.props.editing ? "Rename" : "Create"} Channel</button>
+            <button onClick={this.handleSubmit.bind(this)} disabled={!this.state.name.length}>{this.props.editing ? "Rename" : "Create"} Channel</button>
           </div>
         </form>
       </div>

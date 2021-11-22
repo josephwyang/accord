@@ -107,9 +107,14 @@
       border-radius: 3px;
       transition: background-color 0.2s;
 
-      &:hover {
+      &:hover:not(:disabled) {
         cursor: pointer;
         background-color: $blue-2;
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
       }
     }
   }

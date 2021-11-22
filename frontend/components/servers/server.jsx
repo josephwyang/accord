@@ -10,7 +10,7 @@ import LeaveServerModal from "./leave_server_modal";
 import SendInvitation from "./send_invitation";
 import PassOwnerModal from "./pass_owner_modal";
 
-const Server = ({ servers, publicServers, server, getServer, previewServer, channels, currentChannel, currentUser, firstChannelId, createDm, postMessage, postMembership, deleteMembership, setContext,
+const Server = ({ servers, publicServers, server, getServer, previewServer, channels, currentUser, firstChannelId, createDm, postMessage, postMembership, deleteMembership, setContext,
   serverInviteOpen, setServerInviteOpen, serverSettingsOpen, setServerSettingsOpen, channelFormOpen, setChannelFormOpen, leaveServerModalOpen, setLeaveServerModalOpen, deleteFriend, setDeleteFriend, ...props }) => {
   const [headerOpen, setHeaderOpen] = useState({ serverHeader: false, channelHeader: true });
   const [loading, setLoading] = useState(true);
@@ -32,13 +32,17 @@ const Server = ({ servers, publicServers, server, getServer, previewServer, chan
   const loadServer = () => {
     const getCorrectServer = (Object.keys(servers).includes(props.match.params.serverId) ? getServer : previewServer);
     getCorrectServer().then(({ payload }) => {
-      const serverUrl = `/channels/${payload.server.id}/${currentChannel && Object.keys(payload.channels).includes(currentChannel.id.toString()) ? currentChannel.id : (firstChannelId(payload.channels))}`;
+      const currentChannelId = props.match.params.channelId;
+      const serverUrl = `/channels/${payload.server.id}/${Object.keys(payload.channels).includes(currentChannelId) ? currentChannelId : (firstChannelId(payload.channels))}`;
       if (!payload.server.public && !Object.keys(servers).includes(payload.server.id.toString())) {
-        debugger
         props.history.push("/@me");
         props.removePreview();
-      } else if (props.location.pathname !== serverUrl) props.history.push(serverUrl);
-    }).then(() => document.getElementById("messages-end").scrollIntoView({ behavior: "instant" }));
+        return false;
+      } else if (props.location.pathname !== serverUrl) {
+        props.history.push(serverUrl);
+        return true;
+      }
+    }).then(loaded => {if (loaded) document.getElementById("messages-end").scrollIntoView({ behavior: "instant" })});
     setLoading(false);
   };
 
@@ -53,7 +57,7 @@ const Server = ({ servers, publicServers, server, getServer, previewServer, chan
 
   const toggleOpen = field => setHeaderOpen(Object.assign({}, headerOpen, { [field]: !headerOpen[field] }));
 
-  const inviteChannels = () => channels.map(channel => (
+  const inviteChannels = () => Object.values(channels).map(channel => (
     <li key={channel.id} className={inviteChannel === channel.id ? "ellipsis selected" : "ellipsis"} onClick={() => setInviteChannel(channel.id)}>
       <img src={window.hashtag} alt="#" />
       {channel.name}
@@ -69,11 +73,11 @@ const Server = ({ servers, publicServers, server, getServer, previewServer, chan
     <div id="server">
       <div id="channel-header">
         <img src={window.hashtag} alt="#" />
-        <h3 className="ellipsis">{currentChannel ? currentChannel.name : null}</h3>
+        <h3 className="ellipsis">{channels[props.match.params.channelId] ? channels[props.match.params.channelId].name : null}</h3>
       </div>
       <ChannelsIndex toggleOpen={toggleOpen} openChannelForm={editing => setChannelFormOpen(editing || true)} setContext={setContext}
         serverHeaderOpen={headerOpen.serverHeader} channelHeaderOpen={headerOpen.channelHeader} isPreview={!Object.keys(servers).includes(props.match.params.serverId)}
-        server={server} channels={channels} channelId={props.match.params.channelId} />
+        server={server} channels={Object.values(channels)} channelId={props.match.params.channelId} />
       {headerOpen.serverHeader ? (
         <ul id="server-header-modal" ref={containerRef}>
           <li onClick={() => {

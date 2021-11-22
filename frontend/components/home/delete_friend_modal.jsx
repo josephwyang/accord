@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const DeleteFriendModal = ({ friend, deleteFriend, closeModal }) => {
+  const handleEsc = e => { if (e.key === "Escape") closeModal(); };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
+
   const handleClick = () => {
     deleteFriend(friend.friendshipId);
     closeModal();

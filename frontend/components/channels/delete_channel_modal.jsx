@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const DeleteChannelModal = ({ channel, deleteChannel, closeModal }) => {
+const DeleteChannelModal = ({ channels, firstChannelId, channel, deleteChannel, closeModal, ...props }) => {
   const handleEsc = e => {
     if (e.key === "Escape" || e.key === "Enter") closeModal();
     if (e.key === "Enter") deleteChannel(channel.id);
@@ -30,6 +30,8 @@ const DeleteChannelModal = ({ channel, deleteChannel, closeModal }) => {
           <button onClick={() => {
             closeModal();
             deleteChannel(channel.id);
+            console.log(`/channels/${channel.serverId}/${firstChannelId(channels)}`)
+            props.history.push(`/channels/${channel.serverId}/${firstChannelId(channels)}`);
           }}>Delete Channel</button>
         </div>
       </div>

@@ -46,10 +46,10 @@ export default class Splash extends React.Component {
               <img id="accord" src={window.accord} alt="accord" />
             </Link>
             <nav id="nav-links">
-              <a href="https://github.com/josephwyang/accord">
+              <a href="https://github.com/josephwyang/accord" target="_blank">
                 <img id="github" src={window.github} alt="github" />
               </a>
-              <a href="https://www.linkedin.com/in/josephwyang/">
+              <a href="https://www.linkedin.com/in/josephwyang/" target="_blank">
                 <img id="linkedin" src={window.linkedin} alt="linkedin" />
               </a>
             </nav>
@@ -94,11 +94,11 @@ export default class Splash extends React.Component {
           <h1>EXPLORE ACCORD</h1>
           <p>where you belong to a community</p>
           <nav id="footer-links">
-            <a href="https://github.com/josephwyang/accord">
+            <a href="https://github.com/josephwyang/accord" target="_blank">
               <p>GITHUB</p>
               <img id="github" src={window.github} alt="github" />
             </a>
-            <a href="https://www.linkedin.com/in/josephwyang/">
+            <a href="https://www.linkedin.com/in/josephwyang/" target="_blank">
               <p>LINKEDIN</p>
               <img id="linkedin" src={window.linkedin} alt="linkedin" />
             </a>

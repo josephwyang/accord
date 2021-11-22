@@ -18,6 +18,13 @@ const DmsIndex = ({ dms, servers, dm, setDm, createDm, friends, pendingFriends, 
   const [hoveredCreateDm, setHoveredCreateDm] = useState(false);
   const [editingGc, setEditingGc] = useState(null);
 
+  const handleEsc = e => { if (e.key === "Escape") setDeleting(null); };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
   useEffect(() => {
     setDm(dms[props.match.params.dmId]);
   }, [dms]);

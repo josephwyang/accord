@@ -10,8 +10,7 @@ const mSTP = (state, ownProps) => ({
   servers: state.entities.servers,
   publicServers: state.entities.publicServers,
   server: state.entities.servers[ownProps.match.params.serverId] || state.entities.preview,
-  channels: Object.values(state.entities.channels),
-  currentChannel: state.entities.channels[ownProps.match.params.channelId],
+  channels: state.entities.channels,
   currentUser: state.session.currentUser,
   firstChannelId
 });

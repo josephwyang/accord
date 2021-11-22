@@ -16,9 +16,16 @@ export default class ServerForm extends React.Component {
     };
 
     this.state = this.nullState;
+    this.handleEsc = this.handleEsc.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
+
+  handleEsc(e) {
+    if (e.keyCode === 27) this.closeModal();
+  }
+  componentDidMount() { window.addEventListener("keydown", this.handleEsc); }
+  componentWillUnmount() { window.removeEventListener("keydown", this.handleEsc); }
 
   handleFile(e) {
     const file = e.target.files[0];
