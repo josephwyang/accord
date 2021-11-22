@@ -13,6 +13,8 @@ Membership.delete_all
 Membership.connection.execute('ALTER SEQUENCE memberships_id_seq RESTART WITH 1')
 Message.delete_all
 Message.connection.execute('ALTER SEQUENCE messages_id_seq RESTART WITH 1')
+Reaction.delete_all
+Reaction.connection.execute('ALTER SEQUENCE messages_id_seq RESTART WITH 1')
 ActiveStorage::Attachment.all.each { |attachment| attachment.purge }
 
 # users

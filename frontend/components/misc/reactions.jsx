@@ -22,7 +22,7 @@ const Reactions = ({ messageId, top, right, closeForm, currentUserId, postReacti
     closeForm();
   };
 
-  const reactionIcons = reactions.filter(reaction => reaction.includes(search)).map((reaction, i) => (
+  const reactionIcons = reactions.filter(reaction => reaction.toLowerCase().includes(search.toLowerCase())).map((reaction, i) => (
     <li key={`reaction-${i}`} onMouseEnter={() => setHoveredReaction(reaction)} onClick={() => react(reaction)}>
       <img className="reaction" src={window[reaction]} alt={`reaction-${i}`} />
     </li>
@@ -35,7 +35,7 @@ const Reactions = ({ messageId, top, right, closeForm, currentUserId, postReacti
           setSearch(e.target.value);
           const firstReaction = reactions.filter(reaction => reaction.includes(e.target.value))[0];
           if (firstReaction) setHoveredReaction(firstReaction);
-        }} />
+        }} autoFocus />
       </div>
       <ul id="reactions-index">
         {reactionIcons.length ? reactionIcons :
