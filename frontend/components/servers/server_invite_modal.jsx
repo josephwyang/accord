@@ -29,7 +29,7 @@ const ServerInviteModal = ({ servers, friends, dms, server, currentUserId, first
     return chat.icon ? <img className="chat-icon" src={chat.icon} alt="icon" /> : <div className="chat-icon default-gc"><img src={window.group} alt="icon" /></div>;
   }
 
-  const searchedServerList = Object.values(servers).filter(chat => chat.id !== server.id && chat.name.includes(search)).sort((a, b) => (getName(a) < getName(b) ? -1 : 1)).map(chat => (
+  const searchedServerList = Object.values(servers).filter(chat => chat.id !== server.id && chat.name.toLowerCase().includes(search.toLowerCase())).sort((a, b) => (getName(a) < getName(b) ? -1 : 1)).map(chat => (
     <li key={`server-${chat.id}`}>
       {chat.icon ? <img className="chat-icon" src={chat.icon} alt="icon" /> : <div className="chat-icon">{chat.name.split(" ").map(word => word[0]).slice(0, 2)}</div>}
       <p className="ellipsis">{chat.name}</p>

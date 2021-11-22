@@ -31,7 +31,7 @@ const CreateDmForm = ({ friends, createDm, closeForm }) => {
     setChecked(checkedFriends);
   };
 
-  const friendsList = friends.filter(friend => friend.accordTag.startsWith(search)).map(friend => (
+  const friendsList = friends.filter(friend => friend.accordTag.toLowerCase().startsWith(search.toLowerCase())).map(friend => (
     <label id={`dm-friend-${friend.id}`} key={`dm-friend-${friend.id}`}>
       <div className="friend-info">
         <img src={friend.profilePhotoUrl || window.logo} alt="profile" />
@@ -60,7 +60,7 @@ const CreateDmForm = ({ friends, createDm, closeForm }) => {
   return (
     <form id="create-dm-form" ref={containerRef} onSubmit={handleSubmit}>
       <h3>Select Friends</h3>
-      <input type="text" placeholder="Find or start a conversation" value={search} onChange={e => setSearch(e.target.value)}/>
+      <input type="text" placeholder="Find or start a conversation" value={search} onChange={e => setSearch(e.target.value)} autoFocus/>
       <ul id="checked-friends">{checkedList}</ul>
       <ul>{friendsList}</ul>
       <div>
