@@ -36,7 +36,12 @@ export default class UserSettings extends React.Component {
     this.handleSave = this.handleSave.bind(this);
   }
 
-  handleEsc(e) { if (e.keyCode === 27 && !this.state.editModal && !this.state.removePhoneNumber) { this.state.phoneNumberModal ? this.setState({ phoneNumberModal: null }) : this.props.closeSettings(); } }
+  handleEsc(e) {
+    if (e.keyCode === 27 && this.state.deleteModal) { this.setState({ deleteModal: null }); }
+    else if (e.keyCode === 27 && !this.state.editModal && !this.state.removePhoneNumber) {
+      this.state.phoneNumberModal ? this.setState({ phoneNumberModal: null }) : this.props.closeSettings();
+    };
+  }
   componentDidMount() { document.addEventListener("keydown", this.handleEsc); }
   componentWillUnmount() { document.removeEventListener("keydown", this.handleEsc); }
 
@@ -154,13 +159,6 @@ export default class UserSettings extends React.Component {
     }
   }
 
-  handleRemovePhoneNumber() {
-    const formData = new FormData();
-    formData.append(`user[id]`, this.state.user.id);
-    formData.append(`user[currentPassword]`, this.state.user.currentPassword);
-    formData.append()
-  }
-
   handleSave(e) {
     if (e) e.preventDefault();
     if(this.state.user.confirmPassword.length && this.state.user.confirmPassword !== this.state.user.password) {
@@ -201,9 +199,12 @@ export default class UserSettings extends React.Component {
 
   handleDeleteAccount(e) {
     e.preventDefault();
-    // this.props.logOut();
-    // this.props.history.push("/");
-    // delete account
+
+    const formData = new FormData();
+    formData.append(`user[id]`, this.state.user.id);
+    formData.append(`user[currentPassword]`, this.state.user.currentPassword);
+
+    this.props.deleteUser(formData);
   }
 
   render() {
@@ -361,7 +362,7 @@ export default class UserSettings extends React.Component {
         {this.state.deleteModal ?
           <div id="delete-modal">
             <div className="modal-screen" onClick={this.closeDeleteModal}></div>
-            <div className="settings-modal">
+            <form className="settings-modal">
               <div className="settings-modal-message">
                 <h1>{this.state.deleteModal === "Delete Account" && ownsServers ? "You Own Servers!" : this.state.deleteModal}</h1>
                 <p> {this.state.deleteModal === "Log Out" ?
@@ -375,11 +376,22 @@ export default class UserSettings extends React.Component {
                 <div className="form-nav">
                   <button className="blue" onClick={this.closeDeleteModal}>Okay</button>
                 </div>
-                : <div className="form-nav">
-                  <p onClick={this.closeDeleteModal}>Cancel</p>
-                  <button onClick={this[`handle${this.state.deleteModal.split(" ").join("")}`].bind(this)}>{this.state.deleteModal}</button>
-                </div>}
-            </div>
+                : <>
+                  {this.state.deleteModal === "Delete Account" ?
+                    <>
+                      <label htmlFor="current-password" className={this.props.errors.some(error => error.includes("password"))  ? " error" : ""}>
+                        PASSWORD
+                        {this.props.errors.some(error => error.includes("password")) ? <span> - Incorrect password.</span> : null}
+                      </label>
+                      <input id="current-password" type="password" value={this.state.user.currentPassword} onChange={e => this.setState({ user: { ...this.state.user, currentPassword: e.target.value }})} autoFocus />
+                    </>
+                  : null}
+                  <div className="form-nav">
+                    <p onClick={this.closeDeleteModal}>Cancel</p>
+                    <button onClick={this[`handle${this.state.deleteModal.split(" ").join("")}`].bind(this)} disabled={this.state.deleteModal === "Delete Account" && !this.state.user.currentPassword.length} >{this.state.deleteModal}</button>
+                  </div>
+                </>}
+            </form>
           </div>
         : null}
       </div>
@@ -449,7 +461,7 @@ const UserSettingsModal = ({ state, user, type, handleInput, handleSave, errors,
           : <div className="settings-modal-message"><h1>Remove Phone Number</h1></div> }
 
         <label htmlFor="current-password" className={passwordError ? " error" : ""}>
-          CURRENT PASSWORD
+          {type ? "CURRENT PASSWORD" : "PASSWOD"}
           {passwordError ? <span> - {passwordError}.</span> : null}
         </label>
         <input id="current-password" type="password" value={state.currentPassword} onChange={e => handleInput(e, "currentPassword")} autoFocus={!type} />
@@ -464,20 +476,3 @@ const UserSettingsModal = ({ state, user, type, handleInput, handleSave, errors,
     </div>
   )
 };
-
-{/* <div className="user-settings-modal">
-  <div className="modal-screen" onClick={this.closeRemovePhoneNumber}></div>
-  <form className="settings-modal" onSubmit={e => this.handleSave(e, "REMOVE PHONE NUMBER")}>
-    <img src={window.xButton} alt="X" className="modal-exit" onClick={this.closeRemovePhoneNumber} />
-    <div className="settings-modal-message"><h1>Remove Phone Number</h1></div>
-    <label htmlFor="current-password" className={this.props.errors.length ? "error" : ""}>
-      CURRENT PASSWORD
-      {this.props.errors.length ? <span> - "Incorrect password".</span> : null}
-    </label>
-    <input type="password" value={this.state.user.currentPassword} onChange={e => this.setState({ user: Object.assign({}, this.state.user, { currentPassword: e.target.value }) })} autoFocus />
-    <div className="form-nav">
-      <p onClick={this.closeRemovePhoneNumber}>Cancel</p>
-      <button disabled={this.state.user.currentPassword === ""}>Done</button>
-    </div>
-  </form>
-</div> */}

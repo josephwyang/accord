@@ -43,9 +43,12 @@ export const patchUser = formData=> (
   })
 );
 
-export const deleteUser = userId => (
+export const deleteUser = formData => (
   $.ajax({
     method: "DELETE",
-    url: `/api/users/${userId}`
+    url: `/api/users/${formData.get("user[id]")}`,
+    data: formData,
+    contentType: false,
+    processData: false
   })
 );

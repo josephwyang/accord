@@ -44,7 +44,7 @@ class Api::UsersController < ApplicationController
 
   def destroy
     @user = User.find_by(id:params[:id])
-    if !@user.is_password?(params[:current_password])
+    if !@user.is_password?(user_params[:current_password])
       render json: ["incorrect password"], status: 401
     elsif @user.id != current_user.id
       render json: ["you can only delete an account you are logged into"], status: 401

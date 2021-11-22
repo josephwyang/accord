@@ -63,6 +63,6 @@ export const patchUser = formData => dispatch => (
 
 export const deleteUser = formData => dispatch => (
   UsersUtil.deleteUser(formData)
-    .then(user => dispatch(deleteSession(user)),
+    .then(() => dispatch(deleteSession()),
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );

@@ -17,6 +17,7 @@ export default class ServersIndex extends React.Component {
     super(props);
 
     this.state = {
+      loadedServers: false,
       loading: true,
       serverModalOpen: false,
       showBubble: false,
@@ -67,7 +68,7 @@ export default class ServersIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getServers();
+    this.props.getServers().then(() => this.setState({ loadedServers: true }));
     this.props.getFriends();
 
     this.props.getDms().then(({ dms }) => {
@@ -179,7 +180,7 @@ export default class ServersIndex extends React.Component {
       function: () => this.props.postMembership({ userId: this.props.currentUser.id, serverId: this.props.preview.id, description: "server" })}
     ];
 
-    if (!this.props.servers.length) { return null; }
+    if (!this.state.loadedServers) { return null; }
     return (
       <>
         <LoadingScreen loading={this.state.loading} />
