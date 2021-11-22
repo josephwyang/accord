@@ -34,7 +34,12 @@ export default class ServersExplore extends React.Component {
 
     const genreTypes = ["gaming", "music", "education", "scienceAndTech", "entertainment"];
     const genres = genreTypes.map(genre => (
-      <li key={`explore-${toKebab(genre)}`} onClick={() => this.setState({ genre })} className={this.state.genre === genre ? "selected" : ""}>
+      <li key={`explore-${toKebab(genre)}`} onClick={() => {
+        if (this.state.genre !== genre) {
+          this.setState({ genre });
+          document.querySelector("#servers-explore > img:first-child").scrollIntoView({ behavior: "instant" });
+        }
+      }} className={this.state.genre === genre ? "selected" : ""}>
         <img src={window[`${genre}Icon`]} alt={toWords(genre).toLowerCase()} />
         {toWords(genre)}
       </li>
@@ -48,7 +53,7 @@ export default class ServersExplore extends React.Component {
               <div className="server-banner"><img src={server.banner || window.defaultBanner} alt="server-banner" /></div>
               {server.icon ? <img className="server-icon" src={server.icon} alt="server-icon" /> : <p className="server-icon" style={{ backgroundColor: "#393C43"}}>{server.name.split(" ").map(word => word[0]).slice(0, 2)}</p>}
               <h3>{server.name}</h3>
-              <p id="server-description">{server.description}</p>
+              <p id="server-description">{server.description || `${server.name} server`}</p>
             </li>
           )
         }

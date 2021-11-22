@@ -37,42 +37,42 @@ jack_friend = Friendship.create!(user_id: 1, friend_id: 8)
 chase_friend = Friendship.create!(user_id: 1, friend_id: 9)
 
 # demo servers
-banana = Server.create!(name:"banana", owner_id:1, public:false, genre:"createMyOwn")
-maplestory = Server.create!(name:"maplestory", owner_id:8, public:true, genre:"gaming")
-study_together = Server.create!(name:"study together", owner_id:6, public:true, genre:"education")
-react = Server.create!(name:"react", owner_id:2, public:true, genre:"scienceAndTech")
+banana = Server.create!(name:"banana", owner_id:1, public:false, genre:"createMyOwn", description: "Join banana to meet real life App Academy students!")
+maplestory = Server.create!(name:"Maplestory", owner_id:8, public:true, genre:"gaming", description: "Discover your story! Maplestory delivers legendary MMORPG adventures with boldly original icon 2D charm.")
+study_together = Server.create!(name:"study together", owner_id:6, public:true, genre:"education", description: "come study with us!")
+react = Server.create!(name:"React", owner_id:2, public:true, genre:"scienceAndTech", description: "Stay up to do date on everything ReactJs!")
 
 # education servers
-aa = Server.create!(name:"aA", owner_id:2, public:true, genre:"education")
-english = Server.create!(name:"english", owner_id:2, public:true, genre:"education")
-khan_academy = Server.create!(name:"khan academy", owner_id:2, public:true, genre:"education")
+aa = Server.create!(name:"App Academy (aA)", owner_id:2, public:true, genre:"education", description: "Welcome to App Academy, a leading institution in the massive boom of intensive bootcamps.")
+english = Server.create!(name:"English", owner_id:2, public:true, genre:"education", description: "Learn English today. Practice your skills with thousands of native speakers and other eager learners. It's never too late!")
+khan_academy = Server.create!(name:"Khan Academy", owner_id:2, public:true, genre:"education", description: "A free world-class education for anyone, anywhere.")
 
 # entertainment servers
-demon_slayer = Server.create!(name:"demon slayer", owner_id:2, public:true, genre:"entertainment")
-naruto = Server.create!(name:"naruto", owner_id:2, public:true, genre:"entertainment")
-my_hero_academia = Server.create!(name:"my hero academia", owner_id:2, public:true, genre:"entertainment")
+demon_slayer = Server.create!(name:"Demon Slayer", owner_id:2, public:true, genre:"entertainment", description: "Loving, cute and active community. Join our server to view sneak peeks.")
+naruto = Server.create!(name:"NARUTO WRLD", owner_id:2, public:true, genre:"entertainment", description: "An anime community for Naruto/Boruto fans! Join the #1 Naruto Discord today!")
+my_hero_academia = Server.create!(name:"My Hero Academia", owner_id:2, public:true, genre:"entertainment", description: "My Hero Academia fandom! Join for exclusive content and a friendly anime community.")
 
 # gaming servers
-league = Server.create!(name:"league", owner_id:2, public:true, genre:"gaming")
-smash = Server.create!(name:"smash", owner_id:2, public:true, genre:"gaming")
-fortnite = Server.create!(name:"fortnite", owner_id:2, public:true, genre:"gaming")
-minecraft = Server.create!(name:"minecraft", owner_id:2, public:true, genre:"gaming")
-valorant = Server.create!(name:"valorant", owner_id:2, public:true, genre:"gaming")
+league = Server.create!(name:"League of Legends", owner_id:2, public:true, genre:"gaming", description: "Welcome to League of Legends! A community-run Discord server for all things LoL.")
+smash = Server.create!(name:"Super Smash Bros.", owner_id:2, public:true, genre:"gaming", description: "The largest and #1 Smash server! Active channels, matchmaking for all players, events, content, creators, and much more! Join us today to brawl!")
+fortnite = Server.create!(name:"Fortnite", owner_id:2, public:true, genre:"gaming", description: "The official Fortnite discord server! Join to follow news channels, LFG, and chat.")
+minecraft = Server.create!(name:"MINECRAFT", owner_id:2, public:true, genre:"gaming", description: "The official Minecraft Discord!")
+valorant = Server.create!(name:"VALORANT", owner_id:2, public:true, genre:"gaming", description: "The VALORANT Discord server. We offer the latest news and various chats.")
 
 # music servers
-blackpink = Server.create!(name:"blackpink", owner_id:2, public:true, genre:"music")
-groovy = Server.create!(name:"groovy", owner_id:2, public:true, genre:"music")
-itzy = Server.create!(name:"itzy", owner_id:2, public:true, genre:"music")
-lofi = Server.create!(name:"lofi", owner_id:2, public:true, genre:"music")
+blackpink = Server.create!(name:"BLACKPINK", owner_id:2, public:true, genre:"music", description: "Welcome to the place to be for anything BLACKPINK! Join to stay up to date with BLACKPINK, exclusive content, and talk with fellow BLINKs!")
+groovy = Server.create!(name:"Groovy Community", owner_id:2, public:true, genre:"music", description: "Official community for Groovy Discord bot. Join for events, giveaways, support, and a cool community.")
+itzy = Server.create!(name:"ITZY (있지)", owner_id:2, public:true, genre:"music", description: "The discord server for KPOP girl group ITZY. Come join fellow MIDZYs and stay updated on everything ITZY, from newest music releases to exclusive fan content.")
+lofi = Server.create!(name:"lofi", owner_id:2, public:true, genre:"music", description: "bring a cup of coffee and vibe to lofi with us")
 
 # scienceAndTech servers
-google = Server.create!(name:"google", owner_id:2, public:true, genre:"scienceAndTech")
-apple = Server.create!(name:"apple", owner_id:2, public:true, genre:"scienceAndTech")
-css = Server.create!(name:"css", owner_id:2, public:true, genre:"scienceAndTech")
-javascript = Server.create!(name:"javascript", owner_id:2, public:true, genre:"scienceAndTech")
-python = Server.create!(name:"python", owner_id:2, public:true, genre:"scienceAndTech")
-rails = Server.create!(name:"rails", owner_id:2, public:true, genre:"scienceAndTech")
-ruby = Server.create!(name:"ruby", owner_id:2, public:true, genre:"scienceAndTech")
+google = Server.create!(name:"Google", owner_id:2, public:true, genre:"scienceAndTech", description: "Discuss and get technical support with Google products and services.")
+apple = Server.create!(name:"r/Apple", owner_id:2, public:true, genre:"scienceAndTech", description: "The original and largest Apple server. Affiliated with the r/Apple subreddit. Join for the latest news and updates.")
+css = Server.create!(name:"CSS", owner_id:2, public:true, genre:"scienceAndTech", description: "Join to learn CSS, the leading style sheet language.")
+javascript = Server.create!(name:"JavaScript", owner_id:2, public:true, genre:"scienceAndTech", description: "Javascript, or JS, is a programming language with dynamic typing and prototype-based object orientation. Join to get tips and share exciting projects.")
+python = Server.create!(name:"Python", owner_id:2, public:true, genre:"scienceAndTech", description: "The leading programming language worldwide.")
+rails = Server.create!(name:"Ruby on Rails", owner_id:2, public:true, genre:"scienceAndTech", description: "RoR is a server-side web application framework written in Ruby.")
+ruby = Server.create!(name:"Ruby Programming Language", owner_id:2, public:true, genre:"scienceAndTech", description: "Designed and developed by Yukihiro Matsumoto.")
 
 # demo server channels
 banana_general = Channel.create!(name:"general", server_id:1)
