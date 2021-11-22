@@ -54,7 +54,7 @@ const Server = ({ servers, publicServers, server, getServer, previewServer, chan
   const toggleOpen = field => setHeaderOpen(Object.assign({}, headerOpen, { [field]: !headerOpen[field] }));
 
   const inviteChannels = () => channels.map(channel => (
-    <li key={channel.id} className={inviteChannel === channel.id ? "selected" : ""} onClick={() => setInviteChannel(channel.id)}>
+    <li key={channel.id} className={inviteChannel === channel.id ? "ellipsis selected" : "ellipsis"} onClick={() => setInviteChannel(channel.id)}>
       <img src={window.hashtag} alt="#" />
       {channel.name}
     </li>
@@ -140,7 +140,7 @@ const Server = ({ servers, publicServers, server, getServer, previewServer, chan
     {server.id && !Object.keys(servers).includes(props.match.params.serverId) ? (
       <div id="join-preview">
         <p>You are current in preview mode. Join this server to start chatting!</p>
-        <button onClick={() => postMembership({ userId: currentUser.id, serverId: server.id, description: "server" })}>{`Join ${server.name}`}</button>
+        <button className="ellipsis" onClick={() => postMembership({ userId: currentUser.id, serverId: server.id, description: "server" })}>{`Join ${server.name}`}</button>
       </div>
     ) : null}
   </>

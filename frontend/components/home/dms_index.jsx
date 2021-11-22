@@ -64,7 +64,7 @@ const DmsIndex = ({ dms, servers, dm, setDm, createDm, friends, pendingFriends, 
         <img src={dm.user.profilePhotoUrl || window.logo} alt="profile" /> :
         dm.icon ? <img src={dm.icon} alt="profile" />
         : <div><img src={window.group} alt="profile" /></div> }
-      <p>{dm.name || dm.user.username}</p>
+      <p className="ellipsis">{dm.name || dm.user.username}</p>
       <img className="delete-dm" src={window.xButton} alt="X" onClick={e => {e.preventDefault(); setDeleting(dm);}} />
     </NavLink>
   ));

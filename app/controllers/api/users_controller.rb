@@ -24,7 +24,7 @@ class Api::UsersController < ApplicationController
 
   def update
     @user = User.find_by(id:params[:id])
-    if !@user.is_password?(user_params[:current_password]) && !user_params[:phone_number] && !user_params[:profile_photo] && !user_params[:last_path_visited]
+    if !@user.is_password?(user_params[:current_password]) && (!user_params[:phone_number] || user_params[:phone_number] == "") && !user_params[:profile_photo] && !user_params[:last_path_visited]
       render json: ["incorrect password"], status: 401
     elsif @user.update_attributes(user_params.reject { |k, v| k == "current_password" || k == "id" || (k == "password" && v == "" )})
       render :show
@@ -36,12 +36,9 @@ class Api::UsersController < ApplicationController
   def verify_phone_number
     code = rand.to_s[2..7]
 
-    message = "Your Accord verification code is: #{code}.\n
-    LinkedIn:\nhttps://www.linkedin.com/in/josephwyang\n
-    Github:\nhttps://www.github.com/josephwyang\n
-    AngelList:\nhttps://angel.co/u/josephwyang"
+    message = "Your Accord verification code is: #{code}.\n\nGithub: https://www.github.com/josephwyang\nLinkedIn: https://www.linkedin.com/in/josephwyang"
 
-    TwilioTextMessenger.new(user_params[:phone_number], message).sms
+    TwilioTextMessenger.new(params[:phone_number], message).sms
     render json: { verificationCode: code }
   end
 

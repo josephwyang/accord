@@ -17,10 +17,6 @@
       text-align: center;
       letter-spacing: 1px;
       font-weight: 900;
-
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
     }
 
     > input {
@@ -96,10 +92,6 @@
             width: 317px;
             margin-left: 7px;
             font-size: 15px;
-
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
 
             > span {
               display: none;

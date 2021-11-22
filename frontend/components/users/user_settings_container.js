@@ -7,6 +7,7 @@ import { clearErrors } from "../../actions/errors_actions";
 const mSTP = state => ({
   currentUser: state.session.currentUser,
   verificationCode: state.session.verificationCode,
+  servers: Object.values(state.entities.servers),
   errors: state.errors
 });
 

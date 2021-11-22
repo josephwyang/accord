@@ -23,14 +23,14 @@ const SearchDm = ({ dms, friends, createDm, closeForm }) => {
     return chat.name;
   };
 
-  const searchedList = searchable.filter(chat => getName(chat).includes(search)).sort((a, b) => (getName(a) < getName(b) ? -1 : 1)).map(chat => (
+  const searchedList = searchable.filter(chat => getName(chat).includes(search)).sort((a, b) => getName(a).toLowerCase().localeCompare(getName(b).toLowerCase())).map(chat => (
     chat.username ? 
     <li key={`friend-${chat.id}`} onClick={() => {
       closeForm();
       createDm(chat.id);
     }}>
       <img src={chat.profilePhotoUrl || window.logo} alt="profile" />
-      <p>{chat.username}<span>{`#${chat.tag}`}</span></p>
+      <p className="ellipsis">{chat.username}<span>{`#${chat.tag}`}</span></p>
     </li> :
     <NavLink key={chat.id} to={`/@me/${chat.id}`} activeClassName="selected" onClick={() => closeForm()}>
       {chat.user ?
@@ -38,7 +38,7 @@ const SearchDm = ({ dms, friends, createDm, closeForm }) => {
         chat.icon ?
         <img src={chat.icon} alt="profile" /> :
         <div><img src={window.group} alt="profile" /></div>}
-      <p>{chat.name || chat.user.username}<span>{chat.user ? `#${chat.user.tag}` : null}</span></p>
+      <p className="ellipsis">{chat.name || chat.user.username}<span>{chat.user ? `#${chat.user.tag}` : null}</span></p>
     </NavLink>
   ));
 

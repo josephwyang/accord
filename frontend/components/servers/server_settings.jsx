@@ -156,7 +156,7 @@ export default class ServerSettings extends React.Component {
     const icon = this.state.iconUrl ? <img src={this.state.iconUrl} alt="icon" /> : <p>{this.state.name.split(" ").map(word => word[0]).slice(0, 2)}</p>;
     const members = this.props.members.map(member => <li key={`member-${member.id}`} style={{ order: this.props.server.ownerId === member.id ? 1 : 2 }} >
       <img src={member.profilePhotoUrl || window.logo} alt="profile-photo" />
-      <p>{member.username}<span>#{member.tag}</span></p>
+      <p className="ellipsis">{member.username}<span>#{member.tag}</span></p>
       {this.props.server.ownerId === member.id ?
         <img src={window.owner} alt="owner" />
         : <>

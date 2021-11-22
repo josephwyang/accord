@@ -11,7 +11,7 @@ const Notification = ({ notification, removeNotification, history }) => {
       <img id="close-notification" src={window.xButton} alt="X" onClick={removeNotification} />
       <img src={notification.profilePhotoUrl || window.logo} alt="profile" />
       <div>
-        <p>{notification.username}</p>
+        <p className="ellipsis">{notification.username}</p>
         <p>{notification.invitation ? "You have been invited to a server." : notification.body}</p>
       </div>
     </div>

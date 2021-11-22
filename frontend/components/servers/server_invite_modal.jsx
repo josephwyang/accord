@@ -32,7 +32,7 @@ const ServerInviteModal = ({ servers, friends, dms, server, currentUserId, first
   const searchedServerList = Object.values(servers).filter(chat => chat.id !== server.id && chat.name.includes(search)).sort((a, b) => (getName(a) < getName(b) ? -1 : 1)).map(chat => (
     <li key={`server-${chat.id}`}>
       {chat.icon ? <img className="chat-icon" src={chat.icon} alt="icon" /> : <div className="chat-icon">{chat.name.split(" ").map(word => word[0]).slice(0, 2)}</div>}
-      <p>{chat.name}</p>
+      <p className="ellipsis">{chat.name}</p>
       <button onClick={() => {
         getServer(chat.id).then(({ payload }) => props.history.push({
           pathname: `/channels/${chat.id}/${firstChannelId(payload.channels)}`,
@@ -66,7 +66,7 @@ const ServerInviteModal = ({ servers, friends, dms, server, currentUserId, first
     <div id="server-invite-modal">
       <div className="modal-screen" onClick={() => closeModal()}></div>
       <div className="settings-modal">
-        <h2>INVITE FRIENDS TO '{server.name.toUpperCase()}'</h2>
+        <h2 className="ellipsis">INVITE FRIENDS TO '{server.name.toUpperCase()}'</h2>
         <input type="text" placeholder="Search for friends, dms, or servers" value={search} onChange={e => setSearch(e.target.value)} autoFocus />
         <img src={window.search} alt="search" />
         <div>

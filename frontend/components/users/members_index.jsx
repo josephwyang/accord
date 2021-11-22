@@ -63,7 +63,7 @@ export default class MembersIndex extends React.Component {
         };
       }} >
       <img src={member.profilePhotoUrl || window.logo} alt="profile-photo" />
-      <p>{member.username}</p>
+      <p className="ellipsis">{member.username}</p>
       {this.props.ownerId === member.id ? <img src={window.owner} alt="owner" /> : null}
     </li>)
 

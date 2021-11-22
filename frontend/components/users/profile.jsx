@@ -13,7 +13,9 @@ export default class Profile extends React.Component {
       phoneNumberModalOpen: false,
       passwordModalOpen: false,
       ...props.currentUser
-    })
+    });
+
+    this.copyName = this.copyName.bind(this);
   }
 
   copyName() {
@@ -30,8 +32,8 @@ export default class Profile extends React.Component {
     <>
       <div id="profile">
         <img className="profile-photo" src={this.props.currentUser.profilePhotoUrl || window.logo} alt="profile-photo" />
-        <div id="profile-name" onClick={this.copyName.bind(this)}>
-          <p>{this.props.currentUser.username}</p>
+        <div id="profile-name" onClick={this.copyName}>
+          <p className="ellipsis">{this.props.currentUser.username}</p>
           <p>#{this.props.currentUser.tag}</p>
         </div>
         <div id="user-settings-bubble">

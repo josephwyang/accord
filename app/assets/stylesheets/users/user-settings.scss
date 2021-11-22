@@ -4,6 +4,7 @@
 
 #user-settings {
   left: 0px;
+
   > .settings-nav-div {
     width: 30%;
     min-width: 300px;
@@ -12,6 +13,7 @@
   > .settings-content {
     width: 70%;
     min-width: 700px;
+    padding-bottom: 40px;
 
     @media all and (max-width: 1000px) {
       & { left: 300px; }
@@ -104,13 +106,22 @@
             font-size: 14px;
             > span { color: $light-grey-2; }
 
-            & + .reveal {
-              margin-left: 4px;
+            &.reveal, &.remove {
               font-size: 12px;
-              color: $light-blue-0;
-
               cursor: pointer;
               &:hover { text-decoration: underline; }
+            }
+
+            & + .reveal {
+              margin-left: 4px;
+              color: $light-blue-0;
+            }
+
+            &.remove {
+              position: absolute;
+              top: 50%;
+              right: 65px;
+              transform: translateY(-50%);
             }
           }
 
@@ -139,65 +150,98 @@
             }
           }
 
-          &#username-option > p {
-            width: 380px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+          &#username-option > p { max-width: 380px; }
+          &#email-option > p.ellipsis { max-width: 340px; }
+        }
+      }
+    }
+
+    > #user-profile-settings {
+      &::before {
+        content: "";
+        position: absolute;
+        margin-top: -30px;
+        height: 64px;
+        width: 520px;
+        background-color: $grey-0;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+
+      margin-top: 50px;
+      width: 520px;
+      background-color: $dark-grey-3;
+      border-radius: 8px;
+
+      > label {
+        display: block;
+        width: 0px;
+        cursor: pointer;
+        > div, + input[type="file"] + div { transition: all 0.3s; }
+
+        &:hover {
+          + input[type="file"] + div { filter: brightness(0.7); }
+          > div {
+            opacity: 1;
+            box-shadow: 0px 0px 15px $dark-grey-4 inset;
+          }
+        }
+
+        > img {
+          position: relative;
+          margin: 0px 0px 16px 16px;
+          height: 100px;
+          width: 100px;
+          border: 8px solid $dark-grey-3;
+        }
+
+        > div {
+          position: absolute;
+          top: 172px;
+          left: 84px;
+
+          height: 100px;
+          width: 100px;
+          background-color: rgba(0, 0, 0, 0.3);
+          border-radius: 50%;
+          opacity: 0;
+        }
+      }
+
+      > input[type="file"] + div {
+        position: absolute;
+        top: 177px;
+        left: 165px;
+        height: 10px;
+        width: 10px;
+        padding: 5px;
+        background-color: $light-grey-1;
+        border-radius: 50%;
+        box-shadow: 0px 0px 4px $black;
+
+        > img {
+          height: 10px;
+          width: 10px;
+        }
+      }
+
+      > .user-info {
+        position: absolute;
+        top: 228px;
+        left: 198px;
+        transform: translateY(-50%);
+
+        > p {
+          width: 360px;
+          font-size: 20px;
+          color: white;
+          &:first-child { font-weight: 900; }
+          + p {
+            font-size: 16px;
+            color: $light-grey-2;
           }
         }
       }
-    }
-
-    > label {
-      cursor: pointer;
-      > img, + input[type="file"] + div { transition: all 0.3s; }
-
-      &:hover {
-        + input[type="file"] + div { filter: brightness(0.7); }
-
-        > img {
-          border-color: $grey-4;
-          filter: brightness(0.8);
-        }
-      }
-
-      > img {
-        height: 100px;
-        width: 100px;
-        border: 3px solid $dark-grey-1;
-      }
-    }
-
-    > input[type="file"] + div {
-      position: absolute;
-      top: 150px;
-      left: 144px;
-      height: 10px;
-      width: 10px;
-      padding: 5px;
-      background-color: $light-grey-0;
-      border-radius: 50%;
-
-      > img {
-        height: 10px;
-        width: 10px;
-      }
-    }
-
-    > #security-icon {
-      display: block;
-      margin: 20px 0px 40px;
-    }
-
-    > p {
-      width: 470px;
-      font-size: 20px;
-      color: white;
-
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      > span { color: $light-grey-2; }
     }
 
     > hr {
@@ -206,6 +250,11 @@
       width: 520px;
       border-top: 1px solid $grey-1;
       opacity: 0.5;
+    }
+
+    > #security-icon {
+      display: block;
+      margin: 20px 0px 30px;
     }
 
     > button {
@@ -416,5 +465,14 @@
       border: 2px solid $light-blue-0;
       + input { border-left: none; }
     }
+  }
+
+  &.errors {
+    > input {
+      color: $red;
+      border-color: $red;
+    }
+    animation: shake-center 0.3s;
+    animation-iteration-count: 1;
   }
 }

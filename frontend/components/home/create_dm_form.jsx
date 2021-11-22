@@ -29,7 +29,7 @@ const CreateDmForm = ({ friends, createDm, closeForm }) => {
     <label id={`dm-friend-${friend.id}`} key={`dm-friend-${friend.id}`}>
       <div className="friend-info">
         <img src={friend.profilePhotoUrl || window.logo} alt="profile" />
-        <p>{friend.username}<span>#{friend.tag}</span></p>
+        <p className="ellipsis">{friend.username}<span>#{friend.tag}</span></p>
       </div>
       <input type="checkbox" name="friend" value={friend.id} onChange={e => handleCheck(e, friend)}/>
       <img className="checkbox" src={checked[friend.id] ? window.checked : window.unchecked} alt="" />
@@ -38,7 +38,7 @@ const CreateDmForm = ({ friends, createDm, closeForm }) => {
 
   const checkedList = Object.values(checked).map(friend => (
     <div style={{ order: friend.order }} key={`checked-friend-${friend.id}`} onClick={() => { document.querySelector(`#dm-friend-${friend.id} > input`).checked = false; uncheck(friend.id); }} >
-      <p>{friend.username}</p>
+      <p className="ellipsis">{friend.username}</p>
       <img src={window.xButton} alt="X" />
     </div>
   ));

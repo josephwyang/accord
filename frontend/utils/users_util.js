@@ -29,7 +29,7 @@ export const verifyPhoneNumber = phoneNumber => (
   $.ajax({
     method: "GET",
     url: "/api/users/verify",
-    phoneNumber
+    data: { phone_number: phoneNumber }
   })
 );
 

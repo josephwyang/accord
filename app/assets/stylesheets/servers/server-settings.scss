@@ -257,10 +257,6 @@
         color: white;
         letter-spacing: 0.3px;
         
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        
         > span {
           color: $light-grey-2;
           margin-left: 3px;
@@ -471,9 +467,15 @@
     > p:hover:not(.with-span) { border-bottom: 1px solid currentColor; }
 
     > button {
-      background-color: $red;
       margin-right: 16px;
-      &:hover { background-color: $dark-red }
+      background-color: $red;
+      &:hover { background-color: $dark-red; }
+
+      &.blue {
+        margin-left: auto;
+        background-color: $blue-0;
+        &:hover { background-color: $blue-2; }
+      }
     }
   }
 }

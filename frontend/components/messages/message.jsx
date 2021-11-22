@@ -97,7 +97,7 @@ const Message = ({ messages, message, i, users, currentUserId, servers, firstCha
             <img src={window.replied} alt="replied" />
             <img src={users[messages[message.repliedMessageId].senderId].profilePhotoUrl || window.logo} alt="profile" />
             <p>{users[messages[message.repliedMessageId].senderId].username}</p>
-            <p onClick={() => scrollToMessage(messages[message.repliedMessageId].id)}>{messages[message.repliedMessageId].invitation ? "SERVER INVITE" : messages[message.repliedMessageId].body}</p>
+            <p className="ellipsis" onClick={() => scrollToMessage(messages[message.repliedMessageId].id)}>{messages[message.repliedMessageId].invitation ? "SERVER INVITE" : messages[message.repliedMessageId].body}</p>
           </div> : null}
           <img className="profile-photo" src={users[message.senderId].profilePhotoUrl || window.logo} alt="profile-photo" />
           <div>
@@ -109,7 +109,7 @@ const Message = ({ messages, message, i, users, currentUserId, servers, firstCha
               <p>YOU {message.senderId === currentUserId ? "SENT" : "RECEIVED"} AN INVITE TO JOIN A SERVER</p>
               <div className="content">
                 {message.server.icon ? <img className="server-icon" src={message.server.icon} alt="server-icon" /> : <p className="server-icon" style={{ backgroundColor: "#393C43" }}>{message.server.name.split(" ").map(word => word[0]).slice(0, 2)}</p>}
-                <p>{message.server.name}</p>
+                <p className="ellipsis">{message.server.name}</p>
                 {message.invitation && servers.some(server => server.id === message.invitation) ?
                   <button className="joined" onClick={() => {
                     getServer(message.invitation).then(({ payload }) => props.history.push(`/channels/${message.invitation}/${firstChannelId(payload.channels)}`))
