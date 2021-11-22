@@ -256,7 +256,7 @@ export default class UserSettings extends React.Component {
                   <p className="ellipsis">{this.state.revealEmail ? email : mapToStars(email.split("@")[0]) + "@" + email.split("@")[1]}</p>
                   <p className="reveal" onClick={this.toggleReveal.bind(this, "email")}
                     style={{ position: "relative", top: "-3.5px" }}>{this.state.revealEmail ? "Hide" : "Reveal"}</p>
-                  <button onClick={this.openEditModal.bind(this, "email")}>Edit</button>
+                  <button onClick={this.openEditModal.bind(this, "email")} disabled={this.props.currentUser.id === 1}>Edit</button>
                 </div>
 
                 <div id="phone-number-option">
@@ -304,12 +304,12 @@ export default class UserSettings extends React.Component {
             <h1>Password and Security</h1>
             <p>Protect your Accord account. Never share your password.</p>
             <img id="security-icon" src={window.security} alt="security" />
-            <button onClick={this.openEditModal.bind(this, "password")}>Change Password</button>
+            <button onClick={this.openEditModal.bind(this, "password")} disabled={this.props.currentUser.id === 1}>Change Password</button>
 
             <hr />
 
             <h3>ACCOUNT DELETION</h3>
-            <button className="red" onClick={() => this.setState({ deleteModal: "Delete Account" })}>Delete Account</button>
+            <button className="red" onClick={() => this.setState({ deleteModal: "Delete Account" })} disabled={this.props.currentUser.id === 1}>Delete Account</button>
           </div>
           : null}
 

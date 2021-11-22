@@ -142,11 +142,16 @@
 
             cursor: pointer;
             transition: background-color 0.2s;
-            &:hover { background-color: $grey-0; }
-
+            &:hover:not(:disabled) { background-color: $grey-0; }
+            
             &#add-phone-number {
               background-color: $blue-0;
               &:hover { background-color: $blue-2;}
+            }
+          
+            &:disabled {
+              opacity: 0.7;
+              cursor: not-allowed;
             }
           }
 
@@ -267,12 +272,17 @@
 
       cursor: pointer;
       transition: background-color 0.2s;
-      &:hover { background-color: $blue-2;}
+      &:hover:not(:disabled) { background-color: $blue-2;}
 
       &.red {
         margin-top: 7px;
         background-color: $red;
-        &:hover { background-color: $dark-red;}
+        &:hover:disabled { background-color: $dark-red;}
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
       }
     }
 
