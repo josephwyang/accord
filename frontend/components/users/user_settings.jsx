@@ -39,7 +39,7 @@ export default class UserSettings extends React.Component {
   handleEsc(e) {
     if (e.keyCode === 27 && this.state.deleteModal) { this.setState({ deleteModal: null }); }
     else if (e.keyCode === 27 && !this.state.editModal && !this.state.removePhoneNumber) {
-      this.state.phoneNumberModal ? this.setState({ phoneNumberModal: null }) : this.props.closeSettings();
+      this.state.phoneNumberModal ? this.setState({ phoneNumberModal: null, verificationInput: "" }) : this.props.closeSettings();
     };
   }
   componentDidMount() { document.addEventListener("keydown", this.handleEsc); }
@@ -178,7 +178,7 @@ export default class UserSettings extends React.Component {
     this.props.patchUser(formData).then(() => {
       if (!this.state.errors.length && !this.props.errors.length) {
         this.setState({
-          editModal: null, phoneNumberModal: null, removePhoneNumber: false, errors: "",
+          editModal: null, phoneNumberModal: null, verificationInput: "", removePhoneNumber: false, errors: "",
           user: {
             ...this.props.currentUser,
             phoneNumber: "",
