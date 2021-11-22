@@ -26,8 +26,7 @@ rails 5.2.6
 
 Accord is a clone of Discord, an instant messaging app with various features such as the ability to create and customize servers and live chat mutual members. This project uses a Ruby on Rails backend with a React frontend.
 
-  LIVE SITE: www.accord-talk.herokuapp.com
-
+LIVE SITE: www.accord-talk.herokuapp.com
 
 HIGHLIGHT FEATURE #1:
 

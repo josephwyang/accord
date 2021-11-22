@@ -252,3 +252,17 @@
     }
   }
 }
+
+#no-servers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px auto 0px;
+
+  > p {
+    margin-top: 20px;
+    color: $light-grey-2;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+  }
+}

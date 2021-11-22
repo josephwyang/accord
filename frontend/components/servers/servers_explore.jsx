@@ -47,7 +47,7 @@ export default class ServersExplore extends React.Component {
     
     const servers = this.props.serversWithGenre(this.state.genre).map(
       server => {
-        if (server.name.includes(this.state.search)) {
+        if (server.name.toLowerCase().includes(this.state.search.toLowerCase())) {
           return (
             <li key={`server-${server.id}`} onClick={e => this.handleClick(e, server)}>
               <div className="server-banner"><img src={server.banner || window.defaultBanner} alt="server-banner" /></div>
@@ -76,7 +76,11 @@ export default class ServersExplore extends React.Component {
           <img src={window.search} alt="search" />
           <ul id="public-servers">
             <h3>{this.state.genre === "" ? "Featured Communities" : "Popular Communities"}</h3>
-            {servers}
+            {servers.some(server => server) ? servers :
+            <div id="no-servers">
+              <img src={window.onlineWumpus} alt="no-servers" />
+              <p>Failed to find servers. Try modifying your search.</p>
+            </div>}
           </ul>
         </div>
       </>

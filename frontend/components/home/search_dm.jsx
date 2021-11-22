@@ -23,7 +23,7 @@ const SearchDm = ({ dms, friends, createDm, closeForm }) => {
     return chat.name;
   };
 
-  const searchedList = searchable.filter(chat => getName(chat).includes(search)).sort((a, b) => getName(a).toLowerCase().localeCompare(getName(b).toLowerCase())).map(chat => (
+  const searchedList = searchable.filter(chat => getName(chat).toLowerCase().includes(search.toLowerCase())).sort((a, b) => getName(a).toLowerCase().localeCompare(getName(b).toLowerCase())).map(chat => (
     chat.username ? 
     <li key={`friend-${chat.id}`} onClick={() => {
       closeForm();
