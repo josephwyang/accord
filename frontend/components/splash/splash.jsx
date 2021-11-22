@@ -60,7 +60,7 @@ export default class Splash extends React.Component {
         </div>
         <div id="splash-content">
           <div id="splash-background-1">
-            <div id="splash-info-1">
+            <div id="splash-info-1" className={window.innerHeight > 900 ? "show-content" : null}>
               <img id="splash-image-1" src={window.splashImage1} alt="splash-image-1" />
               <div>
                 <h2>Join Accord today</h2>

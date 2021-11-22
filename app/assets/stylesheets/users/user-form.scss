@@ -2,9 +2,15 @@
 @import "variables/colors";
 @import "variables/keyframes";
 
-.background {
-  width: 100vw;
+#log-in-form, #sign-up-form {
   height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.background {
+  height: 100vh;
+  width: 100vw;
   object-fit: cover;
 }
 
