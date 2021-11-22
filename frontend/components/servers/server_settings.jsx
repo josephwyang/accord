@@ -169,7 +169,7 @@ export default class ServerSettings extends React.Component {
       <div id="server-settings" className="settings">
         <div className="settings-nav-div">
           <ul id="server-settings-nav" className="settings-nav">
-            <h3>{this.props.server.name.toUpperCase()}</h3>
+            <h3 className="ellipsis">{this.props.server.name.toUpperCase()}</h3>
             {navOptions.slice(0, 2)}
             <h3>USER MANAGEMENT</h3>
             {navOptions.slice(2)}
@@ -274,7 +274,7 @@ export default class ServerSettings extends React.Component {
             <div className="modal-screen" onClick={this.closeModal}></div>
             <div className="settings-modal">
               <div className="settings-modal-message">
-                <h1>Delete '{this.state.name}'?</h1>
+                <h1 className="ellipsis">Delete '{this.state.name}'?</h1>
                 <p>Are you sure you want to delete <span>{this.state.name}</span> ? This action cannot be undone.</p>
               </div>
               <div className="form-nav">

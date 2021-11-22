@@ -351,7 +351,7 @@
     }
   
     > p {
-      &:not(.server-icon) { margin-left: 7px; }
+      &:not(.server-icon) { margin: 0px 7px; }
       color: $light-grey-1;
       font-size: 17px;
       font-weight: 900;

@@ -17,7 +17,7 @@ const DeleteChannelModal = ({ channel, deleteChannel, closeModal }) => {
       <div className="modal-screen" onClick={closeModal}></div>
       <div className="settings-modal">
         <div className="settings-modal-message">
-          <h3>Delete '{channel.name}'?</h3>
+          <h3 className="ellipsis">Delete '{channel.name}'?</h3>
           <p>
             Are you sure you want to delete
             <span style={{ marginLeft: "4px", fontWeight: 900 }} >#{channel.name}</span>

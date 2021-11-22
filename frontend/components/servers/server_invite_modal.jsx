@@ -48,7 +48,7 @@ const ServerInviteModal = ({ servers, friends, dms, server, currentUserId, first
     
     return (<li key={`${chat.username ? "friend" : "server"}-${chat.id}`}>
       {getIcon(chat)}
-      <p>{chat.user ? chat.user.username : chat.username || chat.name}{chat.user || chat.username ? <span>{`#${chat.tag || chat.user.tag}`}</span> : null}</p>
+      <p className="ellipsis">{chat.user ? chat.user.username : chat.username || chat.name}{chat.user || chat.username ? <span>{`#${chat.tag || chat.user.tag}`}</span> : null}</p>
       <button className={invited ? "invited" : ""} onClick={() => {
         postMessage({
           senderId: currentUserId,

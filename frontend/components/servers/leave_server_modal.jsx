@@ -11,7 +11,7 @@ const LeaveServerModal = ({ server, currentUserId, isOwner, deleteMembership, cl
       <div className="modal-screen" onClick={closeModal}></div>
       <div className="settings-modal">
         <div className="settings-modal-message">
-          <h3>{`Leave '${server.name}'`}</h3>
+          <h3 className="ellipsis">{`Leave '${server.name}'`}</h3>
           {isOwner ?
             <p>You cannot leave a server if you are the owner. You must first give ownership to another member.</p>
             : <p>Are you sure you want to leave <span style={{ fontWeight: 900 }}>{server.name}</span>? You won't be able to rejoin this server unless you are re-invited.</p>}

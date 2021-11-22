@@ -35,7 +35,7 @@ export default class ChannelForm extends React.Component {
         <div className="modal-screen" onClick={this.props.closeForm}></div>
         <form id="channel-form" onSubmit={this.handleSubmit.bind(this)}>
           <div className="exit" onClick={this.props.closeForm}>✕</div>
-          <h1>{this.props.editing ? `Rename '${this.props.editing.name}'` : "Create Text Channel"}</h1>
+          <h1 className="ellipsis">{this.props.editing ? `Rename '${this.props.editing.name}'` : "Create Text Channel"}</h1>
           <h2>Post images, GIFs, stickers, opinions and puns.</h2>
           <label htmlFor="channel-name">CHANNEL NAME</label>
           <input id="channel-name" type="text" placeholder="new-channel"
