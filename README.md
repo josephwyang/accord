@@ -1,53 +1,168 @@
-# README
+# Accord
 
-Things you may want to cover:
+[Accord](https://accord-talk.herokuapp.com/), a clone of [Discord](https://www.discord.com), is an instant messaging application where users can send each other direct messages and join and create servers to build Accord communities. This application uses a Ruby on Rails backend with a React frontend.
 
-* Ruby version
+<img width="1440" alt="splash" src="https://user-images.githubusercontent.com/81983064/142827545-3b76c7a6-abbc-4027-a81a-afab90e4573c.png">
 
-* System dependencies
+### Versions
++ ruby 2.5.1
++ rails 5.2.6
++ node v16.4.2
++ npm 7.18.1
 
-* Configuration
+### Technologies and APIs
++ react/redux
++ postgresql
++ action cable
++ twilio
 
-* Database creation
+***
 
-* Database initialization
+# Features
 
-* How to run the test suite
+### Live Chat
+This feature allows users to interact with messages real time, such as sending messages, editing them, deleting them, replying to them or reacting to them.
 
-* Services (job queues, cache servers, search engines, etc.)
+https://user-images.githubusercontent.com/81983064/142825057-c555509e-31d5-4722-b928-61aefe69ce83.mov
 
-* Deployment instructions
+### Phone Number Verification
+This feature uses the Twilio API to send text messages allowing for real phone number verification.
 
-* ...
+https://user-images.githubusercontent.com/81983064/142825058-c85f1ca4-547a-4d0c-80f3-62dc6ff3e4c2.mov
 
-VERIONS:
-ruby 2.5.1
-rails 5.2.6
+### Public Servers
+This feature allows users to create public server that can be discovered and joined by other users.
 
-Accord is a clone of Discord, an instant messaging app with various features such as the ability to create and customize servers and live chat mutual members. This project uses a Ruby on Rails backend with a React frontend.
+https://user-images.githubusercontent.com/81983064/142825059-84bbd971-9e2d-4453-8ab6-8c367524718c.mov
 
-LIVE SITE: www.accord-talk.herokuapp.com
+### Server Invitations / Notifications
+This feature allows users to invite friends to servers real time.
 
-HIGHLIGHT FEATURE #1:
+https://user-images.githubusercontent.com/81983064/142825060-8b991657-4dac-4b19-9c71-895430e60533.mov
 
+### Message Settings
+This feature was implemented to optimize readability of code while also allowing the component to be dynamic. This implementation takes advantage of the React-Redux framework and its single source of truth, allowing the component to access the currently logged in user.
 
+```javascript
+import React from "react";
+import Bubble from "../misc/bubble";
 
+const MessageSettings = props => {
+  const handleReply = () => {
+    props.reply();
+    document.querySelector("#message-form > span").focus();
+  }
+  return (
+    <div className="message-settings" style={props.style}>
+      <div>
+        <img src={window.reaction} alt="reaction" onClick={e => props.react(e)} />
+        <Bubble text="Add Reaction" top="-38px" />
+      </div>
+      {props.message.senderId === props.currentUserId && !props.message.invitation ?
+        <div>
+          <img src={window.edit} alt="edit" onClick={() => props.edit()}/>
+          <Bubble text="Edit" top="-38px" />
+        </div>
+        : null}
+      <div>
+        <img src={window.reply} alt="reply" onClick={handleReply}/>
+        <Bubble text="Reply" top="-38px" />
+      </div>
+      {props.message.senderId === props.currentUserId ?
+        <div>
+          <img src={window.trash} alt="delete" onClick={() => props.setDeleting()}/>
+          <Bubble text="Delete" top="-38px" />
+        </div>
+        : null}
+    </div>
+  );
+};
 
-Production Readme
-To complete your full stack project you will have to create a production readme. The purpose of the readme is to show off your technical skills and guide someone who is visiting your repo for the first time. Think of it like a resume or cover letter - the production readme is an introduction to you as a skilled developer! There's a lot of great code hidden in your repo (and potentially some code you're okay with an employer not seeing), so use the readme to show off the places you excel.
+export default MessageSettings;
+```
+<p float="left">
+  <img alt="message-settings-current-user"
+       src="https://user-images.githubusercontent.com/81983064/142830372-ff51a3e0-e0aa-4f82-a13d-48b850eb80b9.png"
+       height="236" />
+  <img alt="message-settings-other-user"
+       src="https://user-images.githubusercontent.com/81983064/142830373-fb485473-1061-4c07-a31d-3efe4cfee72b.png"
+       height="236" />
+</p>
 
-Features of a great production readme:
-Delve deep into ~2 features that show off your technical abilities. Discuss both the challenges faced and your brilliant solutions.
-Code snippets to highlight your best code (markdown code snippets, NOT screenshots)
-Pitfalls to avoid:
-Do not list out every single feature on your app.
-No screenshots; only screen clippings. i.e. Don't show your entire browser window and several other open tabs.
-Don't refer to your app as your 'App Academy Full-Stack Project'. Present it as a professional site.
-Don't wax on about the features that you didn't have time to implement. Simply list them at the bottom of the readme as future directions for the project.
-Markdown rendering errors
-Make sure to allot at least 3 hours to write your readme.
+### Context Menu
+This feature was implemented so that it can dynamically adapt to the whatever functionality is needed. The hardest part about this implentation was figuring out how to most effectively make the menu dynamic. It was done by passing in options with corresponding functions to list directly as elements in the context menu.
 
-Helpful links
-You can find some fantastic examples here. Do not copy / paste any portion of this readme!
-There is a very helpful markdown cheatsheet here. To preview your markdown in VS Code, type ctrl-shift-v.
-This link explains how to take screenshots on Mac.
+```javascript
+// simplified for demonstration purposes
+import React, { useState, useEffect, useRef } from "react";
+
+const ContextMenu = ({ options, top, left, closeMenu }) => {
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const containerRef = useRef(null);
+
+  // closes context menu on outside click
+  useEffect(() => {
+    const handleOutsideClick = e => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) closeMenu();
+    };
+    
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+  
+  // positions context menu within application dimensions
+  const resize = () => {
+    const menuDims = document.getElementById("context-menu").getBoundingClientRect();
+    setX(Math.min(Math.max(800, window.innerWidth) - menuDims.width - 10, left));
+    setY(Math.min(window.innerHeight - menuDims.height - 10, top));
+  };
+  
+  useEffect(() => resize(), [options]);
+  
+  // maps menu items dynamically
+  const menu = options.map((option, i) => (
+    <li key={`option-${i}`} className={ option.disabled ? "disabled" : option.color }
+    onClick={() => {
+      option.function();
+      closeMenu();
+    }}>{option.text}</li>
+  ));
+
+  return (
+    <ul id="context-menu" ref={containerRef} style={{ top: `${y}px`, left: `${x}px` }}>
+      {menu}
+    </ul>
+  );
+};
+
+export default ContextMenu;
+```
+
+<p float="left">
+  <img alt="server-context-menu"
+       src="https://user-images.githubusercontent.com/81983064/142835752-43e525be-3be7-422c-b5c6-c70e7a52bc3b.png"
+       height="326" />
+  <img alt="preview-context-menu"
+       src="https://user-images.githubusercontent.com/81983064/142835760-32dc2a18-bece-4c1d-ab1d-b02d3a63f6ce.png"
+       height="326" />
+  <img alt="member-context-menu"
+       src="https://user-images.githubusercontent.com/81983064/142835788-15d21ad4-142f-4adc-aae5-3a7438d72189.png"
+       height="326" />
+  <img alt="channel-context-menu"
+       src="https://user-images.githubusercontent.com/81983064/142835773-2c082934-ae87-49d9-9d5b-d20b554cad30.png"
+       height="335" />
+  <img alt="dm-context-menu"
+       src="https://user-images.githubusercontent.com/81983064/142835779-edb5923f-12c6-441a-98c4-47e359d08510.png"
+       height="335" />
+</p>
+
+***
+
+# Future Prospects
+
+### Online/Offline Functionality
++ through Action Cable from Ruby on Rails
+
+### Voice Chat
++ through the Twilio API
