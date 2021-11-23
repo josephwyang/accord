@@ -16,7 +16,7 @@ const sessionReducer = (state=_nullState, action) => {
     case RECEIVE_VERIFICATION_CODE:
       return Object.assign({}, state, action.code);
     case RECEIVE_SERVER:
-      if (action.payload.server.genre === "dm" || action.payload.server.genre === "gc") {
+      if (action.payload.server.genre === "dm" || parseInt(action.payload.server.genre[0])) {
         return Object.assign({}, state, { currentChannel: action.payload.server.channelId})
       } else { return state };
     case RECEIVE_CHANNEL:

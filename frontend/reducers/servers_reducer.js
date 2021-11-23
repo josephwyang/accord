@@ -8,16 +8,16 @@ const serversReducer = (state = {}, action) => {
     case RECEIVE_SERVERS:
       return Object.assign({}, action.servers);
     case RECEIVE_SERVER:
-      if (action.payload.server.genre === "dm" || action.payload.server.genre === "gc") return state;
+      if (action.payload.server.genre === "dm" || parseInt(action.payload.server.genre[0])) return state;
       return Object.assign({}, state, { [action.payload.server.id]: action.payload.server });
     case RECEIVE_UPDATED_SERVER:
-      if (action.server.genre === "dm" || action.server.genre === "gc") return state;
+      if (action.server.genre === "dm" || parseInt(action.server.genre[0])) return state;
       return Object.assign({}, state, { [action.server.id]: action.server });
     case REMOVE_SERVER:
       const {[action.serverId]: removedServerId, ...newState} = state;
       return newState;
     case RECEIVE_MEMBERSHIP:
-      if (action.payload.server.genre === "dm" || action.payload.server.genre === "gc") return state;
+      if (action.payload.server.genre === "dm" || parseInt(action.payload.server.genre[0])) return state;
       return Object.assign({}, state, { [action.payload.server.id]: action.payload.server });
     case REMOVE_MEMBERSHIP:
       if (action.payload.userId === action.payload.currentUserId) {

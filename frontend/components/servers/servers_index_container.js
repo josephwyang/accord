@@ -1,7 +1,7 @@
 import ServersIndex from "./servers_index";
 import { connect } from "react-redux";
 import { patchUser } from "../../actions/session_actions";
-import { getServers, getServer, previewServer, postServer, getPublicServers, removePreview } from "../../actions/servers_actions"
+import { getServers, getServer, previewServer, postServer, getPublicServers, removePreview, receiveServer, receiveUpdatedServer, removeServer } from "../../actions/servers_actions"
 import { getFriends, receiveFriend, receiveFriendRequest, receivePendingFriend, removeFriend } from "../../actions/friends_actions";
 import { getDms } from "../../actions/dms_actions";
 import { receiveMessage, receiveNotification, removeMessage, removeNotification } from "../../actions/messages_actions";
@@ -26,6 +26,9 @@ const mDTP = dispatch => ({
   getPublicServers: () => dispatch(getPublicServers()),
   previewServer: serverId => dispatch(previewServer(serverId)),
   removePreview: () => dispatch(removePreview()),
+  receiveServer: payload => dispatch(receiveServer(payload)),
+  receiveUpdatedServer: server => dispatch(receiveUpdatedServer(server)),
+  removeServer: serverId => dispatch(removeServer(serverId)),
   postServer: data => dispatch(postServer(data)),
   getDms: () => dispatch(getDms()),
   getFriends: () => dispatch(getFriends()),

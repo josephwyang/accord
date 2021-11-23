@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
-const CreateDmForm = ({ friends, createDm, closeForm }) => {
+const CreateDmForm = ({ friends, currentUser, createDm, closeForm }) => {
   const [checked, setChecked] = useState({});
   const [search, setSearch] = useState("");
   const [checkCount, setCheckCount] = useState(0);
@@ -53,7 +53,7 @@ const CreateDmForm = ({ friends, createDm, closeForm }) => {
     e.preventDefault();
     const checkedFriends = Object.values(checked);
     if(!checkedFriends.length) return;
-    checkedFriends.length > 1 ? createDm(null, checkedFriends) : createDm(checkedFriends[0].id);
+    checkedFriends.length > 1 ? createDm(null, checkedFriends.concat(currentUser)) : createDm(checkedFriends[0].id);
     closeForm();
   };
 

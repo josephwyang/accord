@@ -15,17 +15,17 @@ const receiveServers = servers => ({
   servers
 });
 
-const receiveServer = payload => ({
+export const receiveServer = payload => ({
   type: RECEIVE_SERVER,
   payload
 });
 
-const receiveUpdatedServer = server => ({
+export const receiveUpdatedServer = server => ({
   type: RECEIVE_UPDATED_SERVER,
   server
 });
 
-const removeServer = serverId => ({
+export const removeServer = serverId => ({
   type: REMOVE_SERVER,
   serverId
 });
@@ -70,18 +70,18 @@ export const previewServer = serverId => dispatch => (
 
 export const postServer = server => dispatch => (
   ServersUtil.postServer(server)
-    .then(server => dispatch(receiveServer(server)),
+    .then(payload => payload,
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 
 export const patchServer = server => dispatch => (
   ServersUtil.patchServer(server)
-    .then(server => dispatch(receiveUpdatedServer(server)),
+    .then(null,
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 
 export const deleteServer = serverId => dispatch => (
   ServersUtil.deleteServer(serverId)
-    .then(serverId => dispatch(removeServer(serverId)),
+    .then(null,
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );

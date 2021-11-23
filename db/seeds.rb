@@ -230,7 +230,7 @@ jo_demo = Membership.create!(user_id:2, server_id:27, description:"dm")
 isaac_demo = Membership.create!(user_id:3, server_id:28, description:"dm")
 
 # gcs
-demo_raph_eric_gc = Server.create!(name:"demo, raph, eric", owner_id:4, public:false, genre:"gc")
+demo_raph_eric_gc = Server.create!(name:"demo, raph, eric", owner_id:4, public:false, genre:"1,4,5")
 
 demo_raph_eric_channel = Channel.create!(name:"gc", server_id:29)
 

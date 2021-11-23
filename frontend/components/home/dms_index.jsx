@@ -5,6 +5,7 @@ import MessageFormContainer from "../messages/message_form_container";
 import Bubble from "../misc/bubble";
 import MembersIndexContainer from "../users/members_index_container";
 import CreateDmForm from "./create_dm_form";
+import DeleteDmModal from "./delete_dm_modal";
 import SearchDm from "./search_dm";
 import ChangeGcIcon from "./change_gc_icon";
 import EditingGcName from "./editing_gc_name";
@@ -17,13 +18,6 @@ const DmsIndex = ({ dms, servers, dm, setDm, createDm, friends, pendingFriends, 
   const [changingIcon, setChangingIcon] = useState(null);
   const [hoveredCreateDm, setHoveredCreateDm] = useState(false);
   const [editingGc, setEditingGc] = useState(null);
-
-  const handleEsc = e => { if (e.key === "Escape") setDeleting(null); };
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, []);
 
   useEffect(() => {
     setDm(dms[props.match.params.dmId]);
@@ -81,7 +75,7 @@ const DmsIndex = ({ dms, servers, dm, setDm, createDm, friends, pendingFriends, 
   const handleDelete = () => {
     deleteServer(deleting.id);
     setDeleting(null);
-    props.history.push("/@me");
+    if(props.history.location.pathname !== "/@me") props.history.push("/@me");
   }
 
   return (
@@ -121,21 +115,8 @@ const DmsIndex = ({ dms, servers, dm, setDm, createDm, friends, pendingFriends, 
           : <FriendsNavContainer createDm={createDm} /> }
       </div>
 
-      {deleting ? <div className="delete-server-modal">
-        <div className="modal-screen" onClick={() => setDeleting(null)}></div>
-        <div className="settings-modal">
-          <div className="settings-modal-message">
-            <h1>Delete {deleting.name ? <span style={{ fontWeight: 900 }}>{deleting.name}</span> : "direct message"}?</h1>
-            <p>Are you sure you want to delete {deleting.name ? "" : "your conversation with "}<span>{deleting.name || deleting.user.username}</span>? This action cannot be undone.</p>
-          </div>
-          <div className="form-nav">
-            <p onClick={() => setDeleting(null)}>Cancel</p>
-            <button onClick={handleDelete}>Delete</button>
-          </div>
-        </div>
-      </div> : null}
-
-      {creatingDm ? <CreateDmForm friends={friends} createDm={createDm} closeForm={() => setCreatingDm(false)} /> : null}
+      {deleting ? <DeleteDmModal deleting={deleting} handleDelete={handleDelete} closeModal={() => setDeleting(null)} /> : null}
+      {creatingDm ? <CreateDmForm friends={friends} currentUser={currentUser} createDm={createDm} closeForm={() => setCreatingDm(false)} /> : null}
       {searchingDm ? <SearchDm dms={dms} friends={friends} createDm={createDm} closeForm={() => setSearchingDm(false)} /> : null}
       {changingIcon ? <ChangeGcIcon gc={changingIcon} patchServer={props.patchServer} closeModal={() => setChangingIcon(null)} /> : null}
       <Bubble text="Create DM" top="91px" forceX="277.45px" show={hoveredCreateDm} />

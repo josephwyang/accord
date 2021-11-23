@@ -8,7 +8,7 @@ const messagesReducer = (state = {}, action) => {
 
   switch (action.type) {
     case RECEIVE_SERVER:
-      if (action.payload.server.genre === "dm" || action.payload.server.genre === "gc") {
+      if (action.payload.server.genre === "dm" || parseInt(action.payload.server.genre[0])) {
         return Object.assign({}, action.payload.messages)
       } else { return state };
     case RECEIVE_CHANNEL:

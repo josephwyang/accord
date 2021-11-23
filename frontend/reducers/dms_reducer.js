@@ -9,11 +9,11 @@ const dmsReducer = (state = {}, action) => {
     case RECEIVE_DMS:
       return Object.assign({}, action.dms);
     case RECEIVE_SERVER:
-      if (action.payload.server.genre === "dm" || action.payload.server.genre === "gc") {
+      if (action.payload.server.genre === "dm" || parseInt(action.payload.server.genre[0])) {
         return Object.assign({}, state, { [action.payload.server.id]: action.payload.server });
       } else return state;
     case RECEIVE_UPDATED_SERVER:
-      if (action.server.genre === "dm" || action.server.genre === "gc") {
+      if (action.server.genre === "dm" || parseInt(action.server.genre[0])) {
         return Object.assign({}, state, { [action.server.id]: action.server });
       } else return state;
     case RECEIVE_MESSAGE:

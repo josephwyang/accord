@@ -69,6 +69,7 @@ export default class ServersIndex extends React.Component {
 
   componentDidMount() {
     this.props.getServers().then(() => this.setState({ loadingServers: false }));
+
     this.props.getFriends();
 
     this.props.getDms().then(({ dms }) => {
@@ -90,6 +91,21 @@ export default class ServersIndex extends React.Component {
             this.props.receiveFriendRequest(friend);
           }
         }
+      }}
+    );
+
+    this.newDms = App.cable.subscriptions.create({ channel: "DmsChannel", currentUserId: this.props.currentUser.id },
+      { received: data => {
+        if (data.serverId) {
+          if (this.props.history.location.pathname === `/@me/${data.serverId}`) this.props.history.push("/@me");
+          this.props.removeServer(data.serverId);
+        } else {
+          const parsedData = JSON.parse(data);
+          if (parsedData.server) {
+            this.props.receiveUpdatedServer(parsedData.server);
+            this.createDmSubscription(parsedData.server);
+          } else this.props.receiveUpdatedServer(parsedData);
+        };
       }}
     );
 
@@ -123,22 +139,15 @@ export default class ServersIndex extends React.Component {
     }
 
     const formData = new FormData();
-    formData.append('server[name]', (friendId ? "dm" : friends.map(friend => friend.username).concat(this.props.currentUser.username).sort().join(", ")));
+    formData.append('server[name]', (friendId ? "dm" : friends.map(friend => friend.username).sort().join(", ")));
     formData.append('server[public]', false);
-    formData.append('server[genre]', (friendId ? "dm" : "gc"));
+    formData.append('server[genre]', (friendId ? "dm" : friends.map(friend => friend.id).join(",")));
     formData.append('server[ownerId]', (friendId ? friendId : this.props.currentUser.id));
 
-    return this.props.postServer(formData).then(({ payload }) => {
-      if (friends) {
-        friends.forEach(friend => {
-          this.props.postMembership({ server_id: payload.server.id, user_id: friend.id, description: "gc" });
-        });
-      };
-
+    return this.props.postServer(formData).then(payload => {
       this.props.history.push(`/@me/${payload.server.id}`);
-      this.createDmSubscription(payload.server);
       this.setState({ dm: payload.server });
-
+      this.props.receiveServer(payload);
       return payload.server.channelId
     });
   };
