@@ -83,10 +83,10 @@ export default MessageSettings;
 <p float="left">
   <img alt="message-settings-current-user"
        src="https://user-images.githubusercontent.com/81983064/142830372-ff51a3e0-e0aa-4f82-a13d-48b850eb80b9.png"
-       height="236" />
+       height="171" />
   <img alt="message-settings-other-user"
        src="https://user-images.githubusercontent.com/81983064/142830373-fb485473-1061-4c07-a31d-3efe4cfee72b.png"
-       height="236" />
+       height="171" />
 </p>
 
 ### Context Menu
@@ -142,19 +142,19 @@ export default ContextMenu;
 <p float="left">
   <img alt="server-context-menu"
        src="https://user-images.githubusercontent.com/81983064/142835752-43e525be-3be7-422c-b5c6-c70e7a52bc3b.png"
-       height="326" />
+       height="236" />
   <img alt="preview-context-menu"
        src="https://user-images.githubusercontent.com/81983064/142835760-32dc2a18-bece-4c1d-ab1d-b02d3a63f6ce.png"
-       height="326" />
+       height="236" />
   <img alt="member-context-menu"
        src="https://user-images.githubusercontent.com/81983064/142835788-15d21ad4-142f-4adc-aae5-3a7438d72189.png"
-       height="326" />
+       height="236" />
   <img alt="channel-context-menu"
        src="https://user-images.githubusercontent.com/81983064/142835773-2c082934-ae87-49d9-9d5b-d20b554cad30.png"
-       height="335" />
+       height="243" />
   <img alt="dm-context-menu"
        src="https://user-images.githubusercontent.com/81983064/142835779-edb5923f-12c6-441a-98c4-47e359d08510.png"
-       height="335" />
+       height="243" />
 </p>
 
 ***
