@@ -82,7 +82,7 @@ const Message = ({ messages, message, i, users, currentUserId, servers, firstCha
 
   if (users[message.senderId]) {
     return <>
-      {i === 0 || message.invitation || message.seconds - Object.values(messages)[i - 1].seconds >= 60 || message.senderId !== Object.values(messages)[i - 1].senderId || message.repliedMessageId ?
+      {i === 0 || message.invitation || message.seconds - Object.values(messages)[i - 1].seconds >= 60 || message.senderId !== Object.values(messages)[i - 1].senderId || (message.repliedMessageId && messages[message.repliedMessageId]) ?
       <div key={message.id}>
         {i === 0 || message.date !== Object.values(messages)[i - 1].date ?
           <>
@@ -93,7 +93,7 @@ const Message = ({ messages, message, i, users, currentUserId, servers, firstCha
         <li id={`message-${message.id}`} key={`message-${message.id}`} className={"message" + (editing === message.id ? " editing" : "") + (reacting.messageId === message.id ? " reacting" : "")}>
           <MessageSettingsContainer message={message} edit={() => setEditing(message.id)} react={react} reply={reply}
             setDeleting={() => setDeleting({ message: message, dateStamp })} formHeight={formHeight} style={{ top: "-16px" }} />
-          {message.repliedMessageId ? <div className="replied-message">
+          {message.repliedMessageId && messages[message.repliedMessageId] ? <div className="replied-message">
             <img src={window.replied} alt="replied" />
             <img src={users[messages[message.repliedMessageId].senderId].profilePhotoUrl || window.logo} alt="profile" />
             <p>{users[messages[message.repliedMessageId].senderId].username}</p>
