@@ -110,7 +110,7 @@ const DmsIndex = ({ dms, servers, dm, setDm, createDm, friends, pendingFriends, 
             <div id="dm-messages" className={dm.name ? "gc" : ""}>
               <MessageFormContainer dm={dm} scrolled={scrolled} setScrolled={setScrolled} showBlanks={props.showBlanks} setShowBlanks={props.setShowBlanks} />
             </div>
-            {dm.name ? <MembersIndexContainer createDm={createDm} ownerId={dm.ownerId} gc={true} setContext={setContext} deleteFriend={deleteFriend} setDeleteFriend={setDeleteFriend} /> : null}
+            {dm.name ? <MembersIndexContainer showBlanks={props.showBlanks} createDm={createDm} ownerId={dm.ownerId} gc={true} setContext={setContext} deleteFriend={deleteFriend} setDeleteFriend={setDeleteFriend} /> : null}
           </>
           : <FriendsNavContainer createDm={createDm} /> }
       </div>

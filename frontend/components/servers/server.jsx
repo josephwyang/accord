@@ -140,7 +140,7 @@ const Server = ({ servers, publicServers, server, getServer, previewServer, chan
           setServerSettingsOpen(false);
         }} /> : null}
 
-    <MembersIndexContainer createDm={createDm} ownerId={server.ownerId} setContext={setContext} setPassOwner={setPassOwner} deleteFriend={deleteFriend} setDeleteFriend={setDeleteFriend} />
+    <MembersIndexContainer showBlanks={props.showBlanks} createDm={createDm} ownerId={server.ownerId} setContext={setContext} setPassOwner={setPassOwner} deleteFriend={deleteFriend} setDeleteFriend={setDeleteFriend} />
     {server.id && !Object.keys(servers).includes(props.match.params.serverId) ? (
       <div id="join-preview">
         <p>You are current in preview mode. Join this server to start chatting!</p>

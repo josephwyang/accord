@@ -33,7 +33,8 @@ const MessagesIndex = ({ users, messages, formHeight, messagesIndex, deleteMessa
       <ul id="messages-index" className = {reacting.messageId ? "reacting" : ""} style={{ "height": `calc(100% - 40px - ${formHeight}px${replying ? " - 34px" : ""})` }}>
         <div id="messages-buffer" style={{"flex": "1 1 auto"}}></div>
 
-        {showBlanks ? <div style={{ position: "fixed", top: "53px", left: "312px", right: 0, bottom: "62px", zIndex: 1, paddingLeft: "16px", backgroundColor: "#36393F",
+        {showBlanks ? <div style={{
+          position: "fixed", top: "53px", left: "312px", right: (messagesIndex.user || messagesIndex.serverId ? 0 : "240px"), bottom: "62px", zIndex: 1, paddingLeft: "16px", backgroundColor: "#36393F",
         backgroundOrigin: "content-box, content-box", backgroundImage: `url(${window.blanks})`, backgroundSize: "700px 450px", backgroundRepeat: "repeat-y" }}></div> : null}
 
         {loading ? null
