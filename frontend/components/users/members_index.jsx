@@ -62,14 +62,14 @@ export default class MembersIndex extends React.Component {
           this.props.setContext(e, !this.props.gc && this.props.ownerId === this.props.currentUserId ? contextOptions(member) : contextOptions(member).slice(2))
         };
       }} >
-      <img src={member.profilePhotoUrl || window.logo} alt="profile-photo" />
+      <div className="profile-container"><img src={member.profilePhotoUrl || window.logo} alt="profile-photo" /></div>
       <p className="ellipsis">{member.username}</p>
       {this.props.ownerId === member.id ? <img src={window.owner} alt="owner" /> : null}
     </li>)
 
     return (
       <>
-        <ul id="members-index" className={(this.props.gc ? "gc-members" : "server-members") + (this.props.showBlanks? " blanks" : "")} >
+        <ul id="members-index" className={(this.props.gc ? "gc-members" : "server-members") + (this.props.showBlanks ? " blanks" : "")} >
           <h3>MEMBERS</h3>
           {members}
         </ul>
