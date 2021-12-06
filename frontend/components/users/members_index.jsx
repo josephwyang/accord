@@ -69,9 +69,9 @@ export default class MembersIndex extends React.Component {
 
     return (
       <>
-        <ul id="members-index" className={this.props.gc ? "gc-members" : "server-members"} >
+        <ul id="members-index" className={(this.props.gc ? "gc-members" : "server-members") + (this.props.showBlanks? " blanks" : "")} >
           <h3>MEMBERS</h3>
-          {this.props.showBlanks ? null : members}
+          {members}
         </ul>
 
         {this.state.selected ? <MemberPreview member={this.state.selected} top={this.state.top} createDm={this.props.createDm} postMessage={this.props.postMessage} currentUserId={this.props.currentUserId} /> : null}
