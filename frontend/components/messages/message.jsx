@@ -93,7 +93,7 @@ const Message = ({ messages, message, i, users, currentUserId, servers, firstCha
         <li id={`message-${message.id}`} key={`message-${message.id}`} className={"message" + (editing === message.id ? " editing" : "") + (reacting.messageId === message.id ? " reacting" : "")}>
           <MessageSettingsContainer message={message} edit={() => setEditing(message.id)} react={react} reply={reply}
             setDeleting={() => setDeleting({ message: message, dateStamp })} formHeight={formHeight} style={{ top: "-16px" }} />
-          {message.repliedMessageId && messages[message.repliedMessageId] ? <div className="replied-message">
+          {message.repliedMessageId && messages[message.repliedMessageId] && users[messages[message.repliedMessageId].senderId] ? <div className="replied-message">
             <img src={window.replied} alt="replied" />
             <img src={users[messages[message.repliedMessageId].senderId].profilePhotoUrl || window.logo} alt="profile" />
             <p>{users[messages[message.repliedMessageId].senderId].username}</p>
