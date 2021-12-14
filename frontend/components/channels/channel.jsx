@@ -33,7 +33,7 @@ export default class Channel extends React.Component {
       });
     }).then(() => {
       this.props.setShowBlanks(false);
-      document.getElementById("messages-end").scrollIntoView({ behavior: "instant" })
+      document.getElementById("messages-end").scrollIntoView({ behavior: "instant" });
     });
   }
 

@@ -15,7 +15,7 @@ const App = ({ history }) => {
     if (["/@me", "/explore", "/channels"].some(path => pathname.startsWith(path))) {
       document.querySelectorAll("html, #root, #app").forEach(el => el.style.overflow = "hidden");
     } else document.querySelectorAll("html, #root, #app").forEach(el => el.style.overflow = "visible");
-  }, [history.location.pathname])
+  }, [history.location.pathname]);
   
   return (
     <div id="app" onContextMenu={e => e.preventDefault()}>
