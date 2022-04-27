@@ -194,7 +194,7 @@ export default class ServersIndex extends React.Component {
       <>
         <ul id="servers-index" onScroll={() => this.setState({ showBubble: false })}>
           <NavLink to="/@me" id="dms" activeClassName="selected" onClick={() => {if (this.props.preview.id) this.props.removePreview()}}
-            onMouseEnter={e => this.setState({ showBubble: true, y: e.target.y + 24, bubbleName: "Home" })}
+            onMouseEnter={e => this.setState({ showBubble: true, y: e.target.getBoundingClientRect().y + 24, bubbleName: "Home" })}
             onMouseLeave={() => this.setState({ showBubble: false })}>
             <img src={window.logo} alt="dms" />
           </NavLink>
@@ -209,7 +209,7 @@ export default class ServersIndex extends React.Component {
             onMouseEnter={e => this.setState({ showBubble: true, y: e.target.getBoundingClientRect().y + 24, bubbleName: "Create a Server" })}
             onMouseLeave={() => this.setState({ showBubble: false })} >+</p>
           <NavLink to="/explore" id="explore" activeClassName="selected" onClick={() => {if (this.props.preview.id) this.props.removePreview()}}
-            onMouseEnter={e => this.setState({ showBubble: true, y: e.target.y + 24, bubbleName: "Explore" })}
+            onMouseEnter={e => this.setState({ showBubble: true, y: e.target.getBoundingClientRect().y + 24, bubbleName: "Explore" })}
             onMouseLeave={() => this.setState({ showBubble: false })}>
             <img src={window.compass} alt="compass" />
           </NavLink>
